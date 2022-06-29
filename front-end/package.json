@@ -33,8 +33,7 @@
     "vue-cli-plugin-axios": "~0.0.4",
     "vue-cli-plugin-vuetify": "~2.5.1",
     "vue-loader": "^17.0.0",
-    "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,
