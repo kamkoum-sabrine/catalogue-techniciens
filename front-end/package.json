@@ -16,6 +16,8 @@
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue": "^2.6.11",
+    "vue-router": "^3.5.4",
+    "vuelidate": "^0.7.7",
     "vuetify": "^2.6.0",
     "vuex": "^4.0.2"
   },
