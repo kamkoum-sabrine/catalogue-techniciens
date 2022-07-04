@@ -1,4 +1,4 @@
-const register = () => import("../../views/Auth/register.vue");
+const register = () => import("../../components/Auth/register.vue");
 
 export default [
     {
