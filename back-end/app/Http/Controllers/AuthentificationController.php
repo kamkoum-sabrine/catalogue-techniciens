@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 
 class AuthentificationController extends Controller
 {
         public function register(RegisterRequest $request){
-        // $input = $request->all();
-        // $user = User::create($input);
-        // return response()->json([
-        //     'success'   => true,
-        //     'message'   => 'User created',
-        //     'data'      => $user
-        // ]);
+    
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+       
        
 
         return response()->json([
