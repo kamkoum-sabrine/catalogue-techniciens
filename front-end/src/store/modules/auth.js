@@ -90,7 +90,7 @@ const actions = {
         User) {
         console.log("register")
         await axios
-            .post("http://localhost:8000/api/register", User, {
+            .post("/register", User, {
                 headers: {
                     "Content-Type": "application/json"
                 },

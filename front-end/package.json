@@ -15,13 +15,13 @@
     "mutationobserver-shim": "^0.3.7",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
-    "vee-validate": "^4.5.11",
+    "vee-validate": "^3.4.14",
     "vue": "^2.6.11",
     "vue-router": "^3.5.4",
     "vue-step-wizard": "^0.1.17",
     "vuelidate": "^0.7.7",
     "vuetify": "^2.6.0",
-    "vuex": "^4.0.2"
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",

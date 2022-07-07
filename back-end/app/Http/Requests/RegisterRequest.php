@@ -30,18 +30,18 @@ class RegisterRequest extends FormRequest
             'birth_date'=>'required|date',
             'phone_number'=>'required|integer|digits:8',
             'email'=>'required|string|email|max:255',
-            'adresse'=>'required|string|max:255|unique:users',
+            'adresse'=>'required|string|max:255',
             'password'=>'required|string|min:8',
             'confirm_password'=>'required|same:password',
         ];
     }
 
-    public function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
-        ],400));
-    }
+    // public function failedValidation(Validator $validator)
+    // {
+    //     throw new HttpResponseException(response()->json([
+    //         'success'   => false,
+    //         'message'   => 'Validation errors',
+    //         'data'      => $validator->errors()
+    //     ],400));
+    // }
 }

@@ -64,11 +64,7 @@
       required
     ></v-select> -->
 
-      <v-checkbox
-        :rules="[(v) => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
+      <v-checkbox label="Do you agree?" required></v-checkbox>
 
       <v-btn color="success" class="mr-4" type="submit"> Validate </v-btn>
     </v-form>
