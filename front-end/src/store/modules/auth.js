@@ -89,30 +89,38 @@ const actions = {
         { commit },
         User) {
         console.log("register")
-        await axios
-            .post("/register", User, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
+        axios
+            .get("http://localhost:8000/sanctum/csrf-cookie", {
                 withCredentials: true
             })
-            .then((response) => {
-                if (response.status == 200) {
-                    // this.tkn = response.data.data.token;
-                    // localStorage.setItem("token", this.tkn);
-                    // commit("setUser", response.data.data.user);
-                    // commit("setToken", response.data.data.token);
-                    router.push("/login");
-                    commit("setRegStatus", 1);
-                    console.log("jaweek beehy! ")
+            .then(() => {
+                axios
+                    .post("/register", User, {
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        withCredentials: true
+                    })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            // this.tkn = response.data.data.token;
+                            // localStorage.setItem("token", this.tkn);
+                            // commit("setUser", response.data.data.user);
+                            // commit("setToken", response.data.data.token);
+                            router.push("/login");
+                            commit("setRegStatus", 1);
+                            console.log("jaweek beehy! ")
 
-                }
+                        }
+                    })
+                    .catch((error) => {
+                        commit('setRegStatus', 2);
+                        commit('setRegMessage', error.response.data.data.error); // this is the main part. Use the response property from the error object
+                        console.log("famaa ghaaltaa! ")
+                    });
             })
-            .catch((error) => {
-                commit('setRegStatus', 2);
-                commit('setRegMessage', error.response.data.data.error); // this is the main part. Use the response property from the error object
-                console.log("famaa ghaaltaa! ")
-            });
+
+
     }
 };
 
