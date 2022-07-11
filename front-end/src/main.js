@@ -9,6 +9,10 @@ import store from "./store";
 
 import vuetify from './plugins/vuetify'
 import interceptorsSetup from './helpers/interceptors';
+import Axios from 'axios'
+
+Vue.prototype.$http = Axios;
+Vue.prototype.$http.defaults.withCredentials = true;
 
 Vue.config.productionTip = false
 interceptorsSetup()

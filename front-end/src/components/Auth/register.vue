@@ -56,6 +56,12 @@
       <v-text-field v-model="adresse" label="Adresse" required></v-text-field
       ><v-text-field v-model="cin" label="CIN" required></v-text-field>
 
+      <!-- <v-select :roles="roles" v-model="roles" label="Standard"> </v-select> -->
+      <v-select required class="form-control w-auto" id="roles" v-model="roles">
+        <option v-for="(item, index) in roles" value="2" :key="index">
+          {{ item.name }}
+        </option>
+      </v-select>
       <!-- <v-select
       v-model="select"
       :items="items"
@@ -85,6 +91,7 @@ export default {
       adresse: "",
       password: "",
       confirm_password: "",
+      roles: "",
       form: {},
       alert: {
         dismissCountDown: null,
@@ -92,6 +99,17 @@ export default {
         msg: null,
       },
     };
+  },
+  created() {
+    this.$http
+      .get("http://localhost:8000/api/role/getAll")
+      .then((response) => {
+        console.log(response);
+        this.role = response.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   methods: {
     ...mapActions(["register"]),
