@@ -33,6 +33,8 @@ class AuthentificationController extends Controller
         );
 
         $user_role = RoleUser::create($userRole);
+        // $user->roles()->attach($request->role, ['department' => $input['department'],'classe' => $input['classe']?$input['classe']:0]);
+
         
        
 
@@ -45,6 +47,7 @@ class AuthentificationController extends Controller
 
     public function login(LoginRequest $request){
         $input = $request->all();
+        // dd(Auth::user());
         if (!Auth::attempt($input)) {
             return response()->json([
                 'success'   => false,
@@ -52,14 +55,30 @@ class AuthentificationController extends Controller
                 'data'      => []
             ]);
         }
+        $authUser = Auth::user();
+        $user = User::where('id', '=', $authUser->id)->with('roles')->first();
 
         return response()->json([
             'success'   => true,
             'token'     => Auth::user()->createToken('token')->plainTextToken,
-            'user'      => Auth::user()
+            'user'      => $user,
+           
+
+            
         ],200);
     }
-    
+    // public function getRoles($id)
+    // {
+    //     $roles = RoleUser::with('role')->where('user_id', $id)->get();
+    //     dd($roles);
+    //     $roles_array = [];
+    //     $status = false;
+    //     foreach ($roles as $role) {
+    //         $status = $status || $role->status;
+    //         $roles_array[] = ['role' => $role->role->ename,  'status' => $role->status];
+    //     }
+    //     return ['roles' => $roles_array, 'status' => $status];
+    // }
     public function unique($field){
         $user = User::where('email', $field)->first();
         $user1 = User::where('cin', $field)->first();

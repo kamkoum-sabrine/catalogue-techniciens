@@ -5,10 +5,22 @@ const state = {
     isLoggedIn: false,
     authUser: null,
     token: null,
+    isAuthenticated: false,
+    isAdmin: false,
+    isClient: false,
+    isPrestataire: false,
+    isVisiteur: false,
     regStatus: null,
     regMessage: null,
+    // roles: JSON.parse(localStorage.getItem("roles")) ?? null,
+    // status: JSON.parse(localStorage.getItem("status")) ?? null,
 };
 const getters = {
+    isAuthenticated: (state) => state.user !== null,
+    isAdmin: (state) => state.isAdmin,
+    isClient: (state) => state.isClient,
+    isPrestataire: (state) => state.isPrestataire,
+    isVisiteur: (state) => state.isVisiteur,
     isLoggedIn: (state) => state.isLoggedIn,
     authUser: (state) => state.authUser,
     token: (state) => state.token,
@@ -16,11 +28,37 @@ const getters = {
     regMessage: (state) => state.regMessage,
 };
 const mutations = {
+    resetAll(state) {
+        state.user = null;
+        state.token = null;
+        state.csrfToken = null;
+        state.secrets = null;
+        state.isAuthenticated = false;
+        state.isAdmin = false;
+        state.isClient = false;
+        state.isPrestataire = false;
+        state.isVisiteur = false;
+        state.message = null;
+        state.authStatus = null;
+        state.authMessage = null;
+    },
     setLoggedIn(state, payload) {
         state.isLoggedIn = payload;
     },
     setAuthUser(state, payload) {
         state.authUser = payload;
+    },
+    setAdmin(state, isAdmin) {
+        state.isAdmin = isAdmin;
+    },
+    setClient(state, isClient) {
+        state.isClient = isClient;
+    },
+    setPrestataire(state, isPrestataire) {
+        state.isPrestataire = isPrestataire;
+    },
+    setVisiteur(state, isVisiteur) {
+        state.isVisiteur = isVisiteur;
     },
     setToken(state, payload) {
         state.token = payload;
@@ -30,7 +68,15 @@ const mutations = {
     },
     setRegMessage(state, payload) {
         state.regMessage = payload;
-    }
+    },
+    setRoles(state, payload) {
+        state.roles = payload;
+        localStorage.setItem("roles", JSON.stringify(payload));
+    },
+    setStatus(state, payload) {
+        state.status = payload;
+        localStorage.setItem("status", payload);
+    },
 
 };
 const actions = {
@@ -45,10 +91,19 @@ const actions = {
             axios
                 .post("/login", payload)
                 .then((response) => {
+                    // commit("setLoggedIn", true);
+                    // commit("setAuthUser", response.data.user);
+                    // commit("setToken", response.data.token);
+                    // resolve(response);
+                    console.log(response)
                     commit("setLoggedIn", true);
                     commit("setAuthUser", response.data.user);
                     commit("setToken", response.data.token);
-                    resolve(response);
+                    commit("setStatus", response.data.status);
+                    commit("setRoles", response.data.roles);
+                    // commit("setResponsability", response.data.responsability);
+                    commit("setAuthStatus", 1);
+                    router.push("/");
                 })
                 .catch((error) => {
                     reject(error);
@@ -107,7 +162,7 @@ const actions = {
                             // localStorage.setItem("token", this.tkn);
                             // commit("setUser", response.data.data.user);
                             // commit("setToken", response.data.data.token);
-                            router.push("/login");
+                            router.push("/");
                             commit("setRegStatus", 1);
                             console.log("jaweek beehy! ")
 
