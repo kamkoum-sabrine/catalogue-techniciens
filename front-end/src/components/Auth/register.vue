@@ -57,10 +57,19 @@
       ><v-text-field v-model="cin" label="CIN" required></v-text-field>
 
       <!-- <v-select :roles="roles" v-model="roles" label="Standard"> </v-select> -->
-      <v-select required class="form-control w-auto" id="roles" v-model="roles">
-        <option v-for="(item, index) in roles" value="2" :key="index">
+      <v-select
+        required
+        class="form-control w-auto"
+        name="roles"
+        id="roles"
+        v-model="role"
+        label="Role"
+        :items="roles"
+        item-value="roles.id"
+      >
+        <!-- <option v-for="item in roles" :value="item.name" :key="item.id">
           {{ item.name }}
-        </option>
+        </option> -->
       </v-select>
       <!-- <v-select
       v-model="select"
@@ -91,8 +100,11 @@ export default {
       adresse: "",
       password: "",
       confirm_password: "",
-      roles: "",
+      role: "",
+      roles: [],
       form: {},
+      idRole: "",
+      defaultRole: [],
       alert: {
         dismissCountDown: null,
         variant: null,
@@ -104,8 +116,13 @@ export default {
     this.$http
       .get("http://localhost:8000/api/role/getAll")
       .then((response) => {
-        console.log(response);
-        this.role = response.data;
+        console.log(response.data[0].name);
+        this.defaultRole = response.data;
+        for (let i = 0; i < response.data.length; i++) {
+          // this.roles[i] = response.data[i].name;
+          this.roles.push(response.data[i].name);
+        }
+        console.log(this.roles);
       })
       .catch((err) => {
         console.log(err);
@@ -114,6 +131,11 @@ export default {
   methods: {
     ...mapActions(["register"]),
     validate() {
+      for (let i = 0; i < this.defaultRole.length; i++) {
+        if (this.defaultRole[i].name == this.role) {
+          this.idRole = this.defaultRole[i].id;
+        }
+      }
       this.form = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -124,6 +146,7 @@ export default {
         adresse: this.adresse,
         password: this.password,
         confirm_password: this.confirm_password,
+        role: this.idRole,
       };
       console.log(this.form);
       if (this.form.password != this.form.confirm_password) {

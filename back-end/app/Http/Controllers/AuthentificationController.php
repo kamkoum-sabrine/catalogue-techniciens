@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,23 @@ class AuthentificationController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-       
+        // dd($request->input('role'));
+        // dd($user->id);
+        // $role = Role::where('name','=',$request->input('role'))->get();
+    //    dd($role->);
+        $user_id = $user->id;
+        // dd($user_id);
+        $role_id = $request->input('role');
+        // dd($role_id);
+
+
+        $userRole = array(
+            "role_id" => $role_id,
+            "user_id" => $user_id
+        );
+
+        $user_role = RoleUser::create($userRole);
+        
        
 
         return response()->json([
