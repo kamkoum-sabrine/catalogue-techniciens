@@ -39,7 +39,7 @@ const mutations = {
         state.isPrestataire = false;
         state.isVisiteur = false;
         state.message = null;
-        state.authStatus = null;
+        // state.authStatus = null;
         state.authMessage = null;
     },
     setLoggedIn(state, payload) {
@@ -48,15 +48,15 @@ const mutations = {
     setAuthUser(state, payload) {
         state.authUser = payload;
     },
-    setAdmin(state) {
-        state.isAdmin = true;
+    setAdmin(state, isAdmin) {
+        state.isAdmin = isAdmin;
     },
 
-    setClient(state) {
-        state.isClient = true;
+    setClient(state, isClient) {
+        state.isClient = isClient;
     },
-    setPrestataire(state) {
-        state.isPrestataire = true;
+    setPrestataire(state, isPrestataire) {
+        state.isPrestataire = isPrestataire;
     },
     // setVisiteur(state) {
     //     state.isVisiteur = true;
@@ -96,17 +96,17 @@ const actions = {
                     // commit("setAuthUser", response.data.user);
                     // commit("setToken", response.data.token);
                     // resolve(response);
-                    console.log(response)
+                    console.log(response.data.admin)
                     commit("setLoggedIn", true);
                     commit("setAuthUser", response.data.user);
                     commit("setToken", response.data.token);
                     commit("setStatus", response.data.status);
                     commit("setRoles", response.data.roles);
                     // commit("setResponsability", response.data.responsability);
-                    commit("setAuthStatus", 1);
-                    commit("setAdmin", response.data.isAdmin);
-                    commit("setTechnicien", response.data.isTechnicien);
-                    commit("setClient", response.data.isClient);
+                    // commit("setAuthStatus", 1);
+                    commit("setAdmin", response.data.admin);
+                    commit("setPrestataire", response.data.prestataire);
+                    commit("setClient", response.data.client);
                     router.push("/");
                 })
                 .catch((error) => {

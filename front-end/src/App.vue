@@ -22,6 +22,7 @@
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
+      <button type="submit" class="btn-primary" @click="role">get role</button>
     </v-app-bar>
 
     <v-main>
@@ -37,6 +38,16 @@ export default {
   data: () => ({
     //
   }),
+  created() {
+    // console.log(this.state.isAdmin);
+    // console.log(this.state.isPrestataire);
+    // console.log(this.state.isClient);
+  },
+  methods: {
+    role() {
+      console.log(this.$store.getters);
+    },
+  },
 };
 </script>
 
