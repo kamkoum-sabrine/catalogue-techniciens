@@ -10,7 +10,8 @@ import store from "./store";
 import vuetify from './plugins/vuetify'
 import interceptorsSetup from './helpers/interceptors';
 import Axios from 'axios'
-
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 Vue.prototype.$http = Axios;
 Vue.prototype.$http.defaults.withCredentials = true;
 
