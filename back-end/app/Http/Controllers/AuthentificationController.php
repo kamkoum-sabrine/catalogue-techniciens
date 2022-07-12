@@ -57,11 +57,26 @@ class AuthentificationController extends Controller
         }
         $authUser = Auth::user();
         $user = User::where('id', '=', $authUser->id)->with('roles')->first();
-
+        $isAdmin = false;
+        $isPrestataire = false;
+        $isClient = false;
+        if($user->roles->contains('name','admin')){
+            $isAdmin = true;
+        }
+        if($user->roles->contains('name','prestataire')){
+            $isPrestataire = true;
+            $isClient = true;
+        }
+        if($user->roles->contains('name','client')){
+            $isClient = true;
+        }
         return response()->json([
             'success'   => true,
             'token'     => Auth::user()->createToken('token')->plainTextToken,
             'user'      => $user,
+            'admin'     => $isAdmin,
+            'prestataire' => $isPrestataire,
+            'client'      => $isClient
            
 
             

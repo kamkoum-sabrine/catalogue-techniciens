@@ -9,7 +9,7 @@ const state = {
     isAdmin: false,
     isClient: false,
     isPrestataire: false,
-    isVisiteur: false,
+    // isVisiteur: false,
     regStatus: null,
     regMessage: null,
     // roles: JSON.parse(localStorage.getItem("roles")) ?? null,
@@ -20,7 +20,7 @@ const getters = {
     isAdmin: (state) => state.isAdmin,
     isClient: (state) => state.isClient,
     isPrestataire: (state) => state.isPrestataire,
-    isVisiteur: (state) => state.isVisiteur,
+    // isVisiteur: (state) => state.isVisiteur,
     isLoggedIn: (state) => state.isLoggedIn,
     authUser: (state) => state.authUser,
     token: (state) => state.token,
@@ -48,18 +48,19 @@ const mutations = {
     setAuthUser(state, payload) {
         state.authUser = payload;
     },
-    setAdmin(state, isAdmin) {
-        state.isAdmin = isAdmin;
+    setAdmin(state) {
+        state.isAdmin = true;
     },
-    setClient(state, isClient) {
-        state.isClient = isClient;
+
+    setClient(state) {
+        state.isClient = true;
     },
-    setPrestataire(state, isPrestataire) {
-        state.isPrestataire = isPrestataire;
+    setPrestataire(state) {
+        state.isPrestataire = true;
     },
-    setVisiteur(state, isVisiteur) {
-        state.isVisiteur = isVisiteur;
-    },
+    // setVisiteur(state) {
+    //     state.isVisiteur = true;
+    // },
     setToken(state, payload) {
         state.token = payload;
     },
@@ -103,6 +104,9 @@ const actions = {
                     commit("setRoles", response.data.roles);
                     // commit("setResponsability", response.data.responsability);
                     commit("setAuthStatus", 1);
+                    commit("setAdmin", response.data.isAdmin);
+                    commit("setTechnicien", response.data.isTechnicien);
+                    commit("setClient", response.data.isClient);
                     router.push("/");
                 })
                 .catch((error) => {
