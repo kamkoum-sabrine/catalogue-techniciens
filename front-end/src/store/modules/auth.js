@@ -166,7 +166,7 @@ const actions = {
                             // localStorage.setItem("token", this.tkn);
                             // commit("setUser", response.data.data.user);
                             // commit("setToken", response.data.data.token);
-                            router.push("/");
+                            router.push("/login");
                             commit("setRegStatus", 1);
                             console.log("jaweek beehy! ")
 
