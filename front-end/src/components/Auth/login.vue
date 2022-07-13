@@ -105,9 +105,18 @@ export default {
       try {
         this.login(this.form).then(() => {
           if (this.$store.getters.authStatus == 2) {
+            console.log(this.$store.getters.authStatus);
             this.alert.dismissCountDown = 3;
             this.alert.variant = "danger";
             this.alert.msg = this.$store.getters.authMessage;
+          } else {
+            if (this.$store.getters.authStatus == 1) {
+              console.log(this.$store.getters.authStatus);
+
+              this.alert.dismissCountDown = 3;
+              this.alert.variant = "danger";
+              this.alert.msg = this.$store.getters.authMessage;
+            }
           }
         });
       } catch (e) {

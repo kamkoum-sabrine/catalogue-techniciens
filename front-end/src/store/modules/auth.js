@@ -12,6 +12,8 @@ const state = {
     // isVisiteur: false,
     regStatus: null,
     regMessage: null,
+    authStatus: null,
+    authMessage: null,
     // roles: JSON.parse(localStorage.getItem("roles")) ?? null,
     // status: JSON.parse(localStorage.getItem("status")) ?? null,
 };
@@ -22,6 +24,8 @@ const getters = {
     isPrestataire: (state) => state.isPrestataire,
     // isVisiteur: (state) => state.isVisiteur,
     isLoggedIn: (state) => state.isLoggedIn,
+    authStatus: (state) => state.authStatus,
+    authMessage: (state) => state.authMessage,
     authUser: (state) => state.authUser,
     token: (state) => state.token,
     regStatus: (state) => state.regStatus,
@@ -39,7 +43,7 @@ const mutations = {
         state.isPrestataire = false;
         state.isVisiteur = false;
         state.message = null;
-        // state.authStatus = null;
+        state.authStatus = null;
         state.authMessage = null;
     },
     setLoggedIn(state, payload) {
@@ -78,6 +82,12 @@ const mutations = {
         state.status = payload;
         localStorage.setItem("status", payload);
     },
+    setAuthStatus(state, authStatus) {
+        state.authStatus = authStatus;
+    },
+    setAuthMessage(state, authMessage) {
+        state.authMessage = authMessage;
+    },
 
 };
 const actions = {
@@ -88,29 +98,38 @@ const actions = {
             })
             .then(() => { })
             .catch(() => { });
-        return new Promise((resolve, reject) => {
+        return new Promise(() => {
             axios
                 .post("/login", payload)
                 .then((response) => {
+                    if (response.status == 200) {
+                        console.log(response.data.admin)
+                        commit("setLoggedIn", true);
+                        commit("setAuthUser", response.data.user);
+                        commit("setToken", response.data.token);
+                        commit("setStatus", response.data.status);
+                        commit("setRoles", response.data.roles);
+                        // commit("setResponsability", response.data.responsability);
+                        commit("setAuthStatus", 1);
+                        commit("setAdmin", response.data.admin);
+                        commit("setPrestataire", response.data.prestataire);
+                        commit("setClient", response.data.client);
+                        console.log(response)
+                    }
+                    else {
+                        console.log(response)
+                    }
                     // commit("setLoggedIn", true);
                     // commit("setAuthUser", response.data.user);
                     // commit("setToken", response.data.token);
                     // resolve(response);
-                    console.log(response.data.admin)
-                    commit("setLoggedIn", true);
-                    commit("setAuthUser", response.data.user);
-                    commit("setToken", response.data.token);
-                    commit("setStatus", response.data.status);
-                    commit("setRoles", response.data.roles);
-                    // commit("setResponsability", response.data.responsability);
-                    // commit("setAuthStatus", 1);
-                    commit("setAdmin", response.data.admin);
-                    commit("setPrestataire", response.data.prestataire);
-                    commit("setClient", response.data.client);
+
                     router.push("/");
                 })
                 .catch((error) => {
-                    reject(error);
+
+                    commit('setAuthStatus', 2);
+                    commit('setAuthMessage', error.response.data.data.error);
                 });
         });
     },
