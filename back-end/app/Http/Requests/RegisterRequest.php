@@ -35,6 +35,7 @@ class RegisterRequest extends FormRequest
             'adresse'=>'required|string|max:255',
             'password'=>'required|string|min:8',
             'confirm_password'=>'required|same:password',
+            'image'=>'string',
         ];
     }
 

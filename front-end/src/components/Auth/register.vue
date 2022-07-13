@@ -385,6 +385,20 @@
           </v-alert></span
         >
       </div>
+      <!-- <v-file-input
+        truncate-length="15"
+        name="image"
+        @change="convert64"
+        ref="file"
+      ></v-file-input> -->
+      <input
+        id="image"
+        type="file"
+        name="image"
+        class="form-control"
+        @change="convert64"
+        ref="file"
+      />
 
       <!-- <v-select :roles="roles" v-model="roles" label="Standard"> </v-select> -->
       <v-select
@@ -468,6 +482,8 @@ export default {
       form: {},
       idRole: "",
       defaultRole: [],
+      image: "",
+      srcImage: "",
       alert: {
         dismissCountDown: null,
         variant: null,
@@ -619,6 +635,7 @@ export default {
         role: this.idRole,
         specialite: this.idSpecialite,
         sous_specialite: this.idSous_specialite,
+        image: this.image,
       };
       console.log(this.form);
       this.isSubmitted = true;
@@ -699,6 +716,16 @@ export default {
         return;
       }
       alert("SUCCESS!" + JSON.stringify(this.userForm));
+    },
+    convert64(e) {
+      var file = e.target.files[0];
+      this.srcImage = file;
+
+      var reader = new FileReader();
+      reader.onloadend = () => {
+        this.image = reader.result;
+      };
+      reader.readAsDataURL(file);
     },
   },
 };
