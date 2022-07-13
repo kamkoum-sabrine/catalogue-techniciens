@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SpecialiteController;
+use App\Http\Controllers\SousSpecialiteController;
 use App\Http\Controllers\AuthentificationController;
 
 /*
@@ -29,6 +30,13 @@ Route::group(['prefix' => '/roles'], function () {
 });
 Route::group(['prefix' => '/specialites'], function () {
     Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
+    Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
+
+});
+Route::group(['prefix' => '/sousSpecialite'], function () {
+    Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
+   
+
 });
 
 

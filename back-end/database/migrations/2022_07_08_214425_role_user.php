@@ -22,6 +22,7 @@ class RoleUser extends Migration
             $table->integer('status')->default(0);
             $table->foreignId('description')->nullable();
             $table->foreignId('specialite')->nullable();
+            $table->foreignId('sous_specialite')->nullable();
 
             
         });

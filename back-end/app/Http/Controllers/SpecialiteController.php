@@ -15,4 +15,19 @@ class SpecialiteController extends Controller
         }
         return response()->json($specialites, 200);
     }
+
+    public function getSpectialiteSousSpecialite( $id){
+        $specialites = Specialite::with('sousSpecialite')->find($id);
+        if ($specialites){
+            return response()->json([
+        
+                'attributes' => $specialites
+            ], 201);
+        } else {
+            return response()->json([
+                "Specialité non trouvée"
+            ], 404);
+        }
+
+    }
 }

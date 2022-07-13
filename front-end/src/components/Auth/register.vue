@@ -410,6 +410,21 @@
         v-model="specialite"
         label="Spécialité"
         :items="specialites"
+        @change="selectSpecialite"
+      >
+        <!-- <option v-for="item in roles" :value="item.name" :key="item.id">
+          {{ item.name }}
+        </option> -->
+      </v-select>
+      <v-select
+        required
+        v-if="hasSousSpecialite"
+        class="form-control w-auto"
+        name="sous_specialite"
+        v-model="sous_specialite"
+        label="Sous specialiée"
+        :items="defaultSous_specialite"
+        @change="getIDSousSpecialite"
       >
         <!-- <option v-for="item in roles" :value="item.name" :key="item.id">
           {{ item.name }}
@@ -460,9 +475,13 @@ export default {
       },
       specialites: [],
       specialite: "",
-      sous_specialite: "",
+
       idSpecialite: "",
       defaultSpecialite: [],
+      defaultSous_specialite: [],
+      sous_specialite: "",
+      hasSousSpecialite: false,
+      idSous_specialite: "",
       // userForm: {
       //   name: "",
       //   email: "",
@@ -554,7 +573,39 @@ export default {
           this.idSpecialite = this.defaultSpecialite[i].id;
         }
       }
-      console.log(this.idSpecialite);
+      console.log(this.sous_specialite);
+      console.log(this.defaultSous_specialite);
+      // this.$http
+      //   .get(
+      //     "http://localhost:8000/api/sousSpecialite/index/" +
+      //       this.sous_specialite
+      //   )
+      //   .then((response) => {
+      //     console.log(response.data.attribute[0]);
+      //     this.idSous_specialite = response.data.attribute[0];
+      //     console.log(this.idSous_specialite);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      // for (let i = 0; i < this.defaultSous_specialite.length; i++) {
+      //   if (this.defaultSous_specialite[i].name == this.sous_specialite) {
+      //     console.log("dkhalna lel if");
+      //     this.$http
+      //       .get(
+      //         "http://localhost:8000/api/sousSpecialite/index/" +
+      //           this.defaultSous_specialite[i].name
+      //       )
+      //       .then((response) => {
+      //         console.log(response);
+      //       })
+      //       .catch((error) => {
+      //         console.log(error);
+      //       });
+      //     // this.idSous_specialite = this.defaultSous_specialite[i].id;
+      //   }
+      // }
+      console.log(this.idSous_specialite);
       this.form = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -567,6 +618,7 @@ export default {
         confirm_password: this.confirm_password,
         role: this.idRole,
         specialite: this.idSpecialite,
+        sous_specialite: this.idSous_specialite,
       };
       console.log(this.form);
       this.isSubmitted = true;
@@ -590,23 +642,55 @@ export default {
           });
         }
       }
-      alert("SUCCESS!" + JSON.stringify(this.userForm));
-      // console.log(this.form);
-      // if (this.form.password != this.form.confirm_password) {
-      //   this.alert.dismissCountDown = 5;
-      //   this.alert.variant = "danger";
-      //   this.alert.msg = "Password and Confirm Password are not the same";
-      //   return;
-      // } else {
-      //   this.register(this.form).then(() => {
-      //     console.log("apres exec register !");
-      //     if (this.$store.getters.regStatus == 2) {
-      //       this.alert.dismissCountDown = 3;
-      //       this.alert.variant = "danger";
-      //       this.alert.msg = this.$store.getters.regMessage;
-      //     }
-      //   });
-      // }
+    },
+    selectSpecialite() {
+      for (let i = 0; i < this.defaultSpecialite.length; i++) {
+        if (this.defaultSpecialite[i].name == this.specialite) {
+          this.idSpecialite = this.defaultSpecialite[i].id;
+        }
+      }
+      console.log(this.idSpecialite);
+      this.$http
+        .get(
+          "http://localhost:8000/api/specialites/getSpecialite/" +
+            this.idSpecialite
+        )
+        .then((response) => {
+          // console.log(response.data);
+
+          for (
+            let index = 0;
+            index < response.data.attributes.sous_specialite.length;
+            index++
+          ) {
+            // const element = array[index];
+            // console.log(response.data.attributes.sous_specialite[index].name);
+            this.defaultSous_specialite.push(
+              response.data.attributes.sous_specialite[index].name
+            );
+          }
+          console.log(this.defaultSous_specialite);
+          if (this.defaultSous_specialite.length != 0)
+            this.hasSousSpecialite = true;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+    getIDSousSpecialite() {
+      this.$http
+        .get(
+          "http://localhost:8000/api/sousSpecialite/index/" +
+            this.sous_specialite
+        )
+        .then((response) => {
+          console.log(response.data.attribute[0]);
+          this.idSous_specialite = response.data.attribute[0].id;
+          console.log(this.idSous_specialite);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     handleSubmit() {
       this.isSubmitted = true;
