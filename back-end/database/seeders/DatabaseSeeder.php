@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\SpecialiteSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
          \App\Models\User::factory(2)->create();
         $this->call(RoleSeeder::class);
+        $this->call(SpecialiteSeeder::class);
          
         
     }

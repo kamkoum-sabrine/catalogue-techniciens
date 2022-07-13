@@ -401,6 +401,21 @@
           {{ item.name }}
         </option> -->
       </v-select>
+
+      <v-select
+        required
+        v-if="role == 'prestataire'"
+        class="form-control w-auto"
+        name="specialite"
+        v-model="specialite"
+        label="Spécialité"
+        :items="specialites"
+      >
+        <!-- <option v-for="item in roles" :value="item.name" :key="item.id">
+          {{ item.name }}
+        </option> -->
+      </v-select>
+
       <!-- <v-select
       v-model="select"
       :items="items"
@@ -443,6 +458,11 @@ export default {
         variant: null,
         msg: null,
       },
+      specialites: [],
+      specialite: "",
+      sous_specialite: "",
+      idSpecialite: "",
+      defaultSpecialite: [],
       // userForm: {
       //   name: "",
       //   email: "",
@@ -495,7 +515,7 @@ export default {
   },
   created() {
     this.$http
-      .get("http://localhost:8000/api/role/getAll")
+      .get("http://localhost:8000/api/roles/getAll")
       .then((response) => {
         console.log(response.data[0].name);
         this.defaultRole = response.data;
@@ -504,6 +524,20 @@ export default {
           this.roles.push(response.data[i].name);
         }
         console.log(this.roles);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    this.$http
+      .get("http://localhost:8000/api/specialites/getAll")
+      .then((response) => {
+        // console.log(response.data[0].name);
+        this.defaultSpecialite = response.data;
+        for (let i = 0; i < response.data.length; i++) {
+          // this.roles[i] = response.data[i].name;
+          this.specialites.push(response.data[i].name);
+        }
+        console.log(this.specialites);
       })
       .catch((err) => {
         console.log(err);
@@ -529,6 +563,7 @@ export default {
         password: this.password,
         confirm_password: this.confirm_password,
         role: this.idRole,
+        specialite: this.specialite,
       };
       this.isSubmitted = true;
       this.$v.$touch();
