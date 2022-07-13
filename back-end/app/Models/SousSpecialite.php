@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\SousSpecialite;
+use App\Models\Specialite;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Specialite extends Model
+class SousSpecialite extends Model
 {
     use HasFactory;
     protected $fillable = [
         'name',
     ];
-    public function sousSpecialite()
-    {
-        return $this->hasMany(SousSpecialite::class, "id_specialite", "id");
+    public function specialite(){
+        return $this->hasOne(Specialite::class,'id','specialite_id');
     }
 
 
