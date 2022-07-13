@@ -507,11 +507,6 @@ export default {
       required,
       sameAsPassword: sameAs("password"),
     },
-    accept: {
-      required(val) {
-        return val;
-      },
-    },
   },
   created() {
     this.$http
@@ -552,6 +547,14 @@ export default {
           this.idRole = this.defaultRole[i].id;
         }
       }
+      console.log(this.defaultSpecialite);
+      console.log(this.specialite);
+      for (let i = 0; i < this.defaultSpecialite.length; i++) {
+        if (this.defaultSpecialite[i].name == this.specialite) {
+          this.idSpecialite = this.defaultSpecialite[i].id;
+        }
+      }
+      console.log(this.idSpecialite);
       this.form = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -563,11 +566,12 @@ export default {
         password: this.password,
         confirm_password: this.confirm_password,
         role: this.idRole,
-        specialite: this.specialite,
+        specialite: this.idSpecialite,
       };
+      console.log(this.form);
       this.isSubmitted = true;
       this.$v.$touch();
-      if (this.$v.$invalid) {
+      if (!this.$v.$invalid) {
         console.log(this.form);
         if (this.form.password != this.form.confirm_password) {
           this.alert.dismissCountDown = 5;
@@ -575,6 +579,7 @@ export default {
           this.alert.msg = "Password and Confirm Password are not the same";
           return;
         } else {
+          console.log("else");
           this.register(this.form).then(() => {
             console.log("apres exec register !");
             if (this.$store.getters.regStatus == 2) {

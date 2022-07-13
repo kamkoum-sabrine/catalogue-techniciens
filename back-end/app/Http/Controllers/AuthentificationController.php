@@ -29,7 +29,8 @@ class AuthentificationController extends Controller
 
         $userRole = array(
             "role_id" => $role_id,
-            "user_id" => $user_id
+            "user_id" => $user_id,
+            "specialite" => $request->input('specialite')
         );
 
         $user_role = RoleUser::create($userRole);
