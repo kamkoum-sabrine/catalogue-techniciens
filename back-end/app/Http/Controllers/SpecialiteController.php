@@ -9,7 +9,7 @@ class SpecialiteController extends Controller
 {
     public function getAll()
     {
-        $specialites = Specialite::all();
+        $specialites = Specialite::with("sousSpecialite")->get();
         if (empty($specialites)) {
             return response()->json(['message' => 'Aucune spécialité n est disponible! '], 404);
         }

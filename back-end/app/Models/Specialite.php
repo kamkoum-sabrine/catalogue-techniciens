@@ -14,7 +14,7 @@ class Specialite extends Model
     ];
     public function sousSpecialite()
     {
-        return $this->hasMany(SousSpecialite::class, "id_specialite", "id");
+        return $this->hasMany(SousSpecialite::class, "specialite_id", "id");
     }
 
 
