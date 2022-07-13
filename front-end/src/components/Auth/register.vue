@@ -221,7 +221,7 @@
         class="invalid-feedback danger"
       >
         <v-alert dense outlined type="error">
-          I'm a dense alert with the <strong>First name</strong> field is
+          <strong>First name</strong> field is
           <strong>required</strong>
         </v-alert>
       </div>
@@ -242,7 +242,10 @@
         v-if="isSubmitted && !$v.last_name.required"
         class="invalid-feedback danger"
       >
-        Last name field is required
+        <v-alert dense outlined type="error">
+          <strong>Last name</strong> field is
+          <strong>required</strong>
+        </v-alert>
       </div>
       <v-text-field
         v-model="email"
@@ -252,8 +255,17 @@
         :class="{ 'is-invalid': isSubmitted && $v.email.$error }"
       ></v-text-field>
       <div v-if="isSubmitted && $v.email.$error" class="invalid-feedback">
-        <span v-if="!$v.email.required">Email field is required</span>
-        <span v-if="!$v.email.email">Please provide valid email</span>
+        <span v-if="!$v.email.required">
+          <v-alert dense outlined type="error">
+            <strong>Email</strong> field is
+            <strong>required</strong>
+          </v-alert></span
+        >
+        <span v-if="!$v.email.email">
+          <v-alert dense outlined type="error">
+            Please provide a valid email
+          </v-alert></span
+        >
       </div>
 
       <v-text-field
@@ -270,7 +282,10 @@
         v-if="isSubmitted && !$v.password.required"
         class="invalid-feedback danger"
       >
-        Password is field is required
+        <v-alert dense outlined type="error">
+          <strong>Password</strong> field is
+          <strong>required</strong>
+        </v-alert>
       </div>
       <v-text-field
         v-model="confirm_password"
@@ -286,11 +301,16 @@
         v-if="isSubmitted && $v.confirm_password.$error"
         class="invalid-feedback"
       >
-        <span v-if="!$v.confirm_password.required"
-          >Confirm Password field is required</span
+        <span v-if="!$v.confirm_password.required">
+          <v-alert dense outlined type="error">
+            <strong>Confirm password</strong> field is
+            <strong>required</strong>
+          </v-alert></span
         >
-        <span v-else-if="!$v.confirm_password.sameAsPassword"
-          >Passwords should be matched</span
+        <span v-else-if="!$v.confirm_password.sameAsPassword">
+          <v-alert dense outlined type="error">
+            <strong>Password</strong> should be matched
+          </v-alert></span
         >
       </div>
       <v-text-field
@@ -313,11 +333,17 @@
         v-if="isSubmitted && $v.phone_number.$error"
         class="invalid-feedback"
       >
-        <span v-if="!$v.phone_number.required"
-          >Phone number field is required</span
+        <span v-if="!$v.phone_number.required">
+          <v-alert dense outlined type="error">
+            <strong>Phone number </strong> field is
+            <strong>required</strong>
+          </v-alert></span
         >
-        <span v-if="!$v.phone_number.minLength"
-          >Phone number should be 8 numbers long</span
+        <span v-if="!$v.phone_number.minLength">
+          <v-alert dense outlined type="error">
+            <strong>Phone number</strong> should be
+            <strong>8 numbers long</strong>
+          </v-alert></span
         >
       </div>
       <v-text-field
@@ -330,7 +356,11 @@
         required
       ></v-text-field>
       <div v-if="isSubmitted && $v.adresse.$error" class="invalid-feedback">
-        <span v-if="!$v.adresse.required">Adresse field is required</span>
+        <span v-if="!$v.adresse.required">
+          <v-alert dense outlined type="error">
+            <strong>Adresse</strong> field is <strong>required</strong>
+          </v-alert></span
+        >
       </div>
       <v-text-field
         v-model="cin"
@@ -342,9 +372,17 @@
         required
       ></v-text-field>
       <div v-if="isSubmitted && $v.cin.$error" class="invalid-feedback">
-        <span v-if="!$v.cin.required">Phone number field is required</span>
-        <span v-if="!$v.cin.minLength"
-          >Phone number should be 8 numbers long</span
+        <span v-if="!$v.cin.required">
+          <v-alert dense outlined type="error">
+            <strong>CIN</strong> field is
+            <strong>required</strong>
+          </v-alert></span
+        >
+        <span v-if="!$v.cin.minLength">
+          <v-alert dense outlined type="error">
+            <strong>CIN</strong> should be
+            <strong>8 numbers long</strong>
+          </v-alert></span
         >
       </div>
 
