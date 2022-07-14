@@ -24,7 +24,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
     Route::group(['prefix' => '/prestataire'], function () {
-        Route::get('/show', [PrestataireController::class, 'show']); 
+        Route::get('/show', [PrestataireController::class, 'show']);
+        Route::put('/accept/{id}', [PrestataireController::class, 'accept']);
+        Route::put('/refuse/{id}', [PrestataireController::class, 'refuse']);
+
     });
     Route::post('/sign-out', [AuthentificationController::class, 'logout']);
 });
