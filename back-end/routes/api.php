@@ -23,7 +23,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
-   
+    Route::group(['prefix' => '/prestataire'], function () {
+        Route::get('/show', [PrestataireController::class, 'show']); 
+    });
     Route::post('/sign-out', [AuthentificationController::class, 'logout']);
 });
 
@@ -39,9 +41,6 @@ Route::group(['prefix' => '/sousSpecialite'], function () {
     Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
    
 
-});
-Route::group(['prefix' => '/prestataire'], function () {
-    Route::get('/show', [PrestataireController::class, 'show']); 
 });
 
 
