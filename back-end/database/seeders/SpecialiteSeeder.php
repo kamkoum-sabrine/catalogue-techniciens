@@ -14,7 +14,16 @@ class SpecialiteSeeder extends Seeder
      */
     public function run()
     {
-        Specialite::factory(5)->create();
+        // Specialite::factory(5)->create();
+        \App\Models\Specialite::create([
+            'name' => "Maintenance et réparation",
+        ]);
+        \App\Models\Specialite::create([
+            'name' => "Chauffeur",
+        ]);
+        \App\Models\Specialite::create([
+            'name' => "Réparation électromenager",
+        ]);
 
     }
 }
