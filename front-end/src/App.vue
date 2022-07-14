@@ -1,23 +1,14 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="green" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="./assets/logo.png"
           transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
+          width="150"
         />
       </div>
 
@@ -31,26 +22,36 @@
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
+      <button type="submit" class="btn-primary" @click="role">get role</button>
+      <button class="btn-primary" @click="onItemClick">log out</button>
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
   name: "App",
-
-  components: {
-    HelloWorld,
-  },
 
   data: () => ({
     //
   }),
+  created() {
+    // console.log(this.state.isAdmin);
+    // console.log(this.state.isPrestataire);
+    // console.log(this.state.isClient);
+  },
+  methods: {
+    onItemClick() {
+      this.$store.dispatch("logout");
+    },
+    role() {
+      console.log(this.$store.getters);
+    },
+  },
 };
 </script>
+

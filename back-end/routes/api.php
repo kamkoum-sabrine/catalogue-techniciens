@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SpecialiteController;
+use App\Http\Controllers\SousSpecialiteController;
+use App\Http\Controllers\AuthentificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function(Request $request) {
+        return auth()->user();
+    });
+    Route::post('/sign-out', [AuthentificationController::class, 'logout']);
 });
+
+Route::group(['prefix' => '/roles'], function () {
+    Route::get('/getAll', [RoleController::class, 'getAll']); 
+});
+Route::group(['prefix' => '/specialites'], function () {
+    Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
+    Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
+
+});
+Route::group(['prefix' => '/sousSpecialite'], function () {
+    Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
+   
+
+});
+
+
+
+Route::post('/login', [AuthentificationController::class, 'login']);
+// Route::get('/role/getAll', [RoleController::class, 'getAll']);
+// Route::get('/specialite/getAll', [RoleController::class, 'getAll']);
+Route::post('/register', [AuthentificationController::class, 'register']);
+Route::get('/unique/{id}',[AuthenticationController::class, 'unique']);
