@@ -103,7 +103,7 @@ const actions = {
                 .post("/login", payload)
                 .then((response) => {
                     if (response.status == 200) {
-                        //         // console.log(response.data.admin)
+                        console.log(response.data.data.isAdmin)
                         //         commit("setLoggedIn", true);
                         //         commit("setAuthUser", response.data.user);
                         //         commit("setToken", response.data.token);
@@ -134,9 +134,9 @@ const actions = {
                         this.tkn = response.data.data.token;
                         // Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.tkn;
                         localStorage.setItem("token", this.tkn);
-                        commit("setAdmin", response.data.admin);
-                        commit("setPrestataire", response.data.prestataire);
-                        commit("setClient", response.data.client);
+                        commit("setAdmin", response.data.data.isAdmin);
+                        commit("setPrestataire", response.data.data.isPrestataire);
+                        commit("setClient", response.data.data.isClient);
                         commit("setAuthUser", response.data.data.user);
                         commit("setAuthStatus", 1);
 
@@ -158,6 +158,8 @@ const actions = {
             commit("setLoggedIn", false);
             commit("setAuthUser", null);
             commit("setToken", null);
+            router.push("/login");
+
             resolve();
         });
     },

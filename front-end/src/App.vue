@@ -23,6 +23,7 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
       <button type="submit" class="btn-primary" @click="role">get role</button>
+      <button class="btn-primary" @click="onItemClick">log out</button>
     </v-app-bar>
 
     <v-main>
@@ -44,6 +45,9 @@ export default {
     // console.log(this.state.isClient);
   },
   methods: {
+    onItemClick() {
+      this.$store.dispatch("logout");
+    },
     role() {
       console.log(this.$store.getters);
     },
