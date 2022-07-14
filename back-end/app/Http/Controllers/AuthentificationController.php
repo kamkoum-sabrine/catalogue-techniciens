@@ -17,14 +17,11 @@ class AuthentificationController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        // dd($request->input('role'));
-        // dd($user->id);
-        // $role = Role::where('name','=',$request->input('role'))->get();
-    //    dd($role->);
+   
         $user_id = $user->id;
-        // dd($user_id);
+    
         $role_id = $request->input('role');
-        // dd($role_id);
+     
 
 
         $userRole = array(
@@ -35,11 +32,12 @@ class AuthentificationController extends Controller
         );
 
         $user_role = RoleUser::create($userRole);
-        // $user->roles()->attach($request->role, ['department' => $input['department'],'classe' => $input['classe']?$input['classe']:0]);
+             if ($user_role->role_id==3){
+            $user->roles()->updateExistingPivot(3, ['status' => 1]);
+           
 
-        
-       
-
+        }
+    
         return response()->json([
             'success'   => true,
             'message'   => 'User created',
