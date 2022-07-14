@@ -104,11 +104,13 @@ export default {
     logIn() {
       try {
         this.login(this.form).then(() => {
+          console.log(this.$store.getters.authStatus);
           if (this.$store.getters.authStatus == 2) {
             console.log(this.$store.getters.authStatus);
             this.alert.dismissCountDown = 3;
             this.alert.variant = "danger";
             this.alert.msg = this.$store.getters.authMessage;
+            console.log(this.$store.getters.authMessage);
           } else {
             if (this.$store.getters.authStatus == 1) {
               console.log(this.$store.getters.authStatus);
@@ -116,12 +118,28 @@ export default {
               this.alert.dismissCountDown = 3;
               this.alert.variant = "danger";
               this.alert.msg = this.$store.getters.authMessage;
+              console.log(this.$store.getters.authMessage);
             }
           }
         });
       } catch (e) {
-        console.log(e);
+        console.log(e.response.data.data.error);
       }
+      console.log(this.$store.getters.authStatus);
+
+      if (this.$store.getters.authStatus == 2) {
+        console.log(this.$store.getters.authStatus);
+        this.alert.dismissCountDown = 3;
+        this.alert.variant = "danger";
+        this.alert.msg = this.$store.getters.authMessage;
+        console.log(this.$store.getters.authMessage);
+      }
+
+      // console.log(this.$store.getters.authStatus);
+      // console.log(this.$store.getters.authMessage);
+      // this.alert.dismissCountDown = 3;
+      // this.alert.variant = "danger";
+      // this.alert.msg = this.$store.getters.authMessage;
     },
   },
   computed: {
