@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
 import Login from "./routes/login";
+import managePrestataires from "./routes/managePrestataires";
 import Register from "./routes/register";
 Vue.use(VueRouter);
 
@@ -22,7 +23,8 @@ const routes = [
             import(/* webpackChunkName: "about" */ "../views/About.vue"),
     },
     ...Login,
-    ...Register
+    ...Register,
+    ...managePrestataires
 ];
 
 const router = new VueRouter({

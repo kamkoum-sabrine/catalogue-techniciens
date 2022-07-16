@@ -14,8 +14,15 @@ import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 Vue.prototype.$http = Axios;
 Vue.prototype.$http.defaults.withCredentials = true;
-
+import JQuery from "jquery";
+window.$ = JQuery;
+// Vue.prototype.jQuery = jQuery
+// window.jQuery = jQuery
 Vue.config.productionTip = false
+// import Vue from 'vue'
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+Vue.use(VueSidebarMenu)
 interceptorsSetup()
 new Vue({
   vuetify,
