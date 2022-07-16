@@ -1,6 +1,9 @@
 <template>
   <div>
+    <v-app-bar elevation="4"></v-app-bar>
     <sidebar-menu :menu="menu" />
+    <font-awesome-icon icon="fa-regular fa-coffee"></font-awesome-icon>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -90,16 +93,16 @@ export default {
       {
         href: "/",
         title: "Dashboard",
-        icon: "fa fa-user",
+        icon: "bi bi-speedometer",
       },
       {
-        href: "/charts",
-        title: "Charts",
-        icon: "fa fa-chart-area",
+        // href: "/managePrestataire",
+        title: "Prestataires",
+        icon: "bi bi-people-fill",
         child: [
           {
-            href: "/charts/sublink",
-            title: "Sub Link",
+            href: "/managePrestataire",
+            title: "Gérer demande d'inscription",
           },
         ],
       },

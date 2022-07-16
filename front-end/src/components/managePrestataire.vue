@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  name: "App",
+  name: "managePrestataire",
 
   data: () => ({
     drawer: false,
