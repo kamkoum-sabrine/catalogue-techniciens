@@ -209,6 +209,7 @@ const actions = {
                             // commit("setUser", response.data.data.user);
                             // commit("setToken", response.data.data.token);
                             router.push("/login");
+
                             commit("setRegStatus", 1);
                             console.log("jaweek beehy! ")
 

@@ -1,120 +1,79 @@
 <template>
   <div>
     <v-app-bar elevation="4"></v-app-bar>
-    <sidebar-menu :menu="menu" />
-    <font-awesome-icon icon="fa-regular fa-coffee"></font-awesome-icon>
+    <!-- <sidebar-menu :menu="menu" :width="'200px'" /> -->
+    <sidebar-menu
+      class="position-fixed"
+      @item-click="onItemClick"
+      :show-one-child="true"
+      @toggle-collapse="collapse = !collapse"
+      :width="'200px'"
+      :menu="[
+        {
+          header: 'Main Navigation',
+          hiddenOnCollapse: true,
+        },
+        {
+          title: this.$store.getters.authUser
+            ? !null
+            : this.$store.getters.first_name,
+          icon: 'fas fa-user',
+          child: [
+            {
+              href: '/user',
+              title: 'User',
+            },
+            {
+              href: '/login',
+              title: 'Se connecter',
+            },
+            {
+              href: '/register',
+              title: 'S\'inscrire',
+            },
+            {
+              title: 'Logout',
+            },
+          ],
+        },
+        {
+          href: '/',
+          title: 'Home',
+          icon: 'fas fa-home',
+        },
+      ]"
+      :collapsed="false"
+      style="transition: 0.5s max-width ease !important"
+    />
+    <button @click="getGetter">get getters</button>
+    <a href="/login">Login</a>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import { SidebarMenu } from "vue-sidebar-menu";
+
 export default {
   name: "App",
   components: {
     SidebarMenu,
   },
-  // props: {
-  //   // Sidebar menu (required)
-  //   menu: {
-  //     type: Array,
-  //     required: true,
-  //   },
-
-  //   // Sidebar Collapse state
-  //   collapsed: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-
-  //   // Sidebar width (expanded)
-  //   width: {
-  //     type: String,
-  //     default: "350px",
-  //   },
-
-  //   // Sidebar width (collapsed)
-  //   widthCollapsed: {
-  //     type: String,
-  //     default: "50px",
-  //   },
-
-  //   // Keep only one child opened at a time (first level only)
-  //   showOneChild: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-
-  //   // Keep all child open
-  //   showChild: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-
-  //   // Sidebar right to left
-  //   rtl: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-
-  //   // Make sidebar relative to the parent (by default the sidebar is relative to the viewport)
-  //   relative: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-
-  //   // Hide toggle collapse btn
-  //   hideToggle: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-
-  //   // Sidebar theme (available themes: 'white-theme')
-  //   theme: {
-  //     type: String,
-  //     default: "",
-  //   },
-
-  //   // Disable hover on collapse mode
-  //   disableHover: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-  // },
-  data: () => ({
-    drawer: false,
-    group: null,
-    menu: [
-      {
-        header: true,
-        title: "Main Navigation",
-        hiddenOnCollapse: true,
-      },
-      {
-        href: "/",
-        title: "Dashboard",
-        icon: "bi bi-speedometer",
-      },
-      {
-        // href: "/managePrestataire",
-        title: "Prestataires",
-        icon: "bi bi-people-fill",
-        child: [
-          {
-            href: "/managePrestataire",
-            title: "Gérer demande d'inscription",
-          },
-        ],
-      },
-    ],
-  }),
-  watch: {
-    group() {
-      this.drawer = false;
-    },
+  data() {
+    return {
+      collapse: true,
+    };
   },
   created() {
-    console.log(this.$store.getters.isLoggedIn);
+    window.document.body.style.marginLeft = this.collapse ? "200px" : "50px";
+  },
+
+  watch: {
+    watch: {
+      collapse(val) {
+        window.document.body.style.marginLeft = val ? "200px" : "50px";
+      },
+    },
   },
 
   methods: {
@@ -126,6 +85,9 @@ export default {
     },
     loged() {
       console.log(this.$store.getters.isLoggedIn);
+    },
+    getGetter() {
+      console.log(this.$store.getters);
     },
   },
 };
