@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/create',[SpecialiteController::class, 'create']);
         Route::put('/update/{id}',[SpecialiteController::class, 'update']);
         Route::delete('/delete/{id}',[SpecialiteController::class, 'delete']);
+        Route::get('/find/{name}',[SpecialiteController::class, 'find']);
     
     });
     Route::group(['prefix' => '/sousSpecialite'], function () {

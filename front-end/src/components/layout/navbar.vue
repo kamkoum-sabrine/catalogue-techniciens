@@ -61,7 +61,7 @@
           icon: 'fas fa-home',
         },
         {
-          href: '/sousSpecialite',
+          href: '/gererSousSpecialite',
           title: 'Sous specialité',
           icon: 'fas fa-home',
         },

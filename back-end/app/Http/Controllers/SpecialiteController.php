@@ -31,6 +31,22 @@ class SpecialiteController extends Controller
         }
 
     }
+    public function find($name){
+        $specialite = Specialite::where('name', $name)->get('id');
+        
+        if ($specialite){
+            return response()->json([
+        
+               
+                'attribute'   => $specialite
+            ], 201);
+        } else {
+            return response()->json([
+                " Specialité non trouvée"
+            ], 404);
+        }
+
+    }
 
     public function create(SpecialiteRequest $request){
         $specialite = Specialite::create(
