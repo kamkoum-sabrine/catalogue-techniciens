@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Specialite;
 use Illuminate\Http\Request;
+use App\Http\Requests\SpecialiteRequest;
 
 class SpecialiteController extends Controller
 {
@@ -28,6 +29,16 @@ class SpecialiteController extends Controller
                 "Specialité non trouvée"
             ], 404);
         }
+
+    }
+
+    public function create(SpecialiteRequest $request){
+        $specialite = Specialite::create(
+            [
+                "name" => $request->name,
+            ]
+        );
+        return response()->json(["data" => $specialite], 201);
 
     }
 }
