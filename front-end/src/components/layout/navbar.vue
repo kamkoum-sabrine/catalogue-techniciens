@@ -64,7 +64,7 @@
 
 <script>
 import { SidebarMenu } from "vue-sidebar-menu";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   name: "navbar",
@@ -109,26 +109,6 @@ export default {
     },
     getGetter() {
       console.log(this.$store.getters);
-    },
-  },
-  computed: {
-    ...mapGetters({
-      auth: "isAuthenticated",
-      admin: "isAdmin",
-      client: "isClient",
-      prestataire: "isPrestataire",
-    }),
-    isAuth: function () {
-      return this.auth;
-    },
-    isAdmin: function () {
-      return this.admin;
-    },
-    isClient: function () {
-      return this.client;
-    },
-    isPrestataire: function () {
-      return this.prestataire;
     },
   },
 };
