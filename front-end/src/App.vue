@@ -1,8 +1,9 @@
 <template>
   <div>
     <v-app-bar elevation="4"></v-app-bar>
+    <navbar />
     <!-- <sidebar-menu :menu="menu" :width="'200px'" /> -->
-    <sidebar-menu
+    <!-- <sidebar-menu
       class="position-fixed"
       @item-click="onItemClick"
       :show-one-child="true"
@@ -46,18 +47,18 @@
       style="transition: 0.5s max-width ease !important"
     />
     <button @click="getGetter">get getters</button>
-    <a href="/login">Login</a>
+    <a href="/login">Login</a> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { SidebarMenu } from "vue-sidebar-menu";
-
+// import { SidebarMenu } from "vue-sidebar-menu";
+import navbar from "./components/layout/navbar.vue";
 export default {
   name: "App",
   components: {
-    SidebarMenu,
+    navbar,
   },
   data() {
     return {
@@ -92,6 +93,5 @@ export default {
   },
 };
 </script>
-<style >
-</style>
+
 
