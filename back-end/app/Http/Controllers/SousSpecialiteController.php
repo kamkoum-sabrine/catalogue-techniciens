@@ -60,5 +60,20 @@ class SousSpecialiteController extends Controller
         return response()->json(["data" => $sous_specialite], 201);
 
     }
+    public function update(SousSpecialiteRequest $request, $id){
+        $SousSpecialite = SousSpecialite::find($id);
+        if (!$SousSpecialite) {
+            return response()->json([
+                "message" => " Sous Specialite not found"
+            ], 404);
+        }
+        $SousSpecialite->update(
+            [
+                "name" => $request->name,
+            ]
+        );
+        return response()->json(["data" => $SousSpecialite], 200);
+    }
+
 
 }
