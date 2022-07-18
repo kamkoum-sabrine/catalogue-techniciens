@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <v-form ref="form" @submit.prevent="ajouterSpecialite">
+    <v-form ref="form" v-if="edit == false" @submit.prevent="ajouterSpecialite">
       <v-text-field
         v-model="name"
         :counter="10"
@@ -9,6 +9,16 @@
       ></v-text-field>
 
       <v-btn color="#7CB342" type="submit" class="mr-4"> Validate </v-btn>
+    </v-form>
+    <v-form v-if="edit == true" ref="form" @submit.prevent="updateSpecialite">
+      <v-text-field
+        v-model="name"
+        :counter="10"
+        label="Nom spécialité"
+        required
+      ></v-text-field>
+
+      <v-btn color="#7CB342" type="submit" class="mr-4"> Editer </v-btn>
     </v-form>
     <br />
     <br />
@@ -36,6 +46,13 @@
               >
                 Supprimer
               </v-btn>
+              <v-btn
+                color="#F48FB1"
+                class="mr-4"
+                @click="editSpecialite(item.id)"
+              >
+                Editer
+              </v-btn>
             </td>
           </tr>
         </tbody>
@@ -51,6 +68,8 @@ export default {
       specialites: [],
       name: "",
       newSpecialite: {},
+      edit: false,
+      id: null,
     };
   },
   created() {
@@ -67,6 +86,7 @@ export default {
       this.newSpecialite = {
         name: this.name,
       };
+
       this.$http
         .post(
           "http://localhost:8000/api/specialites/create/",
@@ -94,6 +114,52 @@ export default {
               this.specialites = response.data;
             });
         });
+    },
+    updateSpecialite() {
+      this.newSpecialite = {
+        name: this.name,
+      };
+      console.log(this.id);
+      this.$http
+        .put(
+          "http://localhost:8000/api/specialites/update/" + this.id,
+          this.newSpecialite
+        )
+        .then((response) => {
+          console.log(response.data);
+          this.edit = false;
+          this.name = "";
+        });
+      this.$http
+        .get("http://localhost:8000/api/specialites/getAll")
+        .then((response) => {
+          console.log(response.data);
+          this.specialites = response.data;
+        });
+      // this.$http
+      //   .get("http://localhost:8000/api/specialites/getSpecialite/" + id)
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     this.name = response.data.attributes.name;
+      //   });
+      // console.log(response.data);
+    },
+    editSpecialite(id) {
+      this.edit = true;
+      this.id = id;
+      this.$http
+        .get("http://localhost:8000/api/specialites/getAll")
+        .then((response) => {
+          console.log(response.data);
+          this.specialites = response.data;
+        });
+      this.$http
+        .get("http://localhost:8000/api/specialites/getSpecialite/" + id)
+        .then((response) => {
+          console.log(response.data);
+          this.name = response.data.attributes.name;
+        });
+      // this.updateSpecialite(id);
     },
   },
 };
