@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/create', [SousSpecialiteController::class, 'create']); 
         Route::put('/update/{id}', [SousSpecialiteController::class, 'update']); 
         Route::delete('/delete/{id}', [SousSpecialiteController::class, 'delete']); 
+        Route::get('/getAll', [SousSpecialiteController::class, 'getAll']); 
        
     
     });

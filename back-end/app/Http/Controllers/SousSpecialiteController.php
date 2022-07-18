@@ -26,6 +26,13 @@ class SousSpecialiteController extends Controller
 
     }
 
+    public function getAll() {
+        $sous_specialite = SousSpecialite::with('specialite')->get();
+        if (empty($sous_specialite)) {
+            return response()->json(['message' => 'Aucune sous specialité n est disponible! '], 404);
+        }
+        return response()->json($sous_specialite, 200);
+    }
     public function findSousSpecialite($id){
         $sous_specialite = SousSpecialite::find($id);
         if ($sous_specialite){
