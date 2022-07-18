@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
         Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
         Route::post('/create',[SpecialiteController::class, 'create']);
+        Route::put('/update/{id}',[SpecialiteController::class, 'update']);
     
     });
     Route::group(['prefix' => '/sousSpecialite'], function () {

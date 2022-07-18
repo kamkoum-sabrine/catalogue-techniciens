@@ -41,4 +41,19 @@ class SpecialiteController extends Controller
         return response()->json(["data" => $specialite], 201);
 
     }
+    
+    public function update(SpecialiteRequest $request, $id){
+        $Specialite = Specialite::find($id);
+        if (!$Specialite) {
+            return response()->json([
+                "message" => "Specialite not found"
+            ], 404);
+        }
+        $Specialite->update(
+            [
+                "name" => $request->name,
+            ]
+        );
+        return response()->json(["data" => $Specialite], 200);
+    }
 }
