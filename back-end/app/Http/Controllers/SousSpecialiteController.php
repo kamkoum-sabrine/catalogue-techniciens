@@ -23,4 +23,20 @@ class SousSpecialiteController extends Controller
         }
 
     }
+
+    public function findSousSpecialite($id){
+        $sous_specialite = SousSpecialite::find($id);
+        if ($sous_specialite){
+            return response()->json([
+        
+               
+                'attribute'   => $sous_specialite
+            ], 201);
+        } else {
+            return response()->json([
+                "Sous Specialité non trouvée"
+            ], 404);
+        }
+
+    }
 }

@@ -11,7 +11,7 @@ import vuetify from './plugins/vuetify'
 import interceptorsSetup from './helpers/interceptors';
 import Axios from 'axios'
 import Vuelidate from 'vuelidate'
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import { IconsPlugin } from "bootstrap-vue";
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 /* import font awesome icon component */
@@ -25,8 +25,11 @@ library.add(fas)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
+// Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(Vuelidate)
 Vue.prototype.$http = Axios;

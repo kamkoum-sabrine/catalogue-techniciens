@@ -29,6 +29,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/refuse/{id}', [PrestataireController::class, 'refuse']);
 
     });
+    Route::group(['prefix' => '/roles'], function () {
+        Route::get('/getAll', [RoleController::class, 'getAll']); 
+    });
+    Route::group(['prefix' => '/specialites'], function () {
+        // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
+        Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
+    
+    });
+    Route::group(['prefix' => '/sousSpecialite'], function () {
+        // Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
+        Route::get('/find/{id}', [SousSpecialiteController::class, 'findSousSpecialite']); 
+       
+    
+    });
+    
     Route::post('/sign-out', [AuthentificationController::class, 'logout']);
 });
 
@@ -37,11 +52,12 @@ Route::group(['prefix' => '/roles'], function () {
 });
 Route::group(['prefix' => '/specialites'], function () {
     Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
-    Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
+    // Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
 
 });
 Route::group(['prefix' => '/sousSpecialite'], function () {
     Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
+    // Route::get('/find/{id}', [SousSpecialiteController::class, 'findSousSpecialite']); 
    
 
 });
