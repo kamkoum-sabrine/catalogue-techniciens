@@ -1,6 +1,21 @@
 <template>
   <div>
-    <v-app-bar elevation="4"></v-app-bar>
+    <!-- <v-app-bar elevation="4"></v-app-bar> -->
+    <div>
+      <v-toolbar
+        dark
+        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      >
+        <v-toolbar-title>depanini</v-toolbar-title>
+        <!-- <img src="./assets/logo.png" /> -->
+        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+        <v-spacer></v-spacer>
+
+        <v-btn icon>
+          <v-icon>mdi-export</v-icon>
+        </v-btn>
+      </v-toolbar>
+    </div>
     <navbar />
     <!-- <sidebar-menu :menu="menu" :width="'200px'" /> -->
     <!-- <sidebar-menu
