@@ -8,7 +8,7 @@
         required
       ></v-text-field>
 
-      <v-btn color="#7CB342" class="mr-4"> Validate </v-btn>
+      <v-btn color="#7CB342" type="submit" class="mr-4"> Validate </v-btn>
     </v-form>
     <br />
     <br />
@@ -19,7 +19,6 @@
             <th class="text-left">Nom Specialite</th>
 
             <th class="text-left">Action</th>
-            <th class="text-left">Sous specialites</th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +34,7 @@
                 class="mr-4"
                 @click="deleteSpecialite(item.id)"
               >
-                Validate
+                Supprimer
               </v-btn>
             </td>
           </tr>
@@ -51,6 +50,7 @@ export default {
     return {
       specialites: [],
       name: "",
+      newSpecialite: {},
     };
   },
   created() {
@@ -62,12 +62,37 @@ export default {
       });
   },
   methods: {
+    ajouterSpecialite() {
+      console.log(this.name);
+      this.newSpecialite = {
+        name: this.name,
+      };
+      this.$http
+        .post(
+          "http://localhost:8000/api/specialites/create/",
+          this.newSpecialite
+        )
+        .then((response) => {
+          console.log(response.data);
+          this.$http
+            .get("http://localhost:8000/api/specialites/getAll")
+            .then((response) => {
+              console.log(response.data);
+              this.specialites = response.data;
+            });
+        });
+    },
     deleteSpecialite(id) {
       this.$http
         .delete("http://localhost:8000/api/specialites/delete/" + id)
         .then((response) => {
           console.log(response.data);
-          this.specialites = response.data;
+          this.$http
+            .get("http://localhost:8000/api/specialites/getAll")
+            .then((response) => {
+              console.log(response.data);
+              this.specialites = response.data;
+            });
         });
     },
   },
