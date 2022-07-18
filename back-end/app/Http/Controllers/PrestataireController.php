@@ -11,9 +11,11 @@ class PrestataireController extends Controller
        
         $prestataire = User::whereHas('roles', function ($query) {
             $query->where('name', 'prestataire');
-            
+           
            
         })->with('roles')->get();
+       
+        
         return response()->json(
             $prestataire
         );

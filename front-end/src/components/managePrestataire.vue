@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <v-list three-line>
       <template v-for="(item, index) in items">
         <v-subheader
@@ -28,7 +28,27 @@
         </v-list-item>
       </template>
     </v-list>
-  </div>
+  </div> -->
+  <v-simple-table>
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">Nom</th>
+          <th class="text-left">Prénom</th>
+          <th class="text-left">Spécialité</th>
+          <th class="text-left">Sous spécialité</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in items" :key="item.id">
+          <td>{{ item.first_name }}</td>
+          <td>{{ item.last_name }}</td>
+          <td>{{ item.specialite }}</td>
+          <td>{{ item.sous_specialite }}</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
 </template>
 <script>
 export default {
@@ -37,41 +57,7 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    items: [
-      //   { header: "Today" },
-      //   {
-      //     avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-      //     title: "Brunch this weekend?",
-      //     subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-      //   },
-      //   { divider: true, inset: true },
-      //   {
-      //     avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-      //     title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-      //     subtitle: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
-      //   },
-      //   { divider: true, inset: true },
-      //   {
-      //     avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-      //     title: "Oui oui",
-      //     subtitle:
-      //       '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-      //   },
-      //   { divider: true, inset: true },
-      //   {
-      //     avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-      //     title: "Birthday gift",
-      //     subtitle:
-      //       '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-      //   },
-      //   { divider: true, inset: true },
-      //   {
-      //     avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-      //     title: "Recipe to try",
-      //     subtitle:
-      //       '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-      //   },
-    ],
+    items: [],
   }),
   created() {
     this.$http
@@ -79,6 +65,9 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.items = response.data;
+        this.items.forEach((item) => {
+          console.log(item.roles[0].pivot.specialite);
+        });
       });
   },
 };
