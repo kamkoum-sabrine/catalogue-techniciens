@@ -56,4 +56,16 @@ class SpecialiteController extends Controller
         );
         return response()->json(["data" => $Specialite], 200);
     }
+
+    public function delete($id){
+        $Specialite = Specialite::find($id);
+        if (!$Specialite) {
+            return response()->json([
+                'type' => 'Specialite',
+                'message' => 'demande non trouvée'
+            ], 404);
+        }
+        $Specialite->delete();
+        return response()->json([], 200);
+    }
 }
