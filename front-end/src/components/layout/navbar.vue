@@ -54,6 +54,20 @@
             },
           ],
         },
+        {
+          title: 'Specialite',
+          icon: 'fas fa-home',
+          child: [
+            {
+              href: '/gererSpecialite',
+              title: 'Consulter specialités ',
+            },
+            {
+              href: '/ajouterSpecialite',
+              title: 'Ajouter specialités ',
+            },
+          ],
+        },
       ]"
       :collapsed="false"
       style="transition: 0.5s max-width ease !important"

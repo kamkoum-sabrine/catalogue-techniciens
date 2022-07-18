@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import gererSpecialite from "./routes/gererSpecialite";
 
 import Login from "./routes/login";
 import managePrestataires from "./routes/managePrestataires";
@@ -24,7 +25,8 @@ const routes = [
     },
     ...Login,
     ...Register,
-    ...managePrestataires
+    ...managePrestataires,
+    ...gererSpecialite
 ];
 
 const router = new VueRouter({
