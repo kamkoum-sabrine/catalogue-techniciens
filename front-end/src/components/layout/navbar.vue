@@ -21,6 +21,7 @@
             {
               href: '/user',
               title: 'User',
+              hidden: !this.$store.getters.isAuthenticated,
             },
             {
               href: '/login',
@@ -55,18 +56,14 @@
           ],
         },
         {
+          href: '/gererSpecialite',
           title: 'Specialite',
           icon: 'fas fa-home',
-          child: [
-            {
-              href: '/gererSpecialite',
-              title: 'Consulter specialités ',
-            },
-            {
-              href: '/ajouterSpecialite',
-              title: 'Ajouter specialités ',
-            },
-          ],
+        },
+        {
+          href: '/sousSpecialite',
+          title: 'Sous specialité',
+          icon: 'fas fa-home',
         },
       ]"
       :collapsed="false"
