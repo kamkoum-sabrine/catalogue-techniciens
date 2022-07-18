@@ -74,6 +74,17 @@ class SousSpecialiteController extends Controller
         );
         return response()->json(["data" => $SousSpecialite], 200);
     }
+    public function delete($id){
+        $SousSpecialite = SousSpecialite::find($id);
+        if (!$SousSpecialite) {
+            return response()->json([
+                'type' => 'SousSpecialite',
+                'message' => 'Specialite non trouvée'
+            ], 404);
+        }
+        $SousSpecialite->delete();
+        return response()->json([], 200);
+    }
 
 
 }

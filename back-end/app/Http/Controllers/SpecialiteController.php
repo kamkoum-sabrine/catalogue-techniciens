@@ -62,7 +62,7 @@ class SpecialiteController extends Controller
         if (!$Specialite) {
             return response()->json([
                 'type' => 'Specialite',
-                'message' => 'demande non trouvée'
+                'message' => 'Specialite non trouvée'
             ], 404);
         }
         $Specialite->delete();
