@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => '/sousSpecialite'], function () {
         // Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
         Route::get('/find/{id}', [SousSpecialiteController::class, 'findSousSpecialite']); 
+        Route::post('/create', [SousSpecialiteController::class, 'create']); 
        
     
     });

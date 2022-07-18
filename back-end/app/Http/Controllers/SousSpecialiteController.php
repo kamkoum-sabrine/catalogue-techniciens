@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Specialite;
 use Illuminate\Http\Request;
 use App\Models\SousSpecialite;
+use App\Http\Requests\SousSpecialiteRequest;
 
 class SousSpecialiteController extends Controller
 {
@@ -39,4 +41,24 @@ class SousSpecialiteController extends Controller
         }
 
     }
+    public function create(SousSpecialiteRequest $request){
+
+        // $nameSpecialite = $request->input('specialite');
+        
+        $sous_specialite = new SousSpecialite();
+        $sous_specialite->name = $request->input('name');
+        $sous_specialite->specialite_id = $request->input('specialite_id');
+        
+
+        $sous_specialite->save();
+        // $sousSpecialite = SousSpecialite::create(
+        //     [
+        //         "name" => $request->input('specialite'),
+        //         "specialite_id" => $request->input('specialite_id')
+        //     ]
+        // );
+        return response()->json(["data" => $sous_specialite], 201);
+
+    }
+
 }
