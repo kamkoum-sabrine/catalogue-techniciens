@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
 
 class PrestataireController extends Controller
 {
@@ -32,5 +33,27 @@ class PrestataireController extends Controller
         $prestataire->roles()->updateExistingPivot($id, ['status' => 2]);
                 $prestataire->save();
                 return response()->json('Prestataire refused',200);
+    }
+
+    public function updateAccount(Request $request, $id){
+        $User = User::find($id);
+        if (!$User) {
+            return response()->json([
+                "message" => "User not found"
+            ], 404);
+        }
+        $User->update(
+            [
+                "first_name" => $request->first_name,
+                "last_name" => $request->last_name,
+                "adresse" => $request->adresse,
+                "phone_number" => $request->phone_number,
+                "description" => $request->description,
+                "cin" => $request->cin,
+            ]
+        );
+        $User->roles()->updateExistingPivot(2, ['description' => $request->description]);
+        
+        return response()->json(["data" => $User], 200);
     }
 }

@@ -1,38 +1,67 @@
 <template>
-  <v-card class="mx-auto" max-width="100%" max-height="500px" tile>
-    <v-row align="end" class="fill-height">
-      <v-col align-self="start" class="pa-0" cols="4">
-        <v-avatar class="profile" color="grey" size="164" tile>
-          <v-img v-bind:src="this.$store.getters.authUser.image"></v-img>
-        </v-avatar>
-      </v-col>
-      <v-col class="py-0">
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="text-h6">
-              {{ this.$store.getters.authUser.first_name }}
-              {{ this.$store.getters.authUser.last_name }}
-            </v-list-item-title>
-            <v-list-item-subtitle>{{ specialite }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ sous_specialite }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{
-              this.$store.getters.authUser.email
-            }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{
-              this.$store.getters.authUser.adresse
-            }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{
-              this.$store.getters.authUser.phone_number
-            }}</v-list-item-subtitle>
-            <v-list-item-subtitle
-              >Je suis un jeune diplomé en informatique industrielle, je suis
-              actif, ponctuelle</v-list-item-subtitle
-            >
-          </v-list-item-content>
-        </v-list-item>
-      </v-col>
-    </v-row>
-  </v-card>
+  <div>
+    <v-card class="mx-auto" max-width="100%" max-height="500px" tile>
+      <v-row align="end" class="fill-height">
+        <v-col align-self="start" class="pa-0" cols="4">
+          <v-avatar class="profile" color="grey" size="164" tile>
+            <v-img v-bind:src="this.$store.getters.authUser.image"></v-img>
+          </v-avatar>
+        </v-col>
+        <v-col class="py-0">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-h6">
+                {{ this.$store.getters.authUser.first_name }}
+                {{ this.$store.getters.authUser.last_name }}
+              </v-list-item-title>
+              <v-list-item-subtitle>{{ specialite }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ sous_specialite }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{
+                this.$store.getters.authUser.email
+              }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{
+                this.$store.getters.authUser.adresse
+              }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{
+                this.$store.getters.authUser.phone_number
+              }}</v-list-item-subtitle>
+              <v-list-item-subtitle
+                >Je suis un jeune diplomé en informatique industrielle, je suis
+                actif, ponctuelle</v-list-item-subtitle
+              >
+            </v-list-item-content>
+          </v-list-item>
+        </v-col>
+        <v-row class="py-2">
+          <v-form>
+            <v-container>
+              <v-row align="end" class="fill-height container">
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    :counter="10"
+                    label="First name"
+                    required
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field
+                    :counter="10"
+                    label="Last name"
+                    required
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" md="4">
+                  <v-text-field label="E-mail" required></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </v-row>
+      </v-row>
+    </v-card>
+  </div>
 </template>
 <script>
 // import { mapGetters } from "vuex";
