@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SpecialiteController;
 use App\Http\Controllers\PrestataireController;
 use App\Http\Controllers\SousSpecialiteController;
@@ -31,6 +32,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
     Route::group(['prefix' => '/roles'], function () {
         Route::get('/getAll', [RoleController::class, 'getAll']); 
+    });
+    Route::group(['prefix' => '/client'], function () {
+        Route::get('/getAll', [ClientController::class, 'show']);
+        Route::put('/activate/{id}', [ClientController::class, 'accept']);
+        Route::put('/desactivate/{id}', [ClientController::class, 'refuse']);
     });
     Route::group(['prefix' => '/specialites'], function () {
         // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 

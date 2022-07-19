@@ -46,7 +46,7 @@ class RoleUserSeeder extends Seeder
         ]);
         \App\Models\RoleUser::create([
             'role_id' => 3,
-            'user_id' => 5,
+            'user_id' => 6,
             'status' => 1,
            
         ]);
