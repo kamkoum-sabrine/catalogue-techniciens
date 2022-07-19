@@ -32,6 +32,25 @@ class RoleUserSeeder extends Seeder
             'status' => 0,
             'specialite' => 2
         ]);
+        \App\Models\RoleUser::create([
+            'role_id' => 3,
+            'user_id' => 4,
+            'status' => 1,
+           
+        ]);
+        \App\Models\RoleUser::create([
+            'role_id' => 3,
+            'user_id' => 5,
+            'status' => 1,
+            
+        ]);
+        \App\Models\RoleUser::create([
+            'role_id' => 3,
+            'user_id' => 5,
+            'status' => 1,
+           
+        ]);
+        
         
     }
 }
