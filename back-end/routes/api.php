@@ -35,8 +35,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
     Route::group(['prefix' => '/client'], function () {
         Route::get('/getAll', [ClientController::class, 'show']);
-        Route::put('/activate/{id}', [ClientController::class, 'accept']);
-        Route::put('/desactivate/{id}', [ClientController::class, 'refuse']);
+        Route::put('/activate/{id}', [ClientController::class, 'ActivateAccount']);
+        Route::put('/desactivate/{id}', [ClientController::class, 'DesactivateAccount']);
     });
     Route::group(['prefix' => '/specialites'], function () {
         // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 

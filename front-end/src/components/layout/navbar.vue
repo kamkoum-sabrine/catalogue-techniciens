@@ -68,6 +68,12 @@
           hidden: !this.$store.getters.isAdmin,
           icon: 'fas fa-home',
         },
+        {
+          href: '/gererClient',
+          title: 'Clients',
+          hidden: !this.$store.getters.isAdmin,
+          icon: 'fas fa-home',
+        },
       ]"
       :collapsed="false"
       style="transition: 0.5s max-width ease !important"
