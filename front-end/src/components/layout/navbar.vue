@@ -21,17 +21,17 @@
             {
               href: '/user',
               title: 'User',
-              hidden: !this.$store.getters.isAuthenticated,
+              hidden: this.$store.getters.isAuthenticated,
             },
             {
               href: '/login',
               title: 'Se connecter',
-              hidden: this.$store.getters.isAuthenticated,
+              hidden: !this.$store.getters.isAuthenticated,
             },
             {
               href: '/register',
               title: 'S\'inscrire',
-              hidden: this.$store.getters.isAuthenticated,
+              hidden: !this.$store.getters.isAuthenticated,
             },
             {
               title: 'Logout',
@@ -58,11 +58,14 @@
         {
           href: '/gererSpecialite',
           title: 'Specialite',
+          hidden: !this.$store.getters.isAdmin,
+
           icon: 'fas fa-home',
         },
         {
           href: '/gererSousSpecialite',
           title: 'Sous specialité',
+          hidden: !this.$store.getters.isAdmin,
           icon: 'fas fa-home',
         },
       ]"
