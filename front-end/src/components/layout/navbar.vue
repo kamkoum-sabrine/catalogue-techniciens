@@ -1,24 +1,7 @@
 <template>
   <div>
-    <!-- <v-app-bar elevation="4"></v-app-bar> -->
-    <div>
-      <v-toolbar
-        dark
-        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-      >
-        <v-toolbar-title>depanini</v-toolbar-title>
-        <!-- <img src="./assets/logo.png" /> -->
-        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-        <v-spacer></v-spacer>
-
-        <v-btn icon>
-          <v-icon>mdi-export</v-icon>
-        </v-btn>
-      </v-toolbar>
-    </div>
-    <navbar />
     <!-- <sidebar-menu :menu="menu" :width="'200px'" /> -->
-    <!-- <sidebar-menu
+    <sidebar-menu
       class="position-fixed"
       @item-click="onItemClick"
       :show-one-child="true"
@@ -36,25 +19,55 @@
           icon: 'fas fa-user',
           child: [
             {
-              href: '/user',
-              title: 'User',
-            },
-            {
               href: '/login',
               title: 'Se connecter',
+              hidden: !this.$store.getters.isAuthenticated,
             },
             {
               href: '/register',
               title: 'S\'inscrire',
+              hidden: !this.$store.getters.isAuthenticated,
             },
             {
               title: 'Logout',
+              hidden: !this.$store.getters.isAuthenticated,
             },
           ],
         },
         {
-          href: '/',
-          title: 'Home',
+          href: '/profile',
+          title: 'Profile',
+          icon: 'fas fa-home',
+          hidden: !this.$store.getters.isAuthenticated,
+        },
+        {
+          title: 'Prestataire',
+          icon: 'fas fa-home',
+          hidden: !this.$store.getters.isAdmin,
+          child: [
+            {
+              href: '/managePrestataire',
+              title: 'Gérer inscription ',
+            },
+          ],
+        },
+        {
+          href: '/gererSpecialite',
+          title: 'Specialite',
+          hidden: !this.$store.getters.isAdmin,
+
+          icon: 'fas fa-home',
+        },
+        {
+          href: '/gererSousSpecialite',
+          title: 'Sous specialité',
+          hidden: !this.$store.getters.isAdmin,
+          icon: 'fas fa-home',
+        },
+        {
+          href: '/gererClient',
+          title: 'Clients',
+          hidden: !this.$store.getters.isAdmin,
           icon: 'fas fa-home',
         },
       ]"
@@ -62,18 +75,24 @@
       style="transition: 0.5s max-width ease !important"
     />
     <button @click="getGetter">get getters</button>
-    <a href="/login">Login</a> -->
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import { SidebarMenu } from "vue-sidebar-menu";
-import navbar from "./components/layout/navbar.vue";
+import { SidebarMenu } from "vue-sidebar-menu";
+// import { mapGetters } from "vuex";
+
 export default {
-  name: "App",
+  name: "navbar",
   components: {
-    navbar,
+    SidebarMenu,
+  },
+  props: {
+    // to: [
+    //   {
+    //     type: St,
+    //   },
+    // ],
   },
   data() {
     return {
@@ -93,8 +112,10 @@ export default {
   },
 
   methods: {
-    onItemClick() {
-      this.$store.dispatch("logout");
+    onItemClick(event, item) {
+      if (item.title == "Logout") {
+        this.$store.dispatch("logout");
+      }
     },
     role() {
       console.log(this.$store.getters);
@@ -108,5 +129,6 @@ export default {
   },
 };
 </script>
-
+<style >
+</style>
 

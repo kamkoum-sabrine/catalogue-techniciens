@@ -139,6 +139,7 @@ const actions = {
                         commit("setClient", response.data.data.isClient);
                         commit("setAuthUser", response.data.data.user);
                         commit("setAuthStatus", 1);
+                        commit("setLoggedIn", true);
 
                         commit("setToken", response.data.data.token);
                     } else {
@@ -208,6 +209,7 @@ const actions = {
                             // commit("setUser", response.data.data.user);
                             // commit("setToken", response.data.data.token);
                             router.push("/login");
+
                             commit("setRegStatus", 1);
                             console.log("jaweek beehy! ")
 

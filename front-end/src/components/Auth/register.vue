@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-left: 100px">
     <div style="margin-top: 10%">
       <v-container>
         <v-row justify="space-between">

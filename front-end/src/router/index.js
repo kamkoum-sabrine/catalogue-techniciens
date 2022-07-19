@@ -1,8 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import gererClient from "./routes/gererClient";
+import gererSousSpecialite from "./routes/gererSousSpecialite";
+import gererSpecialite from "./routes/gererSpecialite";
 
 import Login from "./routes/login";
+import managePrestataires from "./routes/managePrestataires";
 import Register from "./routes/register";
 Vue.use(VueRouter);
 
@@ -22,7 +26,11 @@ const routes = [
             import(/* webpackChunkName: "about" */ "../views/About.vue"),
     },
     ...Login,
-    ...Register
+    ...Register,
+    ...managePrestataires,
+    ...gererSpecialite,
+    ...gererSousSpecialite,
+    ...gererClient
 ];
 
 const router = new VueRouter({

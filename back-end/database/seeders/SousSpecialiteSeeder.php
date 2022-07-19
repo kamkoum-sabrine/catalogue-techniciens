@@ -14,6 +14,26 @@ class SousSpecialiteSeeder extends Seeder
      */
     public function run()
     {
-        SousSpecialite::factory(5)->create();
+        // SousSpecialite::factory(5)->create();
+        \App\Models\SousSpecialite::create([
+            'name' => "Plomberie",
+            'specialite_id' => "1"
+        ]);
+        \App\Models\SousSpecialite::create([
+            'name' => "Electricité",
+            'specialite_id' => "1"
+        ]);
+        \App\Models\SousSpecialite::create([
+            'name' => "Aluminium",
+            'specialite_id' => "1"
+        ]);
+        \App\Models\SousSpecialite::create([
+            'name' => "Climatiseur",
+            'specialite_id' => "3"
+        ]);
+        \App\Models\SousSpecialite::create([
+            'name' => "Machine à laver",
+            'specialite_id' => "3"
+        ]);
     }
 }
