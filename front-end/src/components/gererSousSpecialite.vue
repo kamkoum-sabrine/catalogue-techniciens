@@ -21,13 +21,25 @@
       </v-select>
       <v-btn color="#7CB342" type="submit" class="mr-4"> Validate </v-btn>
     </v-form>
-    <v-form v-if="edit == true" ref="form" @submit.prevent="updateSpecialite">
+    <v-form
+      v-if="edit == true"
+      ref="form"
+      @submit.prevent="updateSousSpecialite"
+    >
       <v-text-field
         v-model="name"
         :counter="10"
-        label="Nom spécialité"
+        label="Nom sous spécialité"
         required
       ></v-text-field>
+      <v-select
+        required
+        name="specialite"
+        v-model="specialite"
+        label="Spécialité"
+        :items="specialites"
+      >
+      </v-select>
 
       <v-btn color="#7CB342" type="submit" class="mr-4"> Editer </v-btn>
     </v-form>
@@ -37,7 +49,8 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Nom Specialite</th>
+            <th class="text-left">Nom specialite</th>
+            <th class="text-left">Nom sous specialite</th>
 
             <th class="text-left">Action</th>
           </tr>
@@ -45,6 +58,7 @@
         <tbody>
           <tr v-for="item in sous_specialites" :key="item.id">
             <td>{{ item.name }}</td>
+            <td>{{ item.specialite.name }}</td>
             <td>
               <v-btn
                 color="#F48FB1"
@@ -121,68 +135,62 @@ export default {
         .then((response) => {
           console.log(response.data.attribute[0].id);
           this.idSpecialite = response.data.attribute[0].id;
-        });
-      this.newSousSpecialite = {
-        name: this.name,
-        specialite_id: this.idSpecialite,
-      };
-      console.log(this.newSousSpecialite);
-      this.$http
-        .post(
-          "http://localhost:8000/api/sousSpecialite/create/",
-          this.newSousSpecialite
-        )
-        .then((response) => {
-          console.log(response.data);
+          console.log(this.idSpecialite);
+          console.log(this.newSousSpecialite);
           this.$http
-            .get("http://localhost:8000/api/sousSpecialite/getAll")
+            .post("http://localhost:8000/api/sousSpecialite/create/", {
+              name: this.name,
+              specialite_id: this.idSpecialite,
+            })
             .then((response) => {
               console.log(response.data);
-              this.newSousSpecialite = response.data;
+              this.$http
+                .get("http://localhost:8000/api/sousSpecialite/getAll")
+                .then((response) => {
+                  console.log(response.data);
+                  this.sous_specialites = response.data;
+                  this.name = "";
+                  this.specialite = "";
+                });
             });
         });
     },
     deleteSpecialite(id) {
       this.$http
         .delete("http://localhost:8000/api/sousSpecialite/delete/" + id)
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.$http
             .get("http://localhost:8000/api/sousSpecialite/getAll")
             .then((response) => {
-              console.log(response.data);
-              this.specialites = response.data;
+              this.sous_specialites = response.data;
             });
         });
     },
-    updateSpecialite() {
-      this.newSpecialite = {
-        name: this.name,
-      };
-      console.log(this.id);
+    updateSousSpecialite() {
       this.$http
-        .put(
-          "http://localhost:8000/api/sousSpecialite/update/" + this.id,
-          this.newSpecialite
-        )
+        .get("http://localhost:8000/api/specialites/find/" + this.specialite)
         .then((response) => {
-          console.log(response.data);
-          this.edit = false;
-          this.name = "";
+          this.idSpecialite = response.data.attribute[0].id;
+          this.newSpecialite = {
+            name: this.name,
+            specialite_id: this.idSpecialite,
+          };
+          this.$http
+            .put("http://localhost:8000/api/sousSpecialite/update/" + this.id, {
+              name: this.name,
+              specialite_id: this.idSpecialite,
+            })
+            .then(() => {
+              this.edit = false;
+              this.name = "";
+              this.specialite = "";
+            });
+          this.$http
+            .get("http://localhost:8000/api/sousSpecialite/getAll")
+            .then((response) => {
+              this.sous_specialites = response.data;
+            });
         });
-      this.$http
-        .get("http://localhost:8000/api/sousSpecialite/getAll")
-        .then((response) => {
-          console.log(response.data);
-          this.specialites = response.data;
-        });
-      // this.$http
-      //   .get("http://localhost:8000/api/specialites/getSpecialite/" + id)
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     this.name = response.data.attributes.name;
-      //   });
-      // console.log(response.data);
     },
     editSpecialite(id) {
       this.edit = true;
@@ -190,16 +198,19 @@ export default {
       this.$http
         .get("http://localhost:8000/api/sousSpecialite/getAll")
         .then((response) => {
-          console.log(response.data);
-          this.specialites = response.data;
+          this.sous_specialites = response.data;
         });
       this.$http
-        .get("http://localhost:8000/api/sousSpecialite/getSpecialite/" + id)
+        .get("http://localhost:8000/api/sousSpecialite/find/" + id)
         .then((response) => {
-          console.log(response.data);
-          this.name = response.data.attributes.name;
+          this.name = response.data.attribute.name;
+          this.specialite = response.data.attribute.specialite;
+          this.idSpecialite = response.data.attribute.specialite_id;
+          this.newSpecialite = {
+            name: this.name,
+            specialite_id: this.idSpecialite,
+          };
         });
-      // this.updateSpecialite(id);
     },
   },
 };
