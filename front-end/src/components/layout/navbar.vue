@@ -19,11 +19,6 @@
           icon: 'fas fa-user',
           child: [
             {
-              href: '/user',
-              title: 'User',
-              hidden: this.$store.getters.isAuthenticated,
-            },
-            {
               href: '/login',
               title: 'Se connecter',
               hidden: !this.$store.getters.isAuthenticated,
@@ -40,9 +35,10 @@
           ],
         },
         {
-          href: '/',
-          title: 'Home',
+          href: '/profile',
+          title: 'Profile',
           icon: 'fas fa-home',
+          hidden: !this.$store.getters.isAuthenticated,
         },
         {
           title: 'Prestataire',
