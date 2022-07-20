@@ -9,12 +9,9 @@
                 <a href="#">
                   <img
                     class="header-logo-image asset-light"
-                    src="dist/images/logo-light.svg"
-                    alt="Logo"
-                  />
-                  <img
-                    class="header-logo-image asset-dark"
-                    src="dist/images/logo-dark.svg"
+                    src="../assets/images/dark-logo.png"
+                    height="250px"
+                    width="150px"
                     alt="Logo"
                   />
                 </a>
@@ -29,63 +26,54 @@
           <div class="container">
             <div class="hero-inner">
               <div class="hero-copy">
-                <h1 class="hero-title mt-0">Landing template for startups</h1>
+                <h1 class="hero-title mt-0">Depanini</h1>
                 <p class="hero-paragraph">
-                  Our landing page template works on all devices, so you only
-                  have to set it up once, and get beautiful results forever.
+                  Notre plateforme web de gestion des contacts des techniciens à
+                  Ras Jebel.
                 </p>
                 <div class="hero-cta">
-                  <a class="button button-primary" href="#">Buy it now</a>
-                  <div class="lights-toggle">
-                    <input
-                      id="lights-toggle"
-                      type="checkbox"
-                      name="lights-toggle"
-                      class="switch"
-                      checked="checked"
-                    />
-                    <label for="lights-toggle" class="text-xs"
-                      ><span
-                        >Turn me <span class="label-text">dark</span></span
-                      ></label
-                    >
-                  </div>
+                  <a class="button button-primary" href="/register"
+                    >S'inscrire</a
+                  >
+                  <a class="button button-primary" href="/login"
+                    >Se connecter</a
+                  >
                 </div>
               </div>
               <div class="hero-media">
                 <div class="header-illustration">
                   <img
                     class="header-illustration-image asset-light"
-                    src="dist/images/header-illustration-light.svg"
+                    src="../../public/dist/images/header-illustration-light.svg"
                     alt="Header illustration"
                   />
                   <img
                     class="header-illustration-image asset-dark"
-                    src="dist/images/header-illustration-dark.svg"
+                    src="../../public/dist/images/header-illustration-dark.svg"
                     alt="Header illustration"
                   />
                 </div>
                 <div class="hero-media-illustration">
                   <img
                     class="hero-media-illustration-image asset-light"
-                    src="dist/images/hero-media-illustration-light.svg"
+                    src="../../public/dist/images/hero-media-illustration-light.svg"
                     alt="Hero media illustration"
                   />
                   <img
                     class="hero-media-illustration-image asset-dark"
-                    src="dist/images/hero-media-illustration-dark.svg"
+                    src="../../public/dist/images/hero-media-illustration-dark.svg"
                     alt="Hero media illustration"
                   />
                 </div>
                 <div class="hero-media-container">
                   <img
                     class="hero-media-image asset-light"
-                    src="dist/images/hero-media-light.svg"
+                    src="../../public/dist/images/hero-media-light.svg"
                     alt="Hero media"
                   />
                   <img
                     class="hero-media-image asset-dark"
-                    src="dist/images/hero-media-dark.svg"
+                    src="../../public/dist/images/hero-media-dark.svg"
                     alt="Hero media"
                   />
                 </div>
@@ -99,40 +87,45 @@
             <div class="features-inner section-inner has-bottom-divider">
               <div class="features-header text-center">
                 <div class="container-sm">
-                  <h2 class="section-title mt-0">The Product</h2>
+                  <h2 class="section-title mt-0">Nos services</h2>
                   <p class="section-paragraph">
-                    Lorem ipsum is common placeholder text used to demonstrate
-                    the graphic elements of a document or visual presentation.
+                    Fournir les contacts des prestataires de Ras Jebel
+                  </p>
+                  <p class="section-paragraph">
+                    Prendre rendez-vous en ligne en un simple clic
+                  </p>
+                  <p class="section-paragraph">
+                    Donner une note à un prestataire
                   </p>
                   <div class="features-image">
                     <img
                       class="features-illustration asset-dark"
-                      src="dist/images/features-illustration-dark.svg"
+                      src="../../public/dist/images/features-illustration-dark.svg"
                       alt="Feature illustration"
                     />
                     <img
                       class="features-box asset-dark"
-                      src="dist/images/features-box-dark.svg"
+                      src="../../public/dist/images/features-box-dark.svg"
                       alt="Feature box"
                     />
                     <img
                       class="features-illustration asset-dark"
-                      src="dist/images/features-illustration-top-dark.svg"
+                      src="../../public/dist/images/features-illustration-top-dark.svg"
                       alt="Feature illustration top"
                     />
                     <img
                       class="features-illustration asset-light"
-                      src="dist/images/features-illustration-light.svg"
+                      src="../../public/dist/images/features-illustration-light.svg"
                       alt="Feature illustration"
                     />
                     <img
                       class="features-box asset-light"
-                      src="dist/images/features-box-light.svg"
+                      src="../../public/dist/images/features-box-light.svg"
                       alt="Feature box"
                     />
                     <img
                       class="features-illustration asset-light"
-                      src="dist/images/features-illustration-top-light.svg"
+                      src="../../public/dist/images/features-illustration-top-light.svg"
                       alt="Feature illustration top"
                     />
                   </div>
@@ -144,22 +137,19 @@
                     <div class="feature-icon">
                       <img
                         class="asset-light"
-                        src="dist/images/feature-01-light.svg"
+                        src="../../public/dist/images/feature-01-light.svg"
                         alt="Feature 01"
                       />
                       <img
                         class="asset-dark"
-                        src="dist/images/feature-01-dark.svg"
+                        src="../../public/dist/images/feature-01-dark.svg"
                         alt="Feature 01"
                       />
                     </div>
                     <div class="feature-content">
-                      <h3 class="feature-title mt-0">Discover</h3>
-                      <p class="text-sm mb-0">
-                        Lorem ipsum dolor sit amet, consecte adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua dui.
-                      </p>
+                      <h3 class="feature-title mt-0">
+                        Maintenance et réparation
+                      </h3>
                     </div>
                   </div>
                 </div>
@@ -168,22 +158,17 @@
                     <div class="feature-icon">
                       <img
                         class="asset-light"
-                        src="dist/images/feature-02-light.svg"
+                        src="../../public/dist/images/feature-02-light.svg"
                         alt="Feature 02"
                       />
                       <img
                         class="asset-dark"
-                        src="dist/images/feature-02-dark.svg"
+                        src="../../public/dist/images/feature-02-dark.svg"
                         alt="Feature 02"
                       />
                     </div>
                     <div class="feature-content">
                       <h3 class="feature-title mt-0">Discover</h3>
-                      <p class="text-sm mb-0">
-                        Lorem ipsum dolor sit amet, consecte adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua dui.
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -192,22 +177,17 @@
                     <div class="feature-icon">
                       <img
                         class="asset-light"
-                        src="dist/images/feature-03-light.svg"
+                        src="../../public/dist/images/feature-03-light.svg"
                         alt="Feature 03"
                       />
                       <img
                         class="asset-dark"
-                        src="dist/images/feature-03-dark.svg"
+                        src="../../public/dist/images/feature-03-dark.svg"
                         alt="Feature 03"
                       />
                     </div>
                     <div class="feature-content">
                       <h3 class="feature-title mt-0">Discover</h3>
-                      <p class="text-sm mb-0">
-                        Lorem ipsum dolor sit amet, consecte adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua dui.
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -220,13 +200,12 @@
           <div class="container-sm">
             <div class="cta-inner section-inner">
               <div class="cta-header text-center">
-                <h2 class="section-title mt-0">Get it and Switch</h2>
-                <p class="section-paragraph">
-                  Lorem ipsum is common placeholder text used to demonstrate the
-                  graphic elements of a document or visual presentation.
-                </p>
+                <h2 class="section-title mt-0">Vous n'avez pas de compte ?</h2>
+                <p class="section-paragraph">Faites vite alors et crée-le</p>
                 <div class="cta-cta">
-                  <a class="button button-primary" href="#">Buy it now</a>
+                  <a class="button button-primary" href="/register"
+                    >S'inscrire</a
+                  >
                 </div>
               </div>
             </div>
@@ -241,12 +220,12 @@
               <a href="#">
                 <img
                   class="asset-light"
-                  src="dist/images/logo-light.svg"
+                  src="../../public/dist/images/logo-light.svg"
                   alt="Logo"
                 />
                 <img
                   class="asset-dark"
-                  src="dist/images/logo-dark.svg"
+                  src="../../public/dist/images/logo-dark.svg"
                   alt="Logo"
                 />
               </a>
