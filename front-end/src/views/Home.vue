@@ -132,7 +132,38 @@
                 </div>
               </div>
               <div class="features-wrap">
-                <div class="feature is-revealing">
+                <div
+                  v-for="item in specialites"
+                  :key="item.id"
+                  class="feature is-revealing"
+                >
+                  <div class="feature-inner">
+                    <div class="feature-icon">
+                      <img
+                        class="asset-light"
+                        src="../../public/dist/images/feature-01-light.svg"
+                        alt="Feature 01"
+                      />
+                      <img
+                        class="asset-dark"
+                        src="../../public/dist/images/feature-01-dark.svg"
+                        alt="Feature 01"
+                      />
+                    </div>
+                    <div class="feature-content">
+                      <h3 class="feature-title mt-0">
+                        {{ item.name }}
+                      </h3>
+
+                      <div v-for="i in item.sous_specialite" :key="i.id">
+                        <a href="/">
+                          {{ i.name }}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="feature is-revealing">
                   <div class="feature-inner">
                     <div class="feature-icon">
                       <img
@@ -190,7 +221,7 @@
                       <h3 class="feature-title mt-0">Discover</h3>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -306,7 +337,15 @@
 
 export default {
   name: "Home",
-  data: () => ({}),
-  created() {},
+  data: () => ({
+    specialites: [],
+  }),
+  created() {
+    this.$http
+      .get("http://localhost:8000/api/specialites/getAll")
+      .then((response) => {
+        this.specialites = response.data;
+      });
+  },
 };
 </script>
