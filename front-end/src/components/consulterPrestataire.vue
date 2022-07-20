@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="mx-auto container" max-width="95%" max-height="500px" tile>
+    <v-card class="mx-auto container" max-width="95%" tile>
       <!-- <v-toolbar color="cyan" dark>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
@@ -88,6 +88,8 @@ export default {
     ],
     prestataire: "",
   }),
-  created() {},
+  created() {
+    console.log(this.$route.params.id);
+  },
 };
 </script>

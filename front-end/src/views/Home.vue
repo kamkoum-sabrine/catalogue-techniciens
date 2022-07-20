@@ -156,9 +156,9 @@
                       </h3>
 
                       <div v-for="i in item.sous_specialite" :key="i.id">
-                        <a href="/">
+                        <button v-on:click="prestataire(i.id)">
                           {{ i.name }}
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -346,6 +346,16 @@ export default {
       .then((response) => {
         this.specialites = response.data;
       });
+  },
+  methods: {
+    prestataire(id) {
+      this.$router.push({
+        name: "consulterPrestataire",
+        params: {
+          id: id,
+        },
+      });
+    },
   },
 };
 </script>
