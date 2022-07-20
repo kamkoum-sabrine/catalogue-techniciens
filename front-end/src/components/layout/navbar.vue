@@ -35,7 +35,7 @@
           ],
         },
         {
-          href: '/profile',
+          href: '/gererProfile',
           title: 'Profile',
           icon: 'fas fa-home',
           hidden: !this.$store.getters.isAuthenticated,
