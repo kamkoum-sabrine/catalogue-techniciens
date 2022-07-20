@@ -41,6 +41,19 @@
                 Email :
                 {{ item.user.email }}
               </li>
+              <li>
+                <v-rating
+                  background-color="#eee"
+                  color="teal"
+                  empty-icon="$mdiStarOutline"
+                  full-icon="$mdiStar"
+                  half-icon="$mdiHeartHalfFull"
+                  hover
+                  length="5"
+                  size="35"
+                  value="3"
+                ></v-rating>
+              </li>
             </ul>
           </v-list-item>
           <v-divider v-if="divider" :key="index" :inset="inset"></v-divider>
