@@ -156,72 +156,15 @@
                       </h3>
 
                       <div v-for="i in item.sous_specialite" :key="i.id">
-                        <button v-on:click="prestataire(i.id)">
+                        <button
+                          v-on:click="prestataire(i.id, i.name, item.name)"
+                        >
                           {{ i.name }}
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- <div class="feature is-revealing">
-                  <div class="feature-inner">
-                    <div class="feature-icon">
-                      <img
-                        class="asset-light"
-                        src="../../public/dist/images/feature-01-light.svg"
-                        alt="Feature 01"
-                      />
-                      <img
-                        class="asset-dark"
-                        src="../../public/dist/images/feature-01-dark.svg"
-                        alt="Feature 01"
-                      />
-                    </div>
-                    <div class="feature-content">
-                      <h3 class="feature-title mt-0">
-                        Maintenance et réparation
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-                <div class="feature is-revealing">
-                  <div class="feature-inner">
-                    <div class="feature-icon">
-                      <img
-                        class="asset-light"
-                        src="../../public/dist/images/feature-02-light.svg"
-                        alt="Feature 02"
-                      />
-                      <img
-                        class="asset-dark"
-                        src="../../public/dist/images/feature-02-dark.svg"
-                        alt="Feature 02"
-                      />
-                    </div>
-                    <div class="feature-content">
-                      <h3 class="feature-title mt-0">Discover</h3>
-                    </div>
-                  </div>
-                </div>
-                <div class="feature is-revealing">
-                  <div class="feature-inner">
-                    <div class="feature-icon">
-                      <img
-                        class="asset-light"
-                        src="../../public/dist/images/feature-03-light.svg"
-                        alt="Feature 03"
-                      />
-                      <img
-                        class="asset-dark"
-                        src="../../public/dist/images/feature-03-dark.svg"
-                        alt="Feature 03"
-                      />
-                    </div>
-                    <div class="feature-content">
-                      <h3 class="feature-title mt-0">Discover</h3>
-                    </div>
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>
@@ -348,11 +291,13 @@ export default {
       });
   },
   methods: {
-    prestataire(id) {
+    prestataire(id, sous_specialite, specialite) {
       this.$router.push({
         name: "consulterPrestataire",
         params: {
           id: id,
+          sous_specialite: sous_specialite,
+          specialite: specialite,
         },
       });
     },
