@@ -49,7 +49,7 @@ class PrestataireController extends Controller
                 "adresse" => $request->adresse,
                 "phone_number" => $request->phone_number,
                 "description" => $request->description,
-                "cin" => $request->cin,
+                "image" => $request->image
             ]
         );
         $User->roles()->updateExistingPivot(2, ['description' => $request->description]);
