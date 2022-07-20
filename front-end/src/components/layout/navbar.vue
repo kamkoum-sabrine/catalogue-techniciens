@@ -35,6 +35,11 @@
           ],
         },
         {
+          href: '/',
+          title: 'Acceuil',
+          icon: 'fas fa-home',
+        },
+        {
           href: '/gererProfile',
           title: 'Profile',
           icon: 'fas fa-home',
