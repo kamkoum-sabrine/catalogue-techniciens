@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 
@@ -21,6 +22,12 @@ class PrestataireController extends Controller
             $prestataire
         );
 
+    }
+    public function getPrestataireParSousSpecialite($id){
+        $role_user = RoleUser::where('sous_specialite',$id)->with('user')->get();
+        return response()->json(
+            $role_user
+        );
     }
     public function accept($id){
         $prestataire = User::find($id);
