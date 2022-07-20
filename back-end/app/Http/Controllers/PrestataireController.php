@@ -24,13 +24,13 @@ class PrestataireController extends Controller
     }
     public function accept($id){
         $prestataire = User::find($id);
-        $prestataire->roles()->updateExistingPivot($id, ['status' => 1]);
+        $prestataire->roles()->updateExistingPivot(2, ['status' => 1]);
                 $prestataire->save();
                 return response()->json('Prestataire accepted',200);
     }
     public function refuse($id){
         $prestataire = User::find($id);
-        $prestataire->roles()->updateExistingPivot($id, ['status' => 2]);
+        $prestataire->roles()->updateExistingPivot(2, ['status' => 2]);
                 $prestataire->save();
                 return response()->json('Prestataire refused',200);
     }
