@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import consulterPrestataire from "./routes/consulterPrestataire";
 import gererClient from "./routes/gererClient";
 import gererProfile from "./routes/gererProfile";
 import gererSousSpecialite from "./routes/gererSousSpecialite";
@@ -32,7 +33,8 @@ const routes = [
     ...gererSpecialite,
     ...gererSousSpecialite,
     ...gererClient,
-    ...gererProfile
+    ...gererProfile,
+    ...consulterPrestataire
 ];
 
 const router = new VueRouter({
