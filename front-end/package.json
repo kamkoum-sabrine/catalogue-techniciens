@@ -21,6 +21,7 @@
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "jquery": "^3.6.0",
+    "material-design-icons-iconfont": "^6.7.0",
     "mutationobserver-shim": "^0.3.7",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",

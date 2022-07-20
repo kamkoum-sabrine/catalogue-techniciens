@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-card class="mx-auto container" max-width="95%" tile>
+    <v-card class="mx-auto container" max-width="95%" tile
+      ><form @submit.prevent="rechercherNom">
+        <input type="search" placeholder="rechercher un prestataire" />
+        <button type="submit">Rechercher</button>
+      </form>
       <v-list three-line>
         <template v-for="(item, index) in prestataire">
           <v-list-item :key="item.id">
@@ -42,7 +46,7 @@
                 {{ item.user.email }}
               </li>
               <li>
-                <v-rating
+                <!-- <v-rating
                   background-color="#eee"
                   color="teal"
                   empty-icon="$mdiStarOutline"
@@ -52,7 +56,7 @@
                   length="5"
                   size="35"
                   value="3"
-                ></v-rating>
+                ></v-rating> -->
               </li>
             </ul>
           </v-list-item>

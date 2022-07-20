@@ -44,6 +44,7 @@ Vue.use(BootstrapIconsPlugin);
 // import Vue from 'vue'
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.use(VueSidebarMenu)
 interceptorsSetup()
 new Vue({
