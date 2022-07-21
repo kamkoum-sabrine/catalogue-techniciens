@@ -199,8 +199,10 @@
               <a href="#">
                 <img
                   class="asset-light"
-                  src="../../public/dist/images/logo-light.svg"
+                  src="../assets/logo.png"
                   alt="Logo"
+                  height="250px"
+                  width="150px"
                 />
                 <img
                   class="asset-dark"
@@ -270,8 +272,9 @@
                 </a>
               </li>
             </ul>
+
             <div class="footer-copyright">
-              &copy; 2018 Switch, all rights reserved
+              &copy; 2022 Switch, all rights reserved
             </div>
           </div>
         </div>

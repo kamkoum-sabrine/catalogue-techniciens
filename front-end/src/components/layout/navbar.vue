@@ -79,7 +79,6 @@
       :collapsed="false"
       style="transition: 0.5s max-width ease !important"
     />
-    <button @click="getGetter">get getters</button>
   </div>
 </template>
 
