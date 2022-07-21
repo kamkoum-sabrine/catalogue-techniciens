@@ -23,7 +23,8 @@
 
             <ul>
               <li>
-                Nom et prénom : {{ item.user.first_name }}
+                Nom et prénom :
+                {{ item.user.first_name }}
                 {{ item.user.last_name }}
               </li>
               <li>
@@ -45,6 +46,17 @@
               <li>
                 Description :
                 {{ item.description }}
+              </li>
+              <li>
+                <v-rating
+                  empty-icon="$mdiStarOutline"
+                  full-icon="$mdiStar"
+                  half-icon="$mdiStarHalfFull"
+                  hover
+                  length="5"
+                  size="12"
+                  value="6.5"
+                ></v-rating>
               </li>
 
               <!-- <v-rating
@@ -102,6 +114,15 @@
                 {{ item.description }}
               </li>
               <li>
+                <v-rating
+                  empty-icon="$mdiStarOutline"
+                  full-icon="$mdiStar"
+                  half-icon="$mdiStarHalfFull"
+                  hover
+                  length="5"
+                  size="64"
+                  value="6.5"
+                ></v-rating>
                 <!-- <v-rating
                   background-color="#eee"
                   color="teal"
