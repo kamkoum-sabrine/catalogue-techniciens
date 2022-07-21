@@ -43,7 +43,11 @@
                 {{ item.user.email }}
               </li>
               <li>
-                <!-- <v-rating
+                Description :
+                {{ item.description }}
+              </li>
+
+              <!-- <v-rating
                   background-color="#eee"
                   color="teal"
                   empty-icon="$mdiStarOutline"
@@ -54,7 +58,6 @@
                   size="35"
                   value="3"
                 ></v-rating> -->
-              </li>
             </ul>
           </v-list-item>
           <v-divider
@@ -93,6 +96,10 @@
               <li>
                 Email :
                 {{ item.email }}
+              </li>
+              <li>
+                Description :
+                {{ item.description }}
               </li>
               <li>
                 <!-- <v-rating
@@ -139,7 +146,7 @@ export default {
     searched: {},
     remove: null,
     recherche: false,
-    prestataireRecherche: [],
+    prestataireRecherche: {},
   }),
   created() {
     if (this.$route.params.idSous_specialite == undefined) {
@@ -161,6 +168,7 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.prestataire = response.data;
+
         // for (let index = 0; index < response.data.length; index++) {
         //   // const element = array[index];
         //   this.prestataire[index] = response.data[index].user;
@@ -181,6 +189,12 @@ export default {
         .then((response) => {
           console.log(response.data.data);
           this.prestataireRecherche = response.data.data;
+          for (let index = 0; index < response.data.data.length; index++) {
+            console.log(response.data.data[index].roles[0].pivot.description);
+            this.prestataireRecherche[index].description =
+              response.data.data[index].roles[0].pivot.description;
+          }
+          console.log(this.prestataireRecherche);
           // this.prestataire = {};
           // console.log(response.data.data.length);
           // console.log(this.prestataire.length);
