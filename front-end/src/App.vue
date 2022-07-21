@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-app>
     <!-- <v-app-bar elevation="4"></v-app-bar> -->
     <!-- <div>
       <v-toolbar

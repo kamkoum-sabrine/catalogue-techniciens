@@ -63,4 +63,17 @@ class PrestataireController extends Controller
         
         return response()->json(["data" => $User], 200);
     }
+
+    public function search(request $request){
+        $search = $request->input('search');
+      
+        $users = User::whereHas('roles', function ($query) use ($search)  {
+            $query->where('first_name', 'LIKE', '%'.$search.'%')
+            ->where('roles.name','=','prestataire')
+                ->where('status','=',1);
+        })->with('roles')->get();
+        // dd($users);
+        return response()->json(["data" => $users], 200);
+
+    }
 }

@@ -370,6 +370,7 @@ export default {
         for (let i = 0; i < response.data.length; i++) {
           // this.roles[i] = response.data[i].name;
           this.roles.push(response.data[i].name);
+          console.log(this.roles);
         }
         console.log(this.roles);
       })
