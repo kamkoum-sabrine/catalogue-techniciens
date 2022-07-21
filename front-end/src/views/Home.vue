@@ -133,8 +133,8 @@
               </div>
               <div class="features-wrap">
                 <div
-                  v-for="item in specialites"
-                  :key="item.id"
+                  v-for="(item, index) in specialites"
+                  :key="index + 'A'"
                   class="feature is-revealing"
                 >
                   <div class="feature-inner">
@@ -155,9 +155,14 @@
                         {{ item.name }}
                       </h3>
 
-                      <div v-for="i in item.sous_specialite" :key="i.id">
+                      <div
+                        v-for="(i, index) in item.sous_specialite"
+                        :key="index + 'B'"
+                      >
                         <button
-                          v-on:click="prestataire(i.id, i.name, item.name)"
+                          v-on:click="
+                            prestataire(i.id, item.id, i.name, item.name)
+                          "
                         >
                           {{ i.name }}
                         </button>
@@ -291,11 +296,12 @@ export default {
       });
   },
   methods: {
-    prestataire(id, sous_specialite, specialite) {
+    prestataire(id, idSpecialite, sous_specialite, specialite) {
       this.$router.push({
         name: "consulterPrestataire",
         params: {
-          id: id,
+          idSous_specialite: id,
+          idSpecialite: idSpecialite,
           sous_specialite: sous_specialite,
           specialite: specialite,
         },

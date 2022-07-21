@@ -77,7 +77,7 @@ Route::group(['prefix' => '/sousSpecialite'], function () {
 
 });
 Route::group(['prefix' => '/prestataire'], function () {
-    Route::get('/parSousSpecialite/{id}', [PrestataireController::class, 'getPrestataireParSousSpecialite']); 
+    Route::get('/parSousSpecialite/{idSpecialite}{idSousSpecialite}', [PrestataireController::class, 'getPrestataireParSousSpecialite']); 
     Route::post('/search', [PrestataireController::class, 'search']); 
     // Route::get('/find/{id}', [SousSpecialiteController::class, 'findSousSpecialite']); 
    

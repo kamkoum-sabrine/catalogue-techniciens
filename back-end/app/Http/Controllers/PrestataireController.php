@@ -23,8 +23,9 @@ class PrestataireController extends Controller
         );
 
     }
-    public function getPrestataireParSousSpecialite($id){
-        $role_user = RoleUser::where('sous_specialite',$id)->with('user')->get();
+    public function getPrestataireParSousSpecialite($idSpecialite, $idSous_specialite) {
+        $role_user = RoleUser::where('sous_specialite',$idSous_specialite)
+        ->where('specialite',$idSpecialite)->with('user')->get();
         return response()->json(
             $role_user
         );
@@ -66,11 +67,13 @@ class PrestataireController extends Controller
 
     public function search(request $request){
         $search = $request->input('search');
+        $sous_specialite = $request->input('sous_specialite');
       
-        $users = User::whereHas('roles', function ($query) use ($search)  {
+        $users = User::whereHas('roles', function ($query) use ($search, $sous_specialite)  {
             $query->where('first_name', 'LIKE', '%'.$search.'%')
             ->where('roles.name','=','prestataire')
-                ->where('status','=',1);
+                ->where('status','=',1)
+                ->where('sous_specialite','=',$sous_specialite);
         })->with('roles')->get();
         // dd($users);
         return response()->json(["data" => $users], 200);

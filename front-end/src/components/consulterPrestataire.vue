@@ -2,32 +2,16 @@
   <div>
     <v-card class="mx-auto container" max-width="95%" tile
       ><form @submit.prevent="rechercherNom">
-        <input
-          type="search"
-          v-model="search"
-          placeholder="rechercher un prestataire"
-        />
+        <input v-model="search" placeholder="rechercher un prestataire" />
         <button type="submit">Rechercher</button>
       </form>
       <v-list three-line>
         <template v-for="(item, index) in prestataire">
-          <v-list-item :key="item.id">
+          <v-list-item :key="index">
             <v-list-item-avatar height="200" width="200">
               <v-img :src="item.user.image"></v-img>
             </v-list-item-avatar>
 
-            <!-- <v-list-item-content>
-              Nom
-              <v-list-item-title
-                v-html="item.user.first_name"
-              ></v-list-item-title>
-              <v-list-item-subtitle
-                v-html="item.description"
-              ></v-list-item-subtitle>
-              <v-list-item-subtitle
-                v-html="item.user.phone_number"
-              ></v-list-item-subtitle>
-            </v-list-item-content> -->
             <ul>
               <li>
                 Nom et prénom : {{ item.user.first_name }}
@@ -64,7 +48,11 @@
               </li>
             </ul>
           </v-list-item>
-          <v-divider v-if="divider" :key="index" :inset="inset"></v-divider>
+          <v-divider
+            v-if="divider"
+            :key="index + 'C'"
+            :inset="inset"
+          ></v-divider>
 
           <!-- <v-divider :key="item.id"></v-divider> -->
         </template>
@@ -81,6 +69,7 @@ export default {
     ],
     prestataire: [],
     idSous_specialite: null,
+    idSpecialite: null,
     nomSousSpecialite: "",
     nomspecialite: "",
     divider: true,
@@ -88,18 +77,20 @@ export default {
     search: "",
   }),
   created() {
-    if (this.$route.params.id == undefined) {
+    if (this.$route.params.idSous_specialite == undefined) {
       this.$router.push({
         name: "Home",
       });
     }
-    this.idSous_specialite = this.$route.params.id;
+    this.idSous_specialite = this.$route.params.idSous_specialite;
+    this.idSpecialite = this.$route.params.idSpecialite;
     this.nomSousSpecialite = this.$route.params.sous_specialite;
     this.nomspecialite = this.$route.params.specialite;
-    console.log(this.$route.params.name);
+    console.log(this.$route.params);
     this.$http
       .get(
         "http://localhost:8000/api/prestataire/parSousSpecialite/" +
+          this.idSpecialite +
           this.idSous_specialite
       )
       .then((response) => {
