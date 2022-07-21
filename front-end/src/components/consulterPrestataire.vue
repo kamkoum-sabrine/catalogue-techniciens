@@ -2,7 +2,11 @@
   <div>
     <v-card class="mx-auto container" max-width="95%" tile
       ><form @submit.prevent="rechercherNom">
-        <input type="search" placeholder="rechercher un prestataire" />
+        <input
+          type="search"
+          v-model="search"
+          placeholder="rechercher un prestataire"
+        />
         <button type="submit">Rechercher</button>
       </form>
       <v-list three-line>
@@ -81,6 +85,7 @@ export default {
     nomspecialite: "",
     divider: true,
     inset: true,
+    search: "",
   }),
   created() {
     if (this.$route.params.id == undefined) {
@@ -101,6 +106,16 @@ export default {
         console.log(response.data);
         this.prestataire = response.data;
       });
+  },
+  methods: {
+    rechercherNom() {
+      console.log(this.search);
+      this.$http
+        .post("http://localhost:8000/api/prestataire/search", this.search)
+        .then((response) => {
+          console.log(response.data);
+        });
+    },
   },
 };
 </script>
