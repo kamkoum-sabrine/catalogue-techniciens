@@ -67,12 +67,14 @@ class PrestataireController extends Controller
 
     public function search(request $request){
         $search = $request->input('search');
+        $specialite = $request->input('specialite');
         $sous_specialite = $request->input('sous_specialite');
       
-        $users = User::whereHas('roles', function ($query) use ($search, $sous_specialite)  {
+        $users = User::whereHas('roles', function ($query) use ($search,$specialite, $sous_specialite)  {
             $query->where('first_name', 'LIKE', '%'.$search.'%')
             ->where('roles.name','=','prestataire')
                 ->where('status','=',1)
+                ->where('specialite','=',$specialite)
                 ->where('sous_specialite','=',$sous_specialite);
         })->with('roles')->get();
         // dd($users);
