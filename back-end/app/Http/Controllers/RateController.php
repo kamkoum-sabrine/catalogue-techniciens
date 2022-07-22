@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rate;
+use App\Models\User;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use App\Http\Requests\RateRequest;
 
@@ -25,6 +27,14 @@ class RateController extends Controller
             $rate->client_id = $request->user()->id;
             $rate->prestataire_id = $request->input('prestataire_id');
             $rate->save();  
+            // $user_role = RoleUser::where('user_id', $request->input('prestataire_id'))->get();
+            // dd($user_role->moyenne);
+            $moy =Rate::where('prestataire_id', $request->input('prestataire_id'))->sum('note') / Rate::where('prestataire_id', $request->input('prestataire_id'))->count('note');
+
+            $prestataire = User::find($request->input('prestataire_id'));
+            $prestataire->roles()->updateExistingPivot(2, ['moyenne' => $moy]);
+                    $prestataire->save();
+            
             return response()->json(["data" => $rate], 201);
     }
 
@@ -55,6 +65,7 @@ class RateController extends Controller
         $Rate->delete();
         return response()->json([], 200);
     }
+    
  
 
 

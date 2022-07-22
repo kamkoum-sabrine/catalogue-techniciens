@@ -23,6 +23,7 @@ class RoleUser extends Migration
             $table->string('description')->nullable();
             $table->foreignId('specialite')->nullable();
             $table->foreignId('sous_specialite')->nullable();
+            $table->string('moyenne')->nullable();
 
             
         });
