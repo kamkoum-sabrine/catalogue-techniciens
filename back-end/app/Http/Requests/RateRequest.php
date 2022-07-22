@@ -25,7 +25,7 @@ class RateRequest extends FormRequest
     {
         return [
             
-            "note"=> "required|numeric|between:0.0,10.0",
+            "note"=> "required|numeric|between:0.0,5.0",
         ];
     }
 }

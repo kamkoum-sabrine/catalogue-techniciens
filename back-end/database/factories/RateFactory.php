@@ -17,7 +17,7 @@ class RateFactory extends Factory
         return [
             'client_id' => User::get('id')->random(),
             'prestataire_id' => User::get('id')->random(),
-            'note' => 8,
+            'note' => 5,
         ];
     }
 }
