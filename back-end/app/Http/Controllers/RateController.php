@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rate;
 use Illuminate\Http\Request;
+use App\Http\Requests\RateRequest;
 
 class RateController extends Controller
 {
@@ -15,5 +16,17 @@ class RateController extends Controller
         return response()->json($rates, 200);
     }
 
-    
+    public function create(RateRequest $request){
+
+            $rate = new Rate();
+            $rate->note = $request->input('note');
+            $rate->client_id = $request->input('client_id');
+            $rate->prestataire_id = $request->input('prestataire_id');
+            $rate->save();  
+            return response()->json(["data" => $rate], 201);
+    }
+ 
+
+
+
 }

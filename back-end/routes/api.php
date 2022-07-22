@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => '/notes'], function () {
         // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
         Route::get('/show',[RateController::class, 'show']);
+        Route::post('/create',[RateController::class, 'create']);
         
     
     });
