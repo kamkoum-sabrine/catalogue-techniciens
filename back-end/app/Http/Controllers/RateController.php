@@ -25,6 +25,22 @@ class RateController extends Controller
             $rate->save();  
             return response()->json(["data" => $rate], 201);
     }
+
+    public function update(RateRequest $request, $id){
+
+        $Rate = Rate::find($id);
+        if (!$Rate) {
+            return response()->json([
+                "message" => " Note not found"
+            ], 404);
+        }
+        $Rate->update(
+            [
+                "note" => $request->note,
+            ]
+        );
+        return response()->json(["data" => $Rate], 200);
+}
  
 
 

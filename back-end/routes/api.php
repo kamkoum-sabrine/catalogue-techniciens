@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => '/notes'], function () {
         Route::get('/show',[RateController::class, 'show']);
         Route::post('/create',[RateController::class, 'create']);
+        Route::put('/update/{id}',[RateController::class, 'update']);
     });
     
     Route::post('/sign-out', [AuthentificationController::class, 'logout']);
