@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RateController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SpecialiteController;
@@ -56,6 +57,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/delete/{id}', [SousSpecialiteController::class, 'delete']); 
         Route::get('/getAll', [SousSpecialiteController::class, 'getAll']); 
        
+    
+    });
+    Route::group(['prefix' => '/notes'], function () {
+        // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
+        Route::get('/show',[RateController::class, 'show']);
+        
     
     });
     
