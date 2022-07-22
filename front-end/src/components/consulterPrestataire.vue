@@ -21,7 +21,7 @@
               <v-img :src="item.user.image"></v-img>
             </v-list-item-avatar>
 
-            <ul>
+            <ul type="none">
               <li>
                 Nom et prénom :
                 {{ item.user.first_name }}
@@ -47,29 +47,13 @@
                 Description :
                 {{ item.description }}
               </li>
-              <li>
+              <li style="margin-left: 500px">
                 <v-rating
-                  empty-icon="$mdiStarOutline"
-                  full-icon="$mdiStar"
-                  half-icon="$mdiStarHalfFull"
-                  hover
-                  length="5"
-                  size="12"
-                  value="6.5"
+                  v-model="rating"
+                  @input="getRate(item.user.id)"
+                  value="rating"
                 ></v-rating>
               </li>
-
-              <!-- <v-rating
-                  background-color="#eee"
-                  color="teal"
-                  empty-icon="$mdiStarOutline"
-                  full-icon="$mdiStar"
-                  half-icon="$mdiHeartHalfFull"
-                  hover
-                  length="5"
-                  size="35"
-                  value="3"
-                ></v-rating> -->
             </ul>
           </v-list-item>
           <v-divider
@@ -113,27 +97,12 @@
                 Description :
                 {{ item.description }}
               </li>
-              <li>
+              <li style="margin-left: 500px">
                 <v-rating
-                  empty-icon="$mdiStarOutline"
-                  full-icon="$mdiStar"
-                  half-icon="$mdiStarHalfFull"
-                  hover
-                  length="5"
-                  size="64"
-                  value="6.5"
+                  v-model="rating"
+                  @input="getRate(item.id)"
+                  value="rating"
                 ></v-rating>
-                <!-- <v-rating
-                  background-color="#eee"
-                  color="teal"
-                  empty-icon="$mdiStarOutline"
-                  full-icon="$mdiStar"
-                  half-icon="$mdiHeartHalfFull"
-                  hover
-                  length="5"
-                  size="35"
-                  value="3"
-                ></v-rating> -->
               </li>
             </ul>
           </v-list-item>
@@ -142,8 +111,6 @@
             :key="index + 'C'"
             :inset="inset"
           ></v-divider>
-
-          <!-- <v-divider :key="item.id"></v-divider> -->
         </template>
       </v-list>
     </v-card>
@@ -168,6 +135,7 @@ export default {
     remove: null,
     recherche: false,
     prestataireRecherche: {},
+    rating: 0,
   }),
   created() {
     if (this.$route.params.idSous_specialite == undefined) {
@@ -216,19 +184,18 @@ export default {
               response.data.data[index].roles[0].pivot.description;
           }
           console.log(this.prestataireRecherche);
-          // this.prestataire = {};
-          // console.log(response.data.data.length);
-          // console.log(this.prestataire.length);
-          // this.remove = this.prestataire.length - response.data.data.length;
-          // for (let index = 0; index < this.prestataire.length; index++) {
-          //   this.prestataire[index] = {};
-          // }
-          // console.log(this.prestataire);
-          // for (let index = 0; index < response.data.data.length; index++) {
-          //   this.prestataire[index] = response.data.data[index];
-          // }
-
-          // this.prestataire.splice(this.remove, this.prestataire.length);
+        });
+    },
+    getRate(idPrestataire) {
+      console.log(this.rating);
+      let newRate = {
+        prestataire_id: idPrestataire,
+        note: this.rating,
+      };
+      this.$http
+        .post("http://localhost:8000/api/notes/create", newRate)
+        .then((response) => {
+          console.log(response.data);
         });
     },
   },
