@@ -19,8 +19,10 @@ class RateController extends Controller
     public function create(RateRequest $request){
 
             $rate = new Rate();
+        // $idClient = $request->user()->id; 
+        // dd($idClient);
             $rate->note = $request->input('note');
-            $rate->client_id = $request->input('client_id');
+            $rate->client_id = $request->user()->id;
             $rate->prestataire_id = $request->input('prestataire_id');
             $rate->save();  
             return response()->json(["data" => $rate], 201);
