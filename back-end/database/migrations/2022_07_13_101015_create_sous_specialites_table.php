@@ -17,7 +17,7 @@ class CreateSousSpecialitesTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('specialite_id');
-            $table->foreign('specialite_id')->references('id')->on('specialites')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('specialite_id')->references('id')->on('specialites')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
