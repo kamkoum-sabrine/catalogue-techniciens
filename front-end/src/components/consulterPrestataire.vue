@@ -49,6 +49,7 @@
               </li>
               <li style="margin-left: 500px">
                 <v-rating
+                  v-if="client"
                   v-model="rating"
                   @input="getRate(item.user.id)"
                   value="rating"
@@ -99,6 +100,7 @@
               </li>
               <li style="margin-left: 500px">
                 <v-rating
+                  v-if="client"
                   v-model="rating"
                   @input="getRate(item.id)"
                   value="rating"
@@ -136,8 +138,11 @@ export default {
     recherche: false,
     prestataireRecherche: {},
     rating: 0,
+    client: false,
   }),
   created() {
+    console.log(this.$store.getters.isClient);
+    this.client = this.$store.getters.isClient;
     if (this.$route.params.idSous_specialite == undefined) {
       this.$router.push({
         name: "Home",
