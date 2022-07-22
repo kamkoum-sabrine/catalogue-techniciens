@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RateFactory extends Factory
@@ -14,7 +15,9 @@ class RateFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'client_id' => User::get('id')->random(),
+            'prestataire_id' => User::get('id')->random(),
+            'note' => 8,
         ];
     }
 }

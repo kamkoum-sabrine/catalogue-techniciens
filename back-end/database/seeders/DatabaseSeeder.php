@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\SousSpecialite;
 use Illuminate\Database\Seeder;
+use Database\Seeders\RateSeeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\RoleUserSeeder;
 use Database\Seeders\SpecialiteSeeder;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SpecialiteSeeder::class);
         $this->call(SousSpecialiteSeeder::class);
         $this->call(RoleUserSeeder::class);
+        $this->call(RateSeeder::class);
          
         
     }
