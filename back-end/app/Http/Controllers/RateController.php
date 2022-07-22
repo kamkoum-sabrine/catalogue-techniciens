@@ -42,7 +42,19 @@ class RateController extends Controller
             ]
         );
         return response()->json(["data" => $Rate], 200);
-}
+    }
+
+    public function delete($id){
+        $Rate = Rate::find($id);
+        if (!$Rate) {
+            return response()->json([
+                'type' => 'Rate',
+                'message' => 'Note non trouvée'
+            ], 404);
+        }
+        $Rate->delete();
+        return response()->json([], 200);
+    }
  
 
 
