@@ -1,7 +1,8 @@
 <template>
-  <div data-app>
-    <!-- <v-app-bar elevation="4"></v-app-bar> -->
-    <!-- <div>
+  <v-app>
+    <div data-app>
+      <!-- <v-app-bar elevation="4"></v-app-bar> -->
+      <!-- <div>
       <v-toolbar
         dark
         src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
@@ -15,10 +16,11 @@
         </v-btn>
       </v-toolbar>
     </div>-->
-    <navbar />
+      <navbar />
 
-    <router-view></router-view>
-  </div>
+      <router-view></router-view>
+    </div>
+  </v-app>
 </template>
 
 <script>

@@ -36,6 +36,16 @@
                 {{ nomSousSpecialite }}
               </li>
               <li>
+                <v-btn
+                  class="ma-2"
+                  color="orange darken-2"
+                  dark
+                  @click="toDetails(item.user.id)"
+                >
+                  <v-icon dark right> mdi-arrow-right </v-icon>More details
+                </v-btn>
+              </li>
+              <!-- <li>
                 Numéro de télephone:
                 {{ item.user.phone_number }}
               </li>
@@ -53,7 +63,7 @@
                   @input="getRate(item.user.id)"
                   value="rating"
                 ></v-rating>
-              </li>
+              </li> -->
             </ul>
           </v-list-item>
           <v-divider
@@ -86,6 +96,16 @@
                 {{ nomSousSpecialite }}
               </li>
               <li>
+                <v-btn
+                  class="ma-2"
+                  color="orange darken-2"
+                  dark
+                  @click="toDetails(item.id)"
+                >
+                  <v-icon dark right> mdi-arrow-right </v-icon>More details
+                </v-btn>
+              </li>
+              <!-- <li>
                 Numéro de télephone:
                 {{ item.phone_number }}
               </li>
@@ -103,7 +123,7 @@
                   @input="getRate(item.id)"
                   value="rating"
                 ></v-rating>
-              </li>
+              </li> -->
             </ul>
           </v-list-item>
           <v-divider
@@ -200,6 +220,14 @@ export default {
         .then((response) => {
           console.log(response.data);
         });
+    },
+    toDetails(id) {
+      this.$router.push({
+        name: "moreDetailsPrestataires",
+        params: {
+          id: id,
+        },
+      });
     },
   },
 };
