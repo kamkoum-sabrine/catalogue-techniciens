@@ -1,10 +1,6 @@
 <template>
   <div>
     <v-card class="mx-auto container" max-width="95%" tile>
-      <!-- <form @submit.prevent="rechercherNom">
-        <input v-model="search" placeholder="rechercher un prestataire" />
-        <button type="submit">Rechercher</button>
-      </form> -->
       <form class="example" @submit.prevent="rechercherNom">
         <input
           type="text"
@@ -40,7 +36,7 @@
                   class="ma-2"
                   color="orange darken-2"
                   dark
-                  @click="toDetails(item.user.id)"
+                  @click="toDetails(item.user, item.description, item.moyenne)"
                 >
                   <v-icon dark right> mdi-arrow-right </v-icon>More details
                 </v-btn>
@@ -100,7 +96,7 @@
                   class="ma-2"
                   color="orange darken-2"
                   dark
-                  @click="toDetails(item.id)"
+                  @click="toDetails(item, item.description, item.moyenne)"
                 >
                   <v-icon dark right> mdi-arrow-right </v-icon>More details
                 </v-btn>
@@ -221,11 +217,15 @@ export default {
           console.log(response.data);
         });
     },
-    toDetails(id) {
+    toDetails(prestataire, description, moyenne) {
       this.$router.push({
         name: "moreDetailsPrestataires",
         params: {
-          id: id,
+          prestataire: prestataire,
+          specialite: this.nomspecialite,
+          sous_specialite: this.nomSousSpecialite,
+          description: description,
+          moyenne: moyenne,
         },
       });
     },
