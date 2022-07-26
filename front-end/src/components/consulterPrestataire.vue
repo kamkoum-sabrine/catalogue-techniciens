@@ -47,9 +47,8 @@
                 Description :
                 {{ item.description }}
               </li>
-              <li style="margin-left: 500px">
+              <li v-if="client" style="margin-left: 500px">
                 <v-rating
-                  v-if="client"
                   v-model="rating"
                   @input="getRate(item.user.id)"
                   value="rating"
@@ -98,9 +97,8 @@
                 Description :
                 {{ item.description }}
               </li>
-              <li style="margin-left: 500px">
+              <li v-if="client" style="margin-left: 500px">
                 <v-rating
-                  v-if="client"
                   v-model="rating"
                   @input="getRate(item.id)"
                   value="rating"
