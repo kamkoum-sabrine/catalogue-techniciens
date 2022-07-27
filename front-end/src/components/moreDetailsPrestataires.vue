@@ -104,9 +104,7 @@ export default {
       };
       this.$http
         .post("http://localhost:8000/api/notes/create", newRate)
-        .then((response) => {
-          console.log(response.data);
-        });
+        .then(() => {});
     },
   },
   created() {
@@ -115,15 +113,12 @@ export default {
         name: "Home",
       });
     }
-    console.log(this.$route.params.prestataire);
-    console.log(this.$route.params.specialite);
-    console.log(this.$route.params.sous_specialite);
+
     this.nomSousSpecialite = this.$route.params.sous_specialite;
     this.nomspecialite = this.$route.params.specialite;
     this.prestataire = this.$route.params.prestataire;
     this.description = this.$route.params.description;
     this.moyenne = this.$route.params.moyenne;
-    console.log(this.moyenne);
   },
 };
 </script>
