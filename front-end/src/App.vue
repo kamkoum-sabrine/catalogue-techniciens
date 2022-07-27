@@ -1,70 +1,26 @@
 <template>
-  <div>
-    <!-- <v-app-bar elevation="4"></v-app-bar> -->
-    <div>
+  <v-app>
+    <div data-app>
+      <!-- <v-app-bar elevation="4"></v-app-bar> -->
+      <!-- <div>
       <v-toolbar
         dark
         src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
       >
         <v-toolbar-title>depanini</v-toolbar-title>
-        <!-- <img src="./assets/logo.png" /> -->
-        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+        
         <v-spacer></v-spacer>
 
         <v-btn icon>
           <v-icon>mdi-export</v-icon>
         </v-btn>
       </v-toolbar>
+    </div>-->
+      <navbar />
+
+      <router-view></router-view>
     </div>
-    <navbar />
-    <!-- <sidebar-menu :menu="menu" :width="'200px'" /> -->
-    <!-- <sidebar-menu
-      class="position-fixed"
-      @item-click="onItemClick"
-      :show-one-child="true"
-      @toggle-collapse="collapse = !collapse"
-      :width="'200px'"
-      :menu="[
-        {
-          header: 'Main Navigation',
-          hiddenOnCollapse: true,
-        },
-        {
-          title: this.$store.getters.authUser
-            ? !null
-            : this.$store.getters.first_name,
-          icon: 'fas fa-user',
-          child: [
-            {
-              href: '/user',
-              title: 'User',
-            },
-            {
-              href: '/login',
-              title: 'Se connecter',
-            },
-            {
-              href: '/register',
-              title: 'S\'inscrire',
-            },
-            {
-              title: 'Logout',
-            },
-          ],
-        },
-        {
-          href: '/',
-          title: 'Home',
-          icon: 'fas fa-home',
-        },
-      ]"
-      :collapsed="false"
-      style="transition: 0.5s max-width ease !important"
-    />
-    <button @click="getGetter">get getters</button>
-    <a href="/login">Login</a> -->
-    <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>

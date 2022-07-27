@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import consulterPrestataire from "./routes/consulterPrestataire";
 import gererClient from "./routes/gererClient";
 import gererProfile from "./routes/gererProfile";
 import gererSousSpecialite from "./routes/gererSousSpecialite";
@@ -8,6 +9,7 @@ import gererSpecialite from "./routes/gererSpecialite";
 
 import Login from "./routes/login";
 import managePrestataires from "./routes/managePrestataires";
+import moreDetailsPrestataires from "./routes/moreDetailsPrestataires";
 import Register from "./routes/register";
 Vue.use(VueRouter);
 
@@ -32,7 +34,9 @@ const routes = [
     ...gererSpecialite,
     ...gererSousSpecialite,
     ...gererClient,
-    ...gererProfile
+    ...gererProfile,
+    ...consulterPrestataire,
+    ...moreDetailsPrestataires
 ];
 
 const router = new VueRouter({

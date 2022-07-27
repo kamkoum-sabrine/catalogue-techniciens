@@ -50,7 +50,15 @@ class User extends Authenticatable
     ];
 
     public function roles(){
-        return $this->belongsToMany('App\Models\Role')->withPivot(['description','status','specialite','sous_specialite']);}
+        return $this->belongsToMany('App\Models\Role')->withPivot(['description','status','specialite','sous_specialite','moyenne']);
+    }
+    public function client(){
+        return $this->belongsToMany('App\Models\User')->withPivot(['note']);
+    }
+    public function prestataire()
+    {
+        return $this->belongsToMany(User::class)->using(Rate::class);
+    }
 
     
 }

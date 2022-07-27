@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RateController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SpecialiteController;
@@ -40,7 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/desactivate/{id}', [ClientController::class, 'DesactivateAccount']);
     });
     Route::group(['prefix' => '/specialites'], function () {
-        // Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
+      
         Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
         Route::post('/create',[SpecialiteController::class, 'create']);
         Route::put('/update/{id}',[SpecialiteController::class, 'update']);
@@ -49,7 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     });
     Route::group(['prefix' => '/sousSpecialite'], function () {
-        // Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
+       
         Route::get('/find/{id}', [SousSpecialiteController::class, 'findSousSpecialite']); 
         Route::post('/create', [SousSpecialiteController::class, 'create']); 
         Route::put('/update/{id}', [SousSpecialiteController::class, 'update']); 
@@ -57,6 +58,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/getAll', [SousSpecialiteController::class, 'getAll']); 
        
     
+    });
+    Route::group(['prefix' => '/notes'], function () {
+        Route::get('/show',[RateController::class, 'show']);
+        Route::post('/create',[RateController::class, 'create']);
+        Route::put('/update/{id}',[RateController::class, 'update']);
+        Route::delete('/delete/{id}',[RateController::class, 'delete']);
     });
     
     Route::post('/sign-out', [AuthentificationController::class, 'logout']);
@@ -67,12 +74,19 @@ Route::group(['prefix' => '/roles'], function () {
 });
 Route::group(['prefix' => '/specialites'], function () {
     Route::get('/getAll', [SpecialiteController::class, 'getAll']); 
-    // Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
+   
 
 });
 Route::group(['prefix' => '/sousSpecialite'], function () {
     Route::get('/index/{name}', [SousSpecialiteController::class, 'index']); 
-    // Route::get('/find/{id}', [SousSpecialiteController::class, 'findSousSpecialite']); 
+  
+   
+
+});
+Route::group(['prefix' => '/prestataire'], function () {
+    Route::get('/parSousSpecialite/{idSpecialite}{idSousSpecialite}', [PrestataireController::class, 'getPrestataireParSousSpecialite']); 
+    Route::post('/search', [PrestataireController::class, 'search']); 
+
    
 
 });
@@ -80,7 +94,5 @@ Route::group(['prefix' => '/sousSpecialite'], function () {
 
 
 Route::post('/login', [AuthentificationController::class, 'login']);
-// Route::get('/role/getAll', [RoleController::class, 'getAll']);
-// Route::get('/specialite/getAll', [RoleController::class, 'getAll']);
 Route::post('/register', [AuthentificationController::class, 'register']);
 Route::get('/unique/{id}',[AuthenticationController::class, 'unique']);

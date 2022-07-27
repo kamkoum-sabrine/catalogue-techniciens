@@ -79,7 +79,6 @@
           </div>
         </v-col>
       </v-row>
-      <button @click="getGetter">get getters</button>
     </v-container>
   </div>
 </template>

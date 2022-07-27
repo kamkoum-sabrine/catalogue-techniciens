@@ -19,7 +19,11 @@
           <td>{{ item.nomsousspecialite }}</td>
           <td>
             <div>
-              <button @click="accept(item.id)" color="success">Accept</button>
+              <i class="fa-solid fa-check"></i>
+
+              <button @click="accept(item.id)" color="success">
+                <v-icon disabled> mdi-checkbox-marked-circle </v-icon>Accept
+              </button>
             </div>
             <div>
               <button @click="decline(item.id)" color="success">Decline</button>
@@ -83,12 +87,13 @@ export default {
   methods: {
     accept(id) {
       console.log(id);
-      this.$http
-        .put("http://localhost:8000/api/prestataire/accept/" + id)
-        .then((response) => {
-          console.log(response.data);
-          this.accepted = true;
-        });
+      if (confirm("Etes-vous sur d'accepter ce prestataire ?"))
+        this.$http
+          .put("http://localhost:8000/api/prestataire/accept/" + id)
+          .then((response) => {
+            console.log(response.data);
+            this.accepted = true;
+          });
     },
     decline(id) {
       console.log(id);
