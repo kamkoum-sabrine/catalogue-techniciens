@@ -7,6 +7,8 @@
           <th class="text-left">Prénom</th>
           <th class="text-left">Spécialité</th>
           <th class="text-left">Sous spécialité</th>
+          <th class="text-left">Date d'inscription</th>
+          <th class="text-left">Date de dernier paiement</th>
           <th class="text-left">Action</th>
         </tr>
       </thead>
@@ -14,9 +16,12 @@
         <tr v-for="item in items" :key="item.id">
           <td>{{ item.first_name }}</td>
           <td>{{ item.last_name }}</td>
+
           <!-- <td>{{ item.email }}</td> -->
           <td>{{ item.nomspecialite }}</td>
           <td>{{ item.nomsousspecialite }}</td>
+          <td>{{ item.created_at }}</td>
+          <td>{{ item.updated_at }}</td>
           <td>
             <div>
               <i class="fa-solid fa-check"></i>
