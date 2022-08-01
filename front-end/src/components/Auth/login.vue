@@ -127,6 +127,7 @@ export default {
         console.log(e.response.data.data.error);
       }
       console.log(this.$store.getters.authStatus);
+      console.log(this.$store.getters.authMessage);
 
       if (this.$store.getters.authStatus == 2) {
         console.log(this.$store.getters.authStatus);
