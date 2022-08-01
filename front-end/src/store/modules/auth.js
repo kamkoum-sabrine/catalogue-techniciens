@@ -102,37 +102,12 @@ const actions = {
             axios
                 .post("/login", payload)
                 .then((response) => {
-                    if (response.status == 200) {
+                    console.log(response);
+                    if (response.data.success == true) {
                         console.log(response.data.data.isAdmin)
-                        //         commit("setLoggedIn", true);
-                        //         commit("setAuthUser", response.data.user);
-                        //         commit("setToken", response.data.token);
-                        //         commit("setStatus", response.data.status);
-                        //         commit("setRoles", response.data.roles);
-                        //         // commit("setResponsability", response.data.responsability);
-                        //         commit("setAuthStatus", 1);
-                        //         commit("setAdmin", response.data.admin);
-                        //         commit("setPrestataire", response.data.prestataire);
-                        //         commit("setClient", response.data.client);
-                        //         console.log(response)
-                        //     }
-                        //     else {
-                        //         console.log(response)
-                        //     }
-                        //     // commit("setLoggedIn", true);
-                        //     // commit("setAuthUser", response.data.user);
-                        //     // commit("setToken", response.data.token);
-                        //     // resolve(response);
 
-                        //     router.push("/");
-                        // })
-                        // .catch((error) => {
-                        //     console.log(error)
-                        //     commit('setAuthStatus', 2);
-                        //     commit('setAuthMessage', error.response.data.data.error);
-                        // });
                         this.tkn = response.data.data.token;
-                        // Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.tkn;
+
                         localStorage.setItem("token", this.tkn);
                         commit("setAdmin", response.data.data.isAdmin);
                         commit("setPrestataire", response.data.data.isPrestataire);
@@ -142,11 +117,16 @@ const actions = {
                         commit("setLoggedIn", true);
 
                         commit("setToken", response.data.data.token);
+                        router.push("/");
                     } else {
-                        console.log("jawna behi nai");
+
+
+                        commit('setAuthStatus', 2);
+                        commit('setAuthMessage', 'Merci de verifier vos identifiants! '); // this is the main part. Use the response property from the error object
+
                     }
 
-                    router.push("/");
+
                 }).catch(function (error) {
                     console.log(error.response.data.data.error);
                     commit('setAuthStatus', 2);
