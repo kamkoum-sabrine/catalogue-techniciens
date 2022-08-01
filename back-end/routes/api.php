@@ -94,5 +94,6 @@ Route::group(['prefix' => '/prestataire'], function () {
 
 
 Route::post('/login', [AuthentificationController::class, 'login']);
+Route::put('/desactivate', [PrestataireController::class, 'desactivateAccount']);
 Route::post('/register', [AuthentificationController::class, 'register']);
 Route::get('/unique/{id}',[AuthenticationController::class, 'unique']);

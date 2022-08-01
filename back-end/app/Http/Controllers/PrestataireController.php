@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RoleUser;
 use Illuminate\Http\Request;
@@ -78,6 +79,28 @@ class PrestataireController extends Controller
                 ->where('sous_specialite','=',$sous_specialite);
         })->with('roles')->get();
         // dd($users);
+        return response()->json(["data" => $users], 200);
+
+    }
+
+    public function desactivateAccount( request $request){
+        $users = User::whereHas('roles', function ($query) {
+           
+            $query->where('roles.name','=','prestataire')
+                ->where('status','=',1);
+              
+        })->select('id','created_at')->get();
+      foreach ($users as $u) {
+       
+        $mytime = Carbon::now();
+        if ($mytime == $u->created_at->addYear() ){
+          
+            $blocked = User::find($u->id);
+        $blocked->roles()->updateExistingPivot(2, ['status' => 0]);
+           
+        }
+       
+      }
         return response()->json(["data" => $users], 200);
 
     }
