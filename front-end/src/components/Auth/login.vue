@@ -100,6 +100,9 @@ export default {
       },
     };
   },
+  created() {
+    this.$http.put("http://localhost:8000/api/desactivate").then(() => {});
+  },
   methods: {
     ...mapActions(["login"]),
     logIn() {
