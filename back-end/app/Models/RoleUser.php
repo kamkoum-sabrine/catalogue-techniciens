@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Specialite;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,9 @@ class RoleUser extends Pivot
     public $timestamps = false;
     public function user(){
         return $this->hasOne(User::class,'id','user_id');
+    }
+    public function role(){
+        return $this->hasOne(Role::class,'id','role_id');
     }
     public function specialite(){
         return $this->hasOne(Specialite::class,'id','specialite');

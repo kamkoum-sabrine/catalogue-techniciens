@@ -86,19 +86,25 @@ class PrestataireController extends Controller
     }
 
     public function desactivateAccount( request $request){
-        $users = User::whereHas('roles', function ($query) {
+        // $users = RoleUser::whereHas('role', function ($query) {
            
-            $query->where('roles.name','=','prestataire')
-                ->where('status','=',1);
+        //     $query->where('role.name','=','prestataire')
+        //         ->where('status','=',1);
               
-        })->with('roles')->select('id','created_at')->get();
-      
+        // })->with('role')->select('user_id','date_dernier_paiement')->get();
+        $users = RoleUser::where('role_id','=',2)->where('status','=',1)->select('user_id','date_dernier_paiement')->get();
+    //   return response()->json(["data" => $users], 200);
       foreach ($users as $u) {
        
         $mytime = Carbon::now();
-        if ($mytime == $u->created_at->addYear() ){
+        // echo $mytime;
+        // echo gettype($u->date_dernier_paiement);
+        $date = $u->date_dernier_paiement;
+      
+        // echo gettype($date);
+        if ($mytime == $date->addYear() ){
           
-            $blocked = User::find($u->id);
+            $blocked = User::find($u->user_id);
         $blocked->roles()->updateExistingPivot(2, ['status' => 0]);
            
         }
