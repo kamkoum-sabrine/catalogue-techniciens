@@ -16,7 +16,7 @@
           title: this.$store.getters.authUser
             ? !null
             : this.$store.getters.first_name,
-          icon: 'fas fa-user',
+          icon: 'fa-solid fa-user',
           child: [
             {
               href: '/login',
@@ -77,7 +77,10 @@
         },
       ]"
       :collapsed="false"
-      style="transition: 0.5s max-width ease !important"
+      style="
+        transition: 0.5s max-width ease !important;
+        background-color: #ffb74d;
+      "
     />
   </div>
 </template>
@@ -134,5 +137,18 @@ export default {
 };
 </script>
 <style >
+.v-sidebar-menu.vsm_collapsed {
+  background-color: #ffb74d;
+}
+.v-sidebar-menu .vsm--item {
+  background-color: #ffb74d;
+}
+.v-sidebar-menu .vsm--title {
+  color: black;
+}
+.v-sidebar-menu .vsm--icon {
+  color: black;
+  background-color: #ffb84d00;
+}
 </style>
 
