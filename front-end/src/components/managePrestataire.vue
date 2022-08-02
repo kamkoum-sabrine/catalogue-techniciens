@@ -21,7 +21,7 @@
             <td>{{ item.last_name }}</td>
 
             <!-- <td>{{ item.email }}</td> -->
-            <td>{{ item.roles[0].role_user.specialite.name }}</td>
+            <td>{{ item.roles[0].pivot.specialite.name }}</td>
             <td>{{ item.roles[0].role_user.sous_specialite.name }}</td>
             <td>{{ item.created_at }}</td>
             <td>{{ item.roles[0].pivot.date_dernier_paiement }}</td>
@@ -30,12 +30,13 @@
               <div>
                 <button
                   v-if="
-                    item.roles[0].role_user.status == 0 ||
-                    item.roles[0].role_user.status == 2
+                    item.roles[0].pivot.status == 0 ||
+                    item.roles[0].pivot.status == 2
                   "
                   @click="accept(item.id)"
                 >
                   <i class="fa-solid fa-circle-check" style="color: green"></i>
+                  Accepter
                 </button>
               </div>
               <div>
@@ -43,11 +44,11 @@
                   @click="decline(item.id)"
                   style="color: red"
                   v-if="
-                    item.roles[0].role_user.status == 0 ||
-                    item.roles[0].role_user.status == 1
+                    item.roles[0].pivot.status == 0 ||
+                    item.roles[0].pivot.status == 1
                   "
                 >
-                  <i class="fa fa-circle-xmark"></i>
+                  <i class="fa fa-circle-xmark"></i> Refuser
                 </button>
               </div>
 
@@ -74,6 +75,7 @@ export default {
       .get("http://localhost:8000/api/prestataire/show")
       .then((response) => {
         this.items = response.data;
+        console.log(this.items);
       });
   },
   methods: {
