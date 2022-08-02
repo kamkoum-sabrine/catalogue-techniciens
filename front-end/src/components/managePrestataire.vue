@@ -1,45 +1,63 @@
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">Nom</th>
-          <th class="text-left">Prénom</th>
-          <th class="text-left">Spécialité</th>
-          <th class="text-left">Sous spécialité</th>
-          <th class="text-left">Date d'inscription</th>
-          <th class="text-left">Date de dernier paiement</th>
-          <th class="text-left">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in items" :key="item.id">
-          <td>{{ item.first_name }}</td>
-          <td>{{ item.last_name }}</td>
+  <div>
+    <v-toolbar elevation="4"></v-toolbar>
 
-          <!-- <td>{{ item.email }}</td> -->
-          <td>{{ item.nomspecialite }}</td>
-          <td>{{ item.nomsousspecialite }}</td>
-          <td>{{ item.created_at }}</td>
-          <td>{{ item.updated_at }}</td>
-          <td>
-            <div>
-              <i class="fa-solid fa-check"></i>
+    <v-simple-table class="container">
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">Nom</th>
+            <th class="text-left">Prénom</th>
+            <th class="text-left">Spécialité</th>
+            <th class="text-left">Sous spécialité</th>
+            <th class="text-left">Date d'inscription</th>
+            <th class="text-left">Date de dernier paiement</th>
+            <th class="text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in items" :key="item.id">
+            <td>{{ item.first_name }}</td>
+            <td>{{ item.last_name }}</td>
 
-              <button @click="accept(item.id)" color="success">
-                <v-icon disabled> mdi-checkbox-marked-circle </v-icon>Accept
-              </button>
-            </div>
-            <div>
-              <button @click="decline(item.id)" color="success">Decline</button>
-            </div>
+            <!-- <td>{{ item.email }}</td> -->
+            <td>{{ item.roles[0].role_user.specialite.name }}</td>
+            <td>{{ item.roles[0].role_user.sous_specialite.name }}</td>
+            <td>{{ item.created_at }}</td>
+            <td>{{ item.roles[0].pivot.date_dernier_paiement }}</td>
 
-            <!-- <button>/</button> -->
-          </td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+            <td>
+              <div>
+                <button
+                  v-if="
+                    item.roles[0].role_user.status == 0 ||
+                    item.roles[0].role_user.status == 2
+                  "
+                  @click="accept(item.id)"
+                >
+                  <i class="fa-solid fa-circle-check" style="color: green"></i>
+                </button>
+              </div>
+              <div>
+                <button
+                  @click="decline(item.id)"
+                  style="color: red"
+                  v-if="
+                    item.roles[0].role_user.status == 0 ||
+                    item.roles[0].role_user.status == 1
+                  "
+                >
+                  <i class="fa fa-circle-xmark"></i>
+                </button>
+              </div>
+
+              <!-- <button>/</button> -->
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </div>
 </template>
 <script>
 export default {
@@ -55,59 +73,35 @@ export default {
     this.$http
       .get("http://localhost:8000/api/prestataire/show")
       .then((response) => {
-        // console.log(response.data);
         this.items = response.data;
-        this.items.forEach((item) => {
-          // console.log(item.roles[0].pivot.specialite);
-          this.$http
-            .get(
-              "http://localhost:8000/api/specialites/getSpecialite/" +
-                item.roles[0].pivot.specialite
-            )
-            .then((response) => {
-              this.specialite = response.data.attributes.name;
-              // console.log(typeof item);
-              item.nomspecialite = this.specialite;
-              console.log(item.nomspecialite);
-            });
-
-          console.log(item.roles[0].pivot.sous_specialite);
-          if (item.roles[0].pivot.sous_specialite != null) {
-            this.$http
-              .get(
-                "http://localhost:8000/api/sousSpecialite/find/" +
-                  item.roles[0].pivot.sous_specialite
-              )
-              .then((response) => {
-                // this.specialite = response.data.attributes.name;
-                // console.log(typeof item);
-                console.log(response.data);
-                item.nomsousspecialite = response.data.attribute.name;
-              });
-          }
-        });
-        console.log(this.items);
       });
   },
   methods: {
     accept(id) {
-      console.log(id);
       if (confirm("Etes-vous sur d'accepter ce prestataire ?"))
         this.$http
           .put("http://localhost:8000/api/prestataire/accept/" + id)
-          .then((response) => {
-            console.log(response.data);
+          .then(() => {
             this.accepted = true;
+            this.$http
+              .get("http://localhost:8000/api/prestataire/show")
+              .then((response) => {
+                this.items = response.data;
+              });
           });
     },
     decline(id) {
-      console.log(id);
-      this.$http
-        .put("http://localhost:8000/api/prestataire/refuse/" + id)
-        .then((response) => {
-          console.log(response.data);
-          this.declined = true;
-        });
+      if (confirm("Etes-vous sur de refuser ce prestataire ?"))
+        this.$http
+          .put("http://localhost:8000/api/prestataire/refuse/" + id)
+          .then(() => {
+            this.declined = true;
+            this.$http
+              .get("http://localhost:8000/api/prestataire/show")
+              .then((response) => {
+                this.items = response.data;
+              });
+          });
     },
   },
 };

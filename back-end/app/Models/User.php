@@ -50,7 +50,7 @@ class User extends Authenticatable
     ];
 
     public function roles(){
-        return $this->belongsToMany('App\Models\Role')->withPivot(['description','status','specialite','sous_specialite','moyenne']);
+        return $this->belongsToMany('App\Models\Role')->withPivot(['description','status','specialite','sous_specialite','moyenne','date_dernier_paiement']);
     }
     public function client(){
         return $this->belongsToMany('App\Models\User')->withPivot(['note']);

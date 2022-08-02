@@ -16,7 +16,9 @@ class PrestataireController extends Controller
             $query->where('name', 'prestataire');
            
            
-        })->with('roles')->get();
+        })->with('roles.RoleUser.specialite')
+        ->with('roles.RoleUser.sous_specialite')
+        ->get();
        
         
         return response()->json(
@@ -33,7 +35,7 @@ class PrestataireController extends Controller
     }
     public function accept($id){
         $prestataire = User::find($id);
-        $prestataire->roles()->updateExistingPivot(2, ['status' => 1]);
+        $prestataire->roles()->updateExistingPivot(2, ['status' => 1, 'date_dernier_paiement' => Carbon::now()]);
                 $prestataire->save();
                 return response()->json('Prestataire accepted',200);
     }
@@ -89,7 +91,8 @@ class PrestataireController extends Controller
             $query->where('roles.name','=','prestataire')
                 ->where('status','=',1);
               
-        })->select('id','created_at')->get();
+        })->with('roles')->select('id','created_at')->get();
+      
       foreach ($users as $u) {
        
         $mytime = Carbon::now();

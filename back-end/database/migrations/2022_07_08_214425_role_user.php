@@ -20,6 +20,7 @@ class RoleUser extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->integer('status')->default(0);
+            $table->date('date_dernier_paiement')->nullable();
             $table->string('description')->nullable();
             $table->foreignId('specialite')->nullable();
             $table->foreignId('sous_specialite')->nullable();
