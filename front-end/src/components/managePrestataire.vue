@@ -20,7 +20,6 @@
             <td>{{ item.first_name }}</td>
             <td>{{ item.last_name }}</td>
 
-            <!-- <td>{{ item.email }}</td> -->
             <td>{{ item.roles[0].pivot.specialite.name }}</td>
             <td>{{ item.roles[0].role_user.sous_specialite.name }}</td>
             <td>{{ item.created_at }}</td>
@@ -51,8 +50,6 @@
                   <i class="fa fa-circle-xmark"></i> Refuser
                 </button>
               </div>
-
-              <!-- <button>/</button> -->
             </td>
           </tr>
         </tbody>
@@ -75,7 +72,6 @@ export default {
       .get("http://localhost:8000/api/prestataire/show")
       .then((response) => {
         this.items = response.data;
-        console.log(this.items);
       });
   },
   methods: {
