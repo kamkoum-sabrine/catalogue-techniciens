@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/accept/{id}', [PrestataireController::class, 'accept']);
         Route::put('/refuse/{id}', [PrestataireController::class, 'refuse']);
         Route::put('/update/{id}', [PrestataireController::class, 'updateAccount']);
+        Route::get('/myRendezVous', [PrestataireController::class, 'getMyRendezVous']);
+
 
     });
     Route::group(['prefix' => '/roles'], function () {

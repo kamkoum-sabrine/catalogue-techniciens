@@ -6,6 +6,7 @@ use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RoleUser;
+use App\Models\RendezVous;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 
@@ -113,6 +114,19 @@ class PrestataireController extends Controller
        
       }
         return response()->json(["data" => $users], 200);
+
+    }
+
+    public function getMyRendezVous(Request $request){
+        $authUser = $request->user()->id;
+        $rdv = RendezVous::where('prestataire_id', $authUser)
+        ->with('client')
+        ->with('prestataire')
+        ->get();
+        if ($rdv){
+            return response()->json(["data" => $rdv], 200);
+        }
+        return response()->json("Vous n'avez pas de rendez-vous ! ");
 
     }
 }
