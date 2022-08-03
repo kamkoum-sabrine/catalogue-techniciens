@@ -76,4 +76,14 @@ class ClientController extends Controller
         return response()->json(["data" => $rdv], 200);
     }
 
+    public function deleteRDV($id){
+        $rdv = RendezVous::find($id);
+        if (!$rdv) {
+            return response()->json([
+                'message' => 'Rendez-vous non trouvé !'
+            ], 404);
+        }
+        $rdv->delete();
+        return response()->json([], 200);
+    }
 }
