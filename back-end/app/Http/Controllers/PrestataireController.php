@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RoleUser;
@@ -86,25 +87,26 @@ class PrestataireController extends Controller
     }
 
     public function desactivateAccount( request $request){
-        // $users = RoleUser::whereHas('role', function ($query) {
-           
-        //     $query->where('role.name','=','prestataire')
-        //         ->where('status','=',1);
-              
-        // })->with('role')->select('user_id','date_dernier_paiement')->get();
-        $users = RoleUser::where('role_id','=',2)->where('status','=',1)->select('user_id','date_dernier_paiement')->get();
-    //   return response()->json(["data" => $users], 200);
+        
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('roles.name','=','prestataire')
+            ->where('status','=',1);
+        })->with('roles')->select('id','created_at')->get();
+
+        // $users = RoleUser::where('role_id','=',2)->where('status','=',1)->select('user_id','date_dernier_paiement')->get();
+   
+
+     
       foreach ($users as $u) {
        
         $mytime = Carbon::now();
-        // echo $mytime;
-        // echo gettype($u->date_dernier_paiement);
+       
         $date = $u->date_dernier_paiement;
       
-        // echo gettype($date);
-        if ($mytime == $date->addYear() ){
+        
+        if ($mytime == $u->created_at->addYear() ){
           
-            $blocked = User::find($u->user_id);
+            $blocked = User::find($u->id);
         $blocked->roles()->updateExistingPivot(2, ['status' => 0]);
            
         }
