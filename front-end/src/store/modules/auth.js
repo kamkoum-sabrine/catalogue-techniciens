@@ -135,14 +135,18 @@ const actions = {
         });
     },
     logout({ commit }) {
-        return new Promise((resolve) => {
-            commit("setLoggedIn", false);
-            commit("setAuthUser", null);
-            commit("setToken", null);
-            router.push("/login");
+        // return new Promise((resolve) => {
+        //     commit("setLoggedIn", false);
+        //     commit("setAuthUser", null);
+        //     commit("setToken", null);
 
-            resolve();
-        });
+        //     router.push("/login");
+
+        //     resolve();
+        // });
+        localStorage.removeItem("token");
+        commit("resetAll");
+        router.push("/login");
     },
     // async register({ commit },
     //     User) {

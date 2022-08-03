@@ -62,6 +62,7 @@
                           <td>
                             <v-rating
                               v-model="rating"
+                              v-if="this.$store.getters.isClient"
                               @input="getRate(prestataire.id)"
                               value="rating"
                               color="warning"
@@ -80,7 +81,12 @@
                         >
                           Prendre rendez-vous
                         </v-btn> -->
-                        <v-btn color="error" right @click="dialog = !dialog">
+                        <v-btn
+                          color="error"
+                          v-if="this.$store.getters.isClient"
+                          right
+                          @click="dialog = !dialog"
+                        >
                           Prendre rendez-vous
                         </v-btn>
                         <v-dialog v-model="dialog" max-width="500px">
@@ -99,8 +105,11 @@
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
-                        <v-simple-table>
-                          <template v-slot:default>
+                        <v-simple-table v-if="this.$store.getters.isClient">
+                          <template
+                            v-slot:default
+                            v-if="this.$store.getters.isClient"
+                          >
                             <thead>
                               <tr>
                                 <th class="text-left">Date</th>
@@ -233,7 +242,7 @@ export default {
         name: "Home",
       });
     }
-
+    console.log(this.$store.getters.isClient);
     this.nomSousSpecialite = this.$route.params.sous_specialite;
     this.nomspecialite = this.$route.params.specialite;
     this.prestataire = this.$route.params.prestataire;
