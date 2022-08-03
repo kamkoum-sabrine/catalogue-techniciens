@@ -47,4 +47,17 @@ class ClientController extends Controller
 
     }
 
+    public function createRDV(Request $request){
+        $authUser = $request->user()->id;
+        $rdv = new RendezVous();
+        $rdv->client_id = $request->user()->id;
+        $rdv->prestataire_id = $request->input('prestataire_id');
+        $rdv->date_rdv = $request->input('date_rdv');
+        $rdv->status = 0;
+        
+
+        $rdv->save();
+        return response()->json(["data" => $rdv]);
+    }
+
 }

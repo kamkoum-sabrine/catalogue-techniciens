@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/activate/{id}', [ClientController::class, 'ActivateAccount']);
         Route::put('/desactivate/{id}', [ClientController::class, 'DesactivateAccount']);
         Route::get('/myRendezVous', [ClientController::class, 'getMyRendezVous']);
+        Route::post('/createRDV', [ClientController::class, 'createRDV']);
         
     });
     Route::group(['prefix' => '/specialites'], function () {
