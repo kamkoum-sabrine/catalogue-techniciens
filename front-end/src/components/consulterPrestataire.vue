@@ -8,7 +8,9 @@
           placeholder="Rechercher un prestataire"
           name="search"
         />
-        <button type="submit">Rechercher</button>
+        <button type="submit">
+          <v-icon color="white">mdi-magnify</v-icon> Rechercher
+        </button>
       </form>
       <v-list v-if="recherche == false" three-line>
         <template v-for="(item, index) in prestataire">

@@ -130,7 +130,9 @@
                                     "
                                     @click="deleteRDV(item.id)"
                                   >
-                                    Supprimer
+                                    <fontawesome
+                                      class="fa-solid fa-trash-can"
+                                    ></fontawesome>
                                   </v-btn>
                                 </td>
                                 <td>
