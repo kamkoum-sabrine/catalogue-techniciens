@@ -30,7 +30,8 @@ class PrestataireController extends Controller
     }
     public function getPrestataireParSousSpecialite($idSpecialite, $idSous_specialite) {
         $role_user = RoleUser::where('sous_specialite',$idSous_specialite)
-        ->where('specialite',$idSpecialite)->with('user')->get();
+        ->where('specialite',$idSpecialite)
+        ->where('status','=',1)->with('user')->get();
         return response()->json(
             $role_user
         );

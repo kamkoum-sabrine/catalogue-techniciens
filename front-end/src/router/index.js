@@ -9,6 +9,7 @@ import gererSpecialite from "./routes/gererSpecialite";
 
 import Login from "./routes/login";
 import managePrestataires from "./routes/managePrestataires";
+import manageRDV from "./routes/manageRDV";
 import moreDetailsPrestataires from "./routes/moreDetailsPrestataires";
 import Register from "./routes/register";
 Vue.use(VueRouter);
@@ -36,7 +37,8 @@ const routes = [
     ...gererClient,
     ...gererProfile,
     ...consulterPrestataire,
-    ...moreDetailsPrestataires
+    ...moreDetailsPrestataires,
+    ...manageRDV
 ];
 
 const router = new VueRouter({

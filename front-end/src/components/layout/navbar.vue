@@ -75,6 +75,12 @@
           hidden: !this.$store.getters.isAdmin,
           icon: 'fas fa-home',
         },
+        {
+          href: '/manageRDV',
+          title: 'Les rendez-vous',
+          hidden: !this.$store.getters.isPrestataire,
+          icon: 'fas fa-home',
+        },
       ]"
       :collapsed="false"
       style="
