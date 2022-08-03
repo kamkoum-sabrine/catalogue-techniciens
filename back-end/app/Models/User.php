@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\RendezVous;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -59,6 +60,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class)->using(Rate::class);
     }
+    public function prestataireRDV()
+    {
+        return $this->belongsToMany(User::class)->using(RendezVous::class);
+    }
+    public function clientRDV()
+    {
+        return $this->belongsToMany(User::class)->using(RendezVous::class);
+    }
+
+
 
     
 }
