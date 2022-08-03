@@ -70,6 +70,79 @@
                         </tr>
                       </table>
                       <div class="float-right">{{ moyenne }}/5</div>
+                      <br />
+                      <div class="float-right">
+                        <!-- <v-btn
+                          v-if="!hiddenForm"
+                          depressed
+                          color="error"
+                          @click="hiddenForm = true"
+                        >
+                          Prendre rendez-vous
+                        </v-btn> -->
+                        <v-btn color="error" right @click="dialog = !dialog">
+                          Prendre rendez-vous
+                        </v-btn>
+                        <v-dialog v-model="dialog" max-width="500px">
+                          <v-card>
+                            <v-card-text>
+                              <label>Choisir une date</label><br /><br />
+                              <input type="datetime-local" v-model="dateRDV" />
+                            </v-card-text>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+
+                              <v-btn text color="primary" @click="createRDV()">
+                                Submit
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                        <v-simple-table>
+                          <template v-slot:default>
+                            <thead>
+                              <tr>
+                                <th class="text-left">Date</th>
+
+                                <th class="text-left">Action</th>
+                                <th class="text-left">Result</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="item in myRDV" :key="item.id">
+                                <td>{{ item.date_rdv }}</td>
+                                <td>
+                                  <v-btn
+                                    color="error"
+                                    class="mr-4"
+                                    :disabled="
+                                      item.status == 1 || item.status == 2
+                                    "
+                                    @click="deleteRDV(item.id)"
+                                  >
+                                    Supprimer
+                                  </v-btn>
+                                </td>
+                                <td>
+                                  <div v-if="item.status == 0">
+                                    Pas de réponse disponible
+                                  </div>
+                                  <div v-if="item.status == 1">
+                                    Rendez-vous confirmé !
+                                  </div>
+                                  <div v-if="item.status == 2">
+                                    Désolé je ne suis pas disponible
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                        <!-- <a href="/" class="btn btn-warning">
+                          Prendre Rendez-vous
+                        </a> -->
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -82,8 +155,11 @@
   </div>
 </template>
 <script>
+import myModal from "./myModal.vue";
+
 export default {
   name: "moreDetailsPrestataire",
+  components: myModal,
   data: () => ({
     loading: false,
     selection: 1,
@@ -93,6 +169,12 @@ export default {
     description: "",
     moyenne: 0,
     rating: 0,
+    hiddenForm: false,
+    dialog: false,
+    dateRDV: null,
+    rdv: {},
+    myRDV: {},
+    idRDV: null,
   }),
 
   methods: {
@@ -105,6 +187,44 @@ export default {
       this.$http
         .post("http://localhost:8000/api/notes/create", newRate)
         .then(() => {});
+    },
+    valider() {
+      this.hiddenForm = false;
+    },
+    annuler() {
+      this.hiddenForm = true;
+    },
+    createRDV() {
+      this.dialog = false;
+      this.rdv = {
+        prestataire_id: this.prestataire.id,
+        date_rdv: this.dateRDV,
+      };
+
+      this.$http
+        .post("http://localhost:8000/api/client/createRDV", this.rdv)
+        .then((response) => {
+          console.log(response.data);
+          this.myRDV = response.data;
+          this.$http
+            .get("http://localhost:8000/api/client/myRendezVous")
+            .then((response) => {
+              console.log(response.data.data);
+              this.myRDV = response.data.data;
+            });
+        });
+    },
+    deleteRDV(id) {
+      this.$http
+        .delete("http://localhost:8000/api/client/deleteRDV/" + id)
+        .then(() => {
+          this.$http
+            .get("http://localhost:8000/api/client/myRendezVous")
+            .then((response) => {
+              console.log(response.data.data);
+              this.myRDV = response.data.data;
+            });
+        });
     },
   },
   created() {
@@ -119,6 +239,13 @@ export default {
     this.prestataire = this.$route.params.prestataire;
     this.description = this.$route.params.description;
     this.moyenne = this.$route.params.moyenne;
+
+    this.$http
+      .get("http://localhost:8000/api/client/myRendezVous")
+      .then((response) => {
+        console.log(response.data.data);
+        this.myRDV = response.data.data;
+      });
   },
 };
 </script>
