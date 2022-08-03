@@ -129,4 +129,20 @@ class PrestataireController extends Controller
         return response()->json("Vous n'avez pas de rendez-vous ! ");
 
     }
+
+    public function acceptRDV($id){
+        $rdv = RendezVous::find($id);
+        if (!$rdv) {
+            return response()->json([
+                "message" => " Rendez-vous non trouvé ! "
+            ], 404);
+        }
+        $rdv->update(
+            [
+                "status" => 1,
+            ]
+        );
+        return response()->json("Rendez-vous accepté !");
+
+    }
 }
