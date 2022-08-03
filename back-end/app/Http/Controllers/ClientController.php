@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\RendezVous;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -33,4 +34,17 @@ class ClientController extends Controller
                 $client->save();
                 return response()->json('client refused',200);
     }
+    public function getMyRendezVous(Request $request){
+        $authUser = $request->user()->id;
+        $rdv = RendezVous::where('client_id', $authUser)
+        ->with('client')
+        ->with('prestataire')
+        ->get();
+        if ($rdv){
+            return response()->json(["data" => $rdv], 200);
+        }
+        return response()->json("Vous n'avez pas de rendez-vous ! ");
+
+    }
+
 }
