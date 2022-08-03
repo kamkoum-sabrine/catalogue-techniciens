@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/desactivate/{id}', [ClientController::class, 'DesactivateAccount']);
         Route::get('/myRendezVous', [ClientController::class, 'getMyRendezVous']);
         Route::post('/createRDV', [ClientController::class, 'createRDV']);
+        Route::put('/updateRDV/{id}', [ClientController::class, 'updateRDV']);
         
     });
     Route::group(['prefix' => '/specialites'], function () {

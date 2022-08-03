@@ -60,4 +60,20 @@ class ClientController extends Controller
         return response()->json(["data" => $rdv]);
     }
 
+    public function updateRDV(Request $request, $id){
+        $rdv = RendezVous::find($id);
+        if (!$rdv) {
+            return response()->json([
+                "message" => " Rendez-vous non trouvé ! "
+            ], 404);
+        }
+        $rdv->update(
+            [
+                "date_rdv" => $request->input('date_rdv'),
+                "prestataire_id" => $request->input('prestataire_id'),
+            ]
+        );
+        return response()->json(["data" => $rdv], 200);
+    }
+
 }
