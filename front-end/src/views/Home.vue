@@ -31,13 +31,22 @@
                   Notre plateforme web de gestion des contacts des techniciens à
                   Ras Jebel.
                 </p>
-                <div class="hero-cta">
+                <div
+                  class="hero-cta"
+                  v-if="!this.$store.getters.isAuthenticated"
+                >
                   <a class="button button-primary" href="/register"
                     >S'inscrire</a
                   >
                   <a class="button button-primary" href="/login"
                     >Se connecter</a
                   >
+                </div>
+                <div v-if="this.$store.getters.isLoggedIn">
+                  <p class="hero-paragraph">
+                    {{ this.$store.getters.first_name }}
+                    {{ this.$store.getters.last_name }}
+                  </p>
                 </div>
               </div>
               <div class="hero-media">
@@ -175,7 +184,10 @@
           </div>
         </section>
 
-        <section class="cta section">
+        <section
+          class="cta section"
+          v-if="!this.$store.getters.isAuthenticated"
+        >
           <div class="container-sm">
             <div class="cta-inner section-inner">
               <div class="cta-header text-center">

@@ -33,7 +33,12 @@
             </v-list-item-content>
           </v-list-item>
         </v-col>
-        <v-btn color="#7CB342" @click="AfficheForm" class="mr-4">
+        <v-btn
+          color="#2a9d8f"
+          style="color: white"
+          @click="AfficheForm"
+          class="mr-4"
+        >
           Editer profile
         </v-btn>
         <v-row class="py-2">
@@ -97,7 +102,12 @@
                 />
 
                 <v-col cols="12" md="4">
-                  <v-btn color="#7CB342" type="submit" class="mr-4">
+                  <v-btn
+                    color="#2a9d8f"
+                    style="color: white"
+                    type="submit"
+                    class="mr-4"
+                  >
                     Editer profile
                   </v-btn>
                 </v-col>

@@ -19,30 +19,36 @@
               <v-img :src="item.user.image"></v-img>
             </v-list-item-avatar>
 
-            <ul type="none">
+            <ul style="list-style-type: none">
               <li>
-                Nom et prénom :
+                <br />
+                <i class="fa-solid fa-user"></i> Nom et prénom :
                 {{ item.user.first_name }}
                 {{ item.user.last_name }}
               </li>
               <li>
+                <br />
+                <i class="fa-solid fa-toolbox"></i>
                 Spécialité :
                 {{ nomspecialite }}
               </li>
               <li>
+                <br />
+                <i class="fa-solid fa-toolbox"></i>
                 Sous spécialité :
                 {{ nomSousSpecialite }}
               </li>
-              <li>
-                <v-btn
-                  class="ma-2"
-                  color="orange darken-2"
-                  dark
-                  @click="toDetails(item.user, item.description, item.moyenne)"
-                >
-                  <v-icon dark right> mdi-arrow-right </v-icon>More details
-                </v-btn>
-              </li>
+              <br />
+              <v-btn
+                class="ma-2"
+                color="#2a9d8f"
+                right
+                dark
+                @click="toDetails(item.user, item.description, item.moyenne)"
+              >
+                <v-icon dark right> mdi-arrow-right </v-icon> Plus de détails
+              </v-btn>
+
               <!-- <li>
                 Numéro de télephone:
                 {{ item.user.phone_number }}
@@ -238,7 +244,7 @@ export default {
 form.example input[type="text"] {
   padding: 10px;
   font-size: 17px;
-  border: 1px solid grey;
+  border: 1px solid rgb(255, 255, 255);
   float: left;
   width: 80%;
   background: #f1f1f1;
@@ -248,16 +254,16 @@ form.example button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #b89ac0;
+  background: #f4a261;
   color: white;
   font-size: 17px;
-  border: 1px solid grey;
+  border: 1px solid rgb(255, 255, 255);
   border-left: none;
   cursor: pointer;
 }
 
 form.example button:hover {
-  background: #92689c;
+  background: #f4a261;
 }
 
 form.example::after {

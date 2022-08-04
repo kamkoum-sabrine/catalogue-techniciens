@@ -21,11 +21,14 @@
                 <br /><br />
                 <div class="about-text go-to">
                   <h3 class="dark-color">
+                    <i class="fa-solid fa-user-gear"></i>
                     {{ prestataire.first_name }} {{ prestataire.last_name }}
                   </h3>
                   <h6 class="theme-color lead">
-                    Spécialité: {{ nomspecialite }} <br />
-                    Sous spécialité: {{ nomSousSpecialite }}
+                    <i class="fa-solid fa-toolbox"></i> Spécialité:
+                    {{ nomspecialite }} <br />
+                    <i class="fa-solid fa-toolbox"></i> Sous spécialité:
+                    {{ nomSousSpecialite }}
                   </h6>
                   <p>
                     {{ description }}
@@ -37,22 +40,36 @@
                         <tr>
                           <td>
                             <div class="media">
-                              <label>Téléphone</label>
-                              <p>{{ prestataire.phone_number }}</p>
+                              <label>
+                                <i class="fa-solid fa-phone"></i>
+                                Téléphone</label
+                              >
+                              <p>
+                                {{ prestataire.phone_number }}
+                              </p>
                             </div>
                           </td>
                           <td>
                             <div class="media">
-                              <label>Email</label>
-                              <p>{{ prestataire.email }}</p>
+                              <label>
+                                <i class="fa-solid fa-envelope"></i>
+                                Email</label
+                              >
+                              <p>
+                                {{ prestataire.email }}
+                              </p>
                             </div>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             <div class="media">
-                              <label> Adresse </label>
-                              <p>{{ prestataire.adresse }}</p>
+                              <label>
+                                <i class="fa-solid fa-location-dot"></i> Adresse
+                              </label>
+                              <p>
+                                {{ prestataire.adresse }}
+                              </p>
                             </div>
                           </td>
                         </tr>
@@ -82,7 +99,8 @@
                           Prendre rendez-vous
                         </v-btn> -->
                         <v-btn
-                          color="error"
+                          color="#e76f51"
+                          style="color: white"
                           v-if="this.$store.getters.isClient"
                           right
                           @click="dialog = !dialog"
@@ -123,7 +141,7 @@
                                 <td>{{ item.date_rdv }}</td>
                                 <td>
                                   <v-btn
-                                    color="error"
+                                    color="#e9c46a"
                                     class="mr-4"
                                     :disabled="
                                       item.status == 1 || item.status == 2
@@ -316,7 +334,7 @@ export default {
   padding: 5px 0;
 }
 #about .about-list label {
-  color: #20247b;
+  color: #f4a261;
   font-weight: 600;
   width: 88px;
   margin: 0;
@@ -382,9 +400,9 @@ export default {
   color: currentColor;
 }
 #about .theme-color {
-  color: #fc5356;
+  color: #2a9d8f;
 }
 #about .dark-color {
-  color: #20247b;
+  color: #264653;
 }
 </style>

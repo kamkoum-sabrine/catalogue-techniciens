@@ -28,7 +28,7 @@
                 <v-text-field
                   v-model="first_name"
                   :counter="10"
-                  label="First name"
+                  label="Prénom"
                   required
                   @change="$v.first_name.$touch()"
                 ></v-text-field>
@@ -37,15 +37,15 @@
                   class="invalid-feedback danger"
                 >
                   <v-alert dense outlined type="error">
-                    <strong>First name</strong> field is
-                    <strong>required</strong>
+                    Le champ <strong>Prénom</strong> est
+                    <strong>obligatoire</strong>
                   </v-alert>
                 </div>
 
                 <v-text-field
                   v-model="last_name"
                   :counter="10"
-                  label="Last name"
+                  label="Nom"
                   required
                   @change="$v.last_name.$touch()"
                 ></v-text-field>
@@ -54,13 +54,13 @@
                   class="invalid-feedback danger"
                 >
                   <v-alert dense outlined type="error">
-                    <strong>Last name</strong> field is
-                    <strong>required</strong>
+                    Le champ <strong>Nom</strong> est
+                    <strong>obligatoire</strong>
                   </v-alert>
                 </div>
                 <v-text-field
                   v-model="email"
-                  label="E-mail"
+                  label="Adresse email"
                   required
                   @change="$v.email.$touch()"
                   :class="{ 'is-invalid': isSubmitted && $v.email.$error }"
@@ -71,20 +71,20 @@
                 >
                   <span v-if="!$v.email.required">
                     <v-alert dense outlined type="error">
-                      <strong>Email</strong> field is
-                      <strong>required</strong>
+                      Le champ <strong>Email</strong> est
+                      <strong>obligatoire</strong>
                     </v-alert></span
                   >
                   <span v-if="!$v.email.email">
                     <v-alert dense outlined type="error">
-                      Please provide a valid email
+                      Veuillez saisir une adresse email valide
                     </v-alert></span
                   >
                 </div>
 
                 <v-text-field
                   v-model="password"
-                  label="Password"
+                  label="Mot de passe"
                   type="password"
                   required
                   @change="$v.password.$touch()"
@@ -97,13 +97,13 @@
                   class="invalid-feedback danger"
                 >
                   <v-alert dense outlined type="error">
-                    <strong>Password</strong> field is
-                    <strong>required</strong>
+                    Le champ <strong>Mot de passe</strong> est
+                    <strong>obligatoire</strong>
                   </v-alert>
                 </div>
                 <v-text-field
                   v-model="confirm_password"
-                  label="Confirm password"
+                  label="Confirmer mot de passe"
                   type="password"
                   required
                   @change="$v.confirm_password.$touch()"
@@ -117,25 +117,26 @@
                 >
                   <span v-if="!$v.confirm_password.required">
                     <v-alert dense outlined type="error">
-                      <strong>Confirm password</strong> field is
-                      <strong>required</strong>
+                      Le champ <strong>Confirmer mot de passe</strong> est
+                      <strong>obligatoire</strong>
                     </v-alert></span
                   >
                   <span v-else-if="!$v.confirm_password.sameAsPassword">
                     <v-alert dense outlined type="error">
-                      <strong>Password</strong> should be matched
+                      <strong>Le mot de passe et confirmer mot de passe</strong>
+                      ne sont pas les memes
                     </v-alert></span
                   >
                 </div>
                 <v-text-field
                   v-model="birth_date"
-                  label="Birth date"
+                  label="Date de naissance"
                   type="date"
                   required
                 ></v-text-field>
                 <v-text-field
                   v-model="phone_number"
-                  label="Phone number"
+                  label="Numero de téléphone"
                   type="number"
                   @change="$v.phone_number.$touch()"
                   required
@@ -149,14 +150,14 @@
                 >
                   <span v-if="!$v.phone_number.required">
                     <v-alert dense outlined type="error">
-                      <strong>Phone number </strong> field is
-                      <strong>required</strong>
+                      Le champ <strong>Numero de téléphone</strong> est
+                      <strong>obligatoire</strong>
                     </v-alert></span
                   >
                   <span v-if="!$v.phone_number.minLength">
                     <v-alert dense outlined type="error">
-                      <strong>Phone number</strong> should be
-                      <strong>8 numbers long</strong>
+                      <strong>Numero de télephone</strong> doit avoir
+                      <strong>8 chiffres</strong>
                     </v-alert></span
                   >
                 </div>
@@ -175,8 +176,8 @@
                 >
                   <span v-if="!$v.adresse.required">
                     <v-alert dense outlined type="error">
-                      <strong>Adresse</strong> field is
-                      <strong>required</strong>
+                      Le champ <strong>Adresse</strong> est
+                      <strong>obligatoire</strong>
                     </v-alert></span
                   >
                 </div>
@@ -195,14 +196,14 @@
                 >
                   <span v-if="!$v.cin.required">
                     <v-alert dense outlined type="error">
-                      <strong>CIN</strong> field is
-                      <strong>required</strong>
+                      Le champ <strong>CIN</strong> est
+                      <strong>obligatoire</strong>
                     </v-alert></span
                   >
                   <span v-if="!$v.cin.minLength">
                     <v-alert dense outlined type="error">
-                      <strong>CIN</strong> should be
-                      <strong>8 numbers long</strong>
+                      <strong>CIN</strong> doit avoir
+                      <strong>8 chiffres</strong>
                     </v-alert></span
                   >
                 </div>
@@ -262,7 +263,7 @@
                 <v-checkbox label="Do you agree?" required></v-checkbox>
 
                 <v-btn color="success" class="mr-4" type="submit">
-                  Validate
+                  Valider
                 </v-btn>
               </v-form>
             </div>

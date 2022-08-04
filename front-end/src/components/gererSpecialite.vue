@@ -8,7 +8,9 @@
         required
       ></v-text-field>
 
-      <v-btn color="#7CB342" type="submit" class="mr-4"> Validate </v-btn>
+      <v-btn color="#2a9d8f" style="color: white" type="submit" class="mr-4">
+        Ajouter
+      </v-btn>
     </v-form>
     <v-form v-if="edit == true" ref="form" @submit.prevent="updateSpecialite">
       <v-text-field
@@ -18,7 +20,9 @@
         required
       ></v-text-field>
 
-      <v-btn color="#7CB342" type="submit" class="mr-4"> Editer </v-btn>
+      <v-btn color="#2a9d8f" style="color: white" type="submit" class="mr-4">
+        Editer
+      </v-btn>
     </v-form>
     <br />
     <br />
@@ -40,14 +44,16 @@
             </tr> -->
               <!-- <button @click="deleteSpecialite(item.id)"></button> -->
               <v-btn
-                color="#F48FB1"
+                color="#f4a261"
+                style="color: white"
                 class="mr-4"
                 @click="deleteSpecialite(item.id)"
               >
                 Supprimer
               </v-btn>
               <v-btn
-                color="#F48FB1"
+                color="#f4a261"
+                style="color: white"
                 class="mr-4"
                 @click="editSpecialite(item.id)"
               >
