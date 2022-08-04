@@ -175,6 +175,7 @@ export default {
             name: this.name,
             specialite_id: this.idSpecialite,
           };
+          console.log(this.name + " " + this.idSpecialite);
           this.$http
             .put("http://localhost:8000/api/sousSpecialite/update/" + this.id, {
               name: this.name,
