@@ -56,7 +56,7 @@ class AuthentificationController extends Controller
                 if ($user->roles->where('name', 'prestataire')->first()->pivot->status == 0) {
                     return $this->sendError('Unauthorised.', ['error' => 'Votre compte n\'est pas encore activé']);
                 }else if ($user->roles->where('name', 'prestataire')->first()->pivot->status == 2) {
-                    return $this->sendError('Unauthorised.', ['error' => 'Votre demande est refusée']);
+                    return $this->sendError('Unauthorised.', ['error' => 'Votre compte n\'est pas activé']);
                 }
             }
             if (
@@ -65,7 +65,7 @@ class AuthentificationController extends Controller
                 if ($user->roles->where('name', 'client')->first()->pivot->status == 0) {
                     return $this->sendError('Unauthorised.', ['error' => 'Votre compte n\'est pas encore activé']);
                 }else if ($user->roles->where('name', 'client')->first()->pivot->status == 2) {
-                    return $this->sendError('Unauthorised.', ['error' => 'Votre demande est refusée']);
+                    return $this->sendError('Unauthorised.', ['error' => 'Votre compte n\'est pas activé']);
                 }
             }
            
