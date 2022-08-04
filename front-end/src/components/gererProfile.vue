@@ -59,9 +59,6 @@
                     v-model="updated.last_name"
                     label="Last name"
                   ></v-text-field>
-                  <!-- <v-btn color="#7CB342" @click="AfficheForm" class="mr-4">
-                    Editer profile
-                  </v-btn> -->
                 </v-col>
                 <v-col cols="12" md="4">
                   <v-text-field
@@ -69,9 +66,6 @@
                     v-model="updated.adresse"
                     label="Adresse"
                   ></v-text-field>
-                  <!-- <v-btn color="#7CB342" @click="AfficheForm" class="mr-4">
-                    Editer profile
-                  </v-btn> -->
                 </v-col>
                 <v-col cols="12" md="4">
                   <v-text-field
@@ -120,8 +114,6 @@
   </div>
 </template>
 <script>
-// import { mapGetters } from "vuex";
-
 export default {
   name: "gererProfile",
 
@@ -163,7 +155,6 @@ export default {
       reader.readAsDataURL(file);
     },
     editerProfile() {
-      console.log(this.user);
       this.updated.image = this.user.image;
       this.$http
         .put(
@@ -172,13 +163,11 @@ export default {
           this.updated
         )
         .then((response) => {
-          console.log(response.data.data);
           this.user = response.data.data;
         });
     },
   },
   created() {
-    console.log(this.$store.getters.authUser.roles[0].pivot.specialite);
     this.user.first_name = this.$store.getters.authUser.first_name;
     this.user.last_name = this.$store.getters.authUser.last_name;
     this.user.email = this.$store.getters.authUser.email;
@@ -190,26 +179,21 @@ export default {
     this.idSpecialite = this.$store.getters.authUser.roles[0].pivot.specialite;
     this.user.description =
       this.$store.getters.authUser.roles[0].pivot.description;
-    console.log(this.idSpecialite);
     this.idSous_specialite =
       this.$store.getters.authUser.roles[0].pivot.sous_specialite;
-    console.log(this.user);
     this.$http
       .get(
         "http://localhost:8000/api/specialites/getSpecialite/" +
           this.idSpecialite
       )
       .then((response) => {
-        console.log(response.data);
         this.specialite = response.data.attributes.name;
-        console.log(this.specialite);
         this.$http
           .get(
             "http://localhost:8000/api/sousSpecialite/find/" +
               this.idSous_specialite
           )
           .then((response) => {
-            console.log(response.data);
             this.sous_specialite = response.data.attribute.name;
           });
       });

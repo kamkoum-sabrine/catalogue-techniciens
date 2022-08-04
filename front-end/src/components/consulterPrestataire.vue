@@ -48,26 +48,6 @@
               >
                 <v-icon dark right> mdi-arrow-right </v-icon> Plus de détails
               </v-btn>
-
-              <!-- <li>
-                Numéro de télephone:
-                {{ item.user.phone_number }}
-              </li>
-              <li>
-                Email :
-                {{ item.user.email }}
-              </li>
-              <li>
-                Description :
-                {{ item.description }}
-              </li>
-              <li v-if="client" style="margin-left: 500px">
-                <v-rating
-                  v-model="rating"
-                  @input="getRate(item.user.id)"
-                  value="rating"
-                ></v-rating>
-              </li> -->
             </ul>
           </v-list-item>
           <v-divider
@@ -75,8 +55,6 @@
             :key="index + 'C'"
             :inset="inset"
           ></v-divider>
-
-          <!-- <v-divider :key="item.id"></v-divider> -->
         </template>
       </v-list>
       <v-list v-if="recherche == true" three-line>
@@ -109,25 +87,6 @@
                   <v-icon dark right> mdi-arrow-right </v-icon>More details
                 </v-btn>
               </li>
-              <!-- <li>
-                Numéro de télephone:
-                {{ item.phone_number }}
-              </li>
-              <li>
-                Email :
-                {{ item.email }}
-              </li>
-              <li>
-                Description :
-                {{ item.description }}
-              </li>
-              <li v-if="client" style="margin-left: 500px">
-                <v-rating
-                  v-model="rating"
-                  @input="getRate(item.id)"
-                  value="rating"
-                ></v-rating>
-              </li> -->
             </ul>
           </v-list-item>
           <v-divider
@@ -163,7 +122,6 @@ export default {
     client: false,
   }),
   created() {
-    console.log(this.$store.getters.isClient);
     this.client = this.$store.getters.isClient;
     if (this.$route.params.idSous_specialite == undefined) {
       this.$router.push({
@@ -182,14 +140,7 @@ export default {
           this.idSous_specialite
       )
       .then((response) => {
-        console.log(response.data);
         this.prestataire = response.data;
-
-        // for (let index = 0; index < response.data.length; index++) {
-        //   // const element = array[index];
-        //   this.prestataire[index] = response.data[index].user;
-        // }
-        // this.prestataire = response.data;
       });
   },
   methods: {
@@ -203,27 +154,21 @@ export default {
       this.$http
         .post("http://localhost:8000/api/prestataire/search", this.searched)
         .then((response) => {
-          console.log(response.data.data);
           this.prestataireRecherche = response.data.data;
           for (let index = 0; index < response.data.data.length; index++) {
-            console.log(response.data.data[index].roles[0].pivot.description);
             this.prestataireRecherche[index].description =
               response.data.data[index].roles[0].pivot.description;
           }
-          console.log(this.prestataireRecherche);
         });
     },
     getRate(idPrestataire) {
-      console.log(this.rating);
       let newRate = {
         prestataire_id: idPrestataire,
         note: this.rating,
       };
       this.$http
         .post("http://localhost:8000/api/notes/create", newRate)
-        .then((response) => {
-          console.log(response.data);
-        });
+        .then(() => {});
     },
     toDetails(prestataire, description, moyenne) {
       this.$router.push({

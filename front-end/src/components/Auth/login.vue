@@ -28,15 +28,8 @@
                   type="email"
                   required
                 ></v-text-field>
-                <!-- <input
-                  v-model="form.email"
-                  type="email"
-                  id="form3Example3"
-                  class="form-control form-control-lg"
-                /> -->
               </div>
 
-              <!-- Password input -->
               <div class="form-outline mb-3">
                 <v-text-field
                   label="Password"
@@ -45,23 +38,9 @@
                   autocomplete
                   required
                 ></v-text-field>
-                <!-- <input
-                  type="password"
-                  v-model="form.password"
-                  autocomplete
-                  id="form3Example4"
-                  class="form-control form-control-lg"
-                />
-                <label
-                  v-if="!form.password"
-                  class="form-label"
-                  for="form3Example4"
-                  >Password</label
-                > -->
               </div>
 
               <div class="text-center text-lg-start mt-4 pt-2">
-                <!-- <v-btn color="success" class="mr-4"> Validate </v-btn> -->
                 <button
                   class="btn btn-primary"
                   style="padding-left: 2.5rem; padding-right: 2.5rem"
@@ -108,43 +87,27 @@ export default {
     logIn() {
       try {
         this.login(this.form).then(() => {
-          console.log(this.$store.getters.authStatus);
           if (this.$store.getters.authStatus == 2) {
-            console.log(this.$store.getters.authStatus);
             this.alert.dismissCountDown = 3;
             this.alert.variant = "danger";
             this.alert.msg = this.$store.getters.authMessage;
-            console.log(this.$store.getters.authMessage);
           } else {
             if (this.$store.getters.authStatus == 1) {
-              console.log(this.$store.getters.authStatus);
-
               this.alert.dismissCountDown = 3;
               this.alert.variant = "danger";
               this.alert.msg = this.$store.getters.authMessage;
-              console.log(this.$store.getters.authMessage);
             }
           }
         });
       } catch (e) {
         console.log(e.response.data.data.error);
       }
-      console.log(this.$store.getters.authStatus);
-      console.log(this.$store.getters.authMessage);
 
       if (this.$store.getters.authStatus == 2) {
-        console.log(this.$store.getters.authStatus);
         this.alert.dismissCountDown = 3;
         this.alert.variant = "danger";
         this.alert.msg = this.$store.getters.authMessage;
-        console.log(this.$store.getters.authMessage);
       }
-
-      // console.log(this.$store.getters.authStatus);
-      // console.log(this.$store.getters.authMessage);
-      // this.alert.dismissCountDown = 3;
-      // this.alert.variant = "danger";
-      // this.alert.msg = this.$store.getters.authMessage;
     },
     getGetter() {
       console.log(this.$store.getters);

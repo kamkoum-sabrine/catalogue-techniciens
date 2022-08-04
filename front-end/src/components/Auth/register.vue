@@ -251,15 +251,6 @@
                   @change="getIDSousSpecialite"
                 >
                 </v-select>
-
-                <!-- <v-select
-      v-model="select"
-      :items="items"
-      :rules="[(v) => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select> -->
-
                 <v-checkbox label="Do you agree?" required></v-checkbox>
 
                 <v-btn color="success" class="mr-4" type="submit">
@@ -267,11 +258,6 @@
                 </v-btn>
               </v-form>
             </div>
-            <!-- <v-slider v-model="max" label="Max characters"> </v-slider>
-
-          <v-checkbox v-model="allowSpaces" label="Allow spaces"></v-checkbox>
-
-          <v-text-field v-model="match" label="Value must match"></v-text-field> -->
           </v-col>
         </v-row>
       </v-container>
@@ -280,8 +266,7 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-// import { validationMixin } from "vuelidate";
-// import { required, minLength } from "vuelidate/lib/validators";
+
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 
 export default {
@@ -317,15 +302,7 @@ export default {
       sous_specialite: "",
       hasSousSpecialite: false,
       idSous_specialite: "",
-      // userForm: {
-      //   name: "",
-      //   email: "",
-      //   mobile: "",
-      //   gender: "",
-      //   password: "",
-      //   confirmPassword: "",
-      //   accept: "",
-      // },
+
       isSubmitted: false,
     };
   },
@@ -366,14 +343,10 @@ export default {
     this.$http
       .get("http://localhost:8000/api/roles/getAll")
       .then((response) => {
-        console.log(response.data[0].name);
         this.defaultRole = response.data;
         for (let i = 0; i < response.data.length; i++) {
-          // this.roles[i] = response.data[i].name;
           this.roles.push(response.data[i].name);
-          console.log(this.roles);
         }
-        console.log(this.roles);
       })
       .catch((err) => {
         console.log(err);
@@ -381,13 +354,10 @@ export default {
     this.$http
       .get("http://localhost:8000/api/specialites/getAll")
       .then((response) => {
-        // console.log(response.data[0].name);
         this.defaultSpecialite = response.data;
         for (let i = 0; i < response.data.length; i++) {
-          // this.roles[i] = response.data[i].name;
           this.specialites.push(response.data[i].name);
         }
-        console.log(this.specialites);
       })
       .catch((err) => {
         console.log(err);
@@ -402,46 +372,13 @@ export default {
           this.idRole = this.defaultRole[i].id;
         }
       }
-      console.log(this.defaultSpecialite);
-      console.log(this.specialite);
+
       for (let i = 0; i < this.defaultSpecialite.length; i++) {
         if (this.defaultSpecialite[i].name == this.specialite) {
           this.idSpecialite = this.defaultSpecialite[i].id;
         }
       }
-      console.log(this.sous_specialite);
-      console.log(this.defaultSous_specialite);
-      // this.$http
-      //   .get(
-      //     "http://localhost:8000/api/sousSpecialite/index/" +
-      //       this.sous_specialite
-      //   )
-      //   .then((response) => {
-      //     console.log(response.data.attribute[0]);
-      //     this.idSous_specialite = response.data.attribute[0];
-      //     console.log(this.idSous_specialite);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      // for (let i = 0; i < this.defaultSous_specialite.length; i++) {
-      //   if (this.defaultSous_specialite[i].name == this.sous_specialite) {
-      //     console.log("dkhalna lel if");
-      //     this.$http
-      //       .get(
-      //         "http://localhost:8000/api/sousSpecialite/index/" +
-      //           this.defaultSous_specialite[i].name
-      //       )
-      //       .then((response) => {
-      //         console.log(response);
-      //       })
-      //       .catch((error) => {
-      //         console.log(error);
-      //       });
-      //     // this.idSous_specialite = this.defaultSous_specialite[i].id;
-      //   }
-      // }
-      console.log(this.idSous_specialite);
+
       this.form = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -457,20 +394,16 @@ export default {
         sous_specialite: this.idSous_specialite,
         image: this.image,
       };
-      console.log(this.form);
       this.isSubmitted = true;
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        console.log(this.form);
         if (this.form.password != this.form.confirm_password) {
           this.alert.dismissCountDown = 5;
           this.alert.variant = "danger";
           this.alert.msg = "Password and Confirm Password are not the same";
           return;
         } else {
-          console.log("else");
           this.register(this.form).then(() => {
-            console.log("apres exec register !");
             if (this.$store.getters.regStatus == 2) {
               this.alert.dismissCountDown = 3;
               this.alert.variant = "danger";
@@ -486,27 +419,21 @@ export default {
           this.idSpecialite = this.defaultSpecialite[i].id;
         }
       }
-      console.log(this.idSpecialite);
       this.$http
         .get(
           "http://localhost:8000/api/specialites/getSpecialite/" +
             this.idSpecialite
         )
         .then((response) => {
-          // console.log(response.data);
-
           for (
             let index = 0;
             index < response.data.attributes.sous_specialite.length;
             index++
           ) {
-            // const element = array[index];
-            // console.log(response.data.attributes.sous_specialite[index].name);
             this.defaultSous_specialite.push(
               response.data.attributes.sous_specialite[index].name
             );
           }
-          console.log(this.defaultSous_specialite);
           if (this.defaultSous_specialite.length != 0)
             this.hasSousSpecialite = true;
         })
@@ -521,9 +448,7 @@ export default {
             this.sous_specialite
         )
         .then((response) => {
-          console.log(response.data.attribute[0]);
           this.idSous_specialite = response.data.attribute[0].id;
-          console.log(this.idSous_specialite);
         })
         .catch((error) => {
           console.log(error);

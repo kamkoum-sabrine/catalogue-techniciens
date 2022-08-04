@@ -90,14 +90,6 @@
                       <div class="float-right">{{ moyenne }}/5</div>
                       <br />
                       <div class="float-right">
-                        <!-- <v-btn
-                          v-if="!hiddenForm"
-                          depressed
-                          color="error"
-                          @click="hiddenForm = true"
-                        >
-                          Prendre rendez-vous
-                        </v-btn> -->
                         <v-btn
                           color="#e76f51"
                           style="color: white"
@@ -168,9 +160,6 @@
                             </tbody>
                           </template>
                         </v-simple-table>
-                        <!-- <a href="/" class="btn btn-warning">
-                          Prendre Rendez-vous
-                        </a> -->
                       </div>
                     </div>
                   </div>
@@ -208,7 +197,6 @@ export default {
 
   methods: {
     getRate(idPrestataire) {
-      console.log(this.rating);
       let newRate = {
         prestataire_id: idPrestataire,
         note: this.rating,
@@ -233,12 +221,10 @@ export default {
       this.$http
         .post("http://localhost:8000/api/client/createRDV", this.rdv)
         .then((response) => {
-          console.log(response.data);
           this.myRDV = response.data;
           this.$http
             .get("http://localhost:8000/api/client/myRendezVous")
             .then((response) => {
-              console.log(response.data.data);
               this.myRDV = response.data.data;
             });
         });
@@ -250,7 +236,6 @@ export default {
           this.$http
             .get("http://localhost:8000/api/client/myRendezVous")
             .then((response) => {
-              console.log(response.data.data);
               this.myRDV = response.data.data;
             });
         });
@@ -262,7 +247,6 @@ export default {
         name: "Home",
       });
     }
-    console.log(this.$store.getters.isClient);
     this.nomSousSpecialite = this.$route.params.sous_specialite;
     this.nomspecialite = this.$route.params.specialite;
     this.prestataire = this.$route.params.prestataire;
@@ -272,7 +256,6 @@ export default {
     this.$http
       .get("http://localhost:8000/api/client/myRendezVous")
       .then((response) => {
-        console.log(response.data.data);
         this.myRDV = response.data.data;
       });
   },

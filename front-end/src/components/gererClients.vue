@@ -42,8 +42,6 @@
                   Désactiver compte
                 </button>
               </div>
-
-              <!-- <button>/</button> -->
             </td>
           </tr>
         </tbody>
@@ -65,44 +63,31 @@ export default {
     this.$http
       .get("http://localhost:8000/api/client/getAll")
       .then((response) => {
-        // console.log(response.data);
         this.items = response.data;
-
-        console.log(this.items);
       });
   },
   methods: {
     activate(id) {
-      console.log(id);
       this.$http
         .put("http://localhost:8000/api/client/activate/" + id)
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.accepted = true;
           this.$http
             .get("http://localhost:8000/api/client/getAll")
             .then((response) => {
-              // console.log(response.data);
               this.items = response.data;
-
-              console.log(this.items);
             });
         });
     },
     desactivate(id) {
-      console.log(id);
       this.$http
         .put("http://localhost:8000/api/client/desactivate/" + id)
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.declined = true;
           this.$http
             .get("http://localhost:8000/api/client/getAll")
             .then((response) => {
-              // console.log(response.data);
               this.items = response.data;
-
-              console.log(this.items);
             });
         });
     },

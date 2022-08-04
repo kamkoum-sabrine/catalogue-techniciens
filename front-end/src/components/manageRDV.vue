@@ -70,7 +70,6 @@ export default {
     this.$http
       .get("http://localhost:8000/api/prestataire/myRendezVous")
       .then((response) => {
-        console.log(response.data);
         this.items = response.data.data;
       });
   },

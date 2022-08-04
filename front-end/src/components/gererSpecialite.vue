@@ -39,10 +39,6 @@
           <tr v-for="item in specialites" :key="item.id">
             <td>{{ item.name }}</td>
             <td>
-              <!-- <tr v-for="i in item.sous_specialite" :key="i.id">
-              <td>{{ i.name }}</td>
-            </tr> -->
-              <!-- <button @click="deleteSpecialite(item.id)"></button> -->
               <v-btn
                 color="#f4a261"
                 style="color: white"
@@ -82,13 +78,11 @@ export default {
     this.$http
       .get("http://localhost:8000/api/specialites/getAll")
       .then((response) => {
-        console.log(response.data);
         this.specialites = response.data;
       });
   },
   methods: {
     ajouterSpecialite() {
-      console.log(this.name);
       this.newSpecialite = {
         name: this.name,
       };
@@ -98,12 +92,10 @@ export default {
           "http://localhost:8000/api/specialites/create/",
           this.newSpecialite
         )
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.$http
             .get("http://localhost:8000/api/specialites/getAll")
             .then((response) => {
-              console.log(response.data);
               this.specialites = response.data;
             });
         });
@@ -111,12 +103,10 @@ export default {
     deleteSpecialite(id) {
       this.$http
         .delete("http://localhost:8000/api/specialites/delete/" + id)
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.$http
             .get("http://localhost:8000/api/specialites/getAll")
             .then((response) => {
-              console.log(response.data);
               this.specialites = response.data;
             });
         });
@@ -125,30 +115,20 @@ export default {
       this.newSpecialite = {
         name: this.name,
       };
-      console.log(this.id);
       this.$http
         .put(
           "http://localhost:8000/api/specialites/update/" + this.id,
           this.newSpecialite
         )
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.edit = false;
           this.name = "";
         });
       this.$http
         .get("http://localhost:8000/api/specialites/getAll")
         .then((response) => {
-          console.log(response.data);
           this.specialites = response.data;
         });
-      // this.$http
-      //   .get("http://localhost:8000/api/specialites/getSpecialite/" + id)
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     this.name = response.data.attributes.name;
-      //   });
-      // console.log(response.data);
     },
     editSpecialite(id) {
       this.edit = true;
@@ -156,16 +136,13 @@ export default {
       this.$http
         .get("http://localhost:8000/api/specialites/getAll")
         .then((response) => {
-          console.log(response.data);
           this.specialites = response.data;
         });
       this.$http
         .get("http://localhost:8000/api/specialites/getSpecialite/" + id)
         .then((response) => {
-          console.log(response.data);
           this.name = response.data.attributes.name;
         });
-      // this.updateSpecialite(id);
     },
   },
 };

@@ -69,7 +69,6 @@ export default {
       .get("http://localhost:8000/api/prestataire/show")
       .then((response) => {
         this.items = response.data;
-        console.log(this.items);
       });
   },
   methods: {
