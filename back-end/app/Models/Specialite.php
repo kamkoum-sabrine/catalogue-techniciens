@@ -17,5 +17,10 @@ class Specialite extends Model
         return $this->hasMany(SousSpecialite::class, "specialite_id", "id");
     }
 
+    public function users()
+    {
+        return $this->hasMany('App\Models\RoleUser','specialite','id');
+    }
+
 
 }

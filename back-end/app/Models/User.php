@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\RendezVous;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -50,7 +51,7 @@ class User extends Authenticatable
     ];
 
     public function roles(){
-        return $this->belongsToMany('App\Models\Role')->withPivot(['description','status','specialite','sous_specialite','moyenne']);
+        return $this->belongsToMany('App\Models\Role')->withPivot(['description','status','specialite','sous_specialite','moyenne','date_dernier_paiement']);
     }
     public function client(){
         return $this->belongsToMany('App\Models\User')->withPivot(['note']);
@@ -59,6 +60,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class)->using(Rate::class);
     }
+    public function prestataireRDV()
+    {
+        return $this->belongsToMany(User::class)->using(RendezVous::class);
+    }
+    public function clientRDV()
+    {
+        return $this->belongsToMany(User::class)->using(RendezVous::class);
+    }
+
+
 
     
 }

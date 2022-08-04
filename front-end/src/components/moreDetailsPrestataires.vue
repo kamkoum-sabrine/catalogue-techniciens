@@ -21,11 +21,14 @@
                 <br /><br />
                 <div class="about-text go-to">
                   <h3 class="dark-color">
+                    <i class="fa-solid fa-user-gear"></i>
                     {{ prestataire.first_name }} {{ prestataire.last_name }}
                   </h3>
                   <h6 class="theme-color lead">
-                    Spécialité: {{ nomspecialite }} <br />
-                    Sous spécialité: {{ nomSousSpecialite }}
+                    <i class="fa-solid fa-toolbox"></i> Spécialité:
+                    {{ nomspecialite }} <br />
+                    <i class="fa-solid fa-toolbox"></i> Sous spécialité:
+                    {{ nomSousSpecialite }}
                   </h6>
                   <p>
                     {{ description }}
@@ -37,22 +40,36 @@
                         <tr>
                           <td>
                             <div class="media">
-                              <label>Téléphone</label>
-                              <p>{{ prestataire.phone_number }}</p>
+                              <label>
+                                <i class="fa-solid fa-phone"></i>
+                                Téléphone</label
+                              >
+                              <p>
+                                {{ prestataire.phone_number }}
+                              </p>
                             </div>
                           </td>
                           <td>
                             <div class="media">
-                              <label>Email</label>
-                              <p>{{ prestataire.email }}</p>
+                              <label>
+                                <i class="fa-solid fa-envelope"></i>
+                                Email</label
+                              >
+                              <p>
+                                {{ prestataire.email }}
+                              </p>
                             </div>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             <div class="media">
-                              <label> Adresse </label>
-                              <p>{{ prestataire.adresse }}</p>
+                              <label>
+                                <i class="fa-solid fa-location-dot"></i> Adresse
+                              </label>
+                              <p>
+                                {{ prestataire.adresse }}
+                              </p>
                             </div>
                           </td>
                         </tr>
@@ -62,6 +79,7 @@
                           <td>
                             <v-rating
                               v-model="rating"
+                              v-if="this.$store.getters.isClient"
                               @input="getRate(prestataire.id)"
                               value="rating"
                               color="warning"
@@ -70,6 +88,79 @@
                         </tr>
                       </table>
                       <div class="float-right">{{ moyenne }}/5</div>
+                      <br />
+                      <div class="float-right">
+                        <v-btn
+                          color="#e76f51"
+                          style="color: white"
+                          v-if="this.$store.getters.isClient"
+                          right
+                          @click="dialog = !dialog"
+                        >
+                          Prendre rendez-vous
+                        </v-btn>
+                        <v-dialog v-model="dialog" max-width="500px">
+                          <v-card>
+                            <v-card-text>
+                              <label>Choisir une date</label><br /><br />
+                              <input type="datetime-local" v-model="dateRDV" />
+                            </v-card-text>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+
+                              <v-btn text color="primary" @click="createRDV()">
+                                Submit
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                        <v-simple-table v-if="this.$store.getters.isClient">
+                          <template
+                            v-slot:default
+                            v-if="this.$store.getters.isClient"
+                          >
+                            <thead>
+                              <tr>
+                                <th class="text-left">Date</th>
+
+                                <th class="text-left">Action</th>
+                                <th class="text-left">Result</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="item in myRDV" :key="item.id">
+                                <td>{{ item.date_rdv }}</td>
+                                <td>
+                                  <v-btn
+                                    color="#e9c46a"
+                                    class="mr-4"
+                                    :disabled="
+                                      item.status == 1 || item.status == 2
+                                    "
+                                    @click="deleteRDV(item.id)"
+                                  >
+                                    <fontawesome
+                                      class="fa-solid fa-trash-can"
+                                    ></fontawesome>
+                                  </v-btn>
+                                </td>
+                                <td>
+                                  <div v-if="item.status == 0">
+                                    Pas de réponse disponible
+                                  </div>
+                                  <div v-if="item.status == 1">
+                                    Rendez-vous confirmé !
+                                  </div>
+                                  <div v-if="item.status == 2">
+                                    Désolé je ne suis pas disponible
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </template>
+                        </v-simple-table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -82,8 +173,11 @@
   </div>
 </template>
 <script>
+import myModal from "./myModal.vue";
+
 export default {
   name: "moreDetailsPrestataire",
+  components: myModal,
   data: () => ({
     loading: false,
     selection: 1,
@@ -93,11 +187,16 @@ export default {
     description: "",
     moyenne: 0,
     rating: 0,
+    hiddenForm: false,
+    dialog: false,
+    dateRDV: null,
+    rdv: {},
+    myRDV: {},
+    idRDV: null,
   }),
 
   methods: {
     getRate(idPrestataire) {
-      console.log(this.rating);
       let newRate = {
         prestataire_id: idPrestataire,
         note: this.rating,
@@ -106,6 +205,41 @@ export default {
         .post("http://localhost:8000/api/notes/create", newRate)
         .then(() => {});
     },
+    valider() {
+      this.hiddenForm = false;
+    },
+    annuler() {
+      this.hiddenForm = true;
+    },
+    createRDV() {
+      this.dialog = false;
+      this.rdv = {
+        prestataire_id: this.prestataire.id,
+        date_rdv: this.dateRDV,
+      };
+
+      this.$http
+        .post("http://localhost:8000/api/client/createRDV", this.rdv)
+        .then((response) => {
+          this.myRDV = response.data;
+          this.$http
+            .get("http://localhost:8000/api/client/myRendezVous")
+            .then((response) => {
+              this.myRDV = response.data.data;
+            });
+        });
+    },
+    deleteRDV(id) {
+      this.$http
+        .delete("http://localhost:8000/api/client/deleteRDV/" + id)
+        .then(() => {
+          this.$http
+            .get("http://localhost:8000/api/client/myRendezVous")
+            .then((response) => {
+              this.myRDV = response.data.data;
+            });
+        });
+    },
   },
   created() {
     if (this.$route.params.prestataire == undefined) {
@@ -113,12 +247,17 @@ export default {
         name: "Home",
       });
     }
-
     this.nomSousSpecialite = this.$route.params.sous_specialite;
     this.nomspecialite = this.$route.params.specialite;
     this.prestataire = this.$route.params.prestataire;
     this.description = this.$route.params.description;
     this.moyenne = this.$route.params.moyenne;
+
+    this.$http
+      .get("http://localhost:8000/api/client/myRendezVous")
+      .then((response) => {
+        this.myRDV = response.data.data;
+      });
   },
 };
 </script>
@@ -178,7 +317,7 @@ export default {
   padding: 5px 0;
 }
 #about .about-list label {
-  color: #20247b;
+  color: #f4a261;
   font-weight: 600;
   width: 88px;
   margin: 0;
@@ -244,9 +383,9 @@ export default {
   color: currentColor;
 }
 #about .theme-color {
-  color: #fc5356;
+  color: #2a9d8f;
 }
 #about .dark-color {
-  color: #20247b;
+  color: #264653;
 }
 </style>

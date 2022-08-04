@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RoleUser;
+use App\Models\RendezVous;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 
@@ -15,7 +18,9 @@ class PrestataireController extends Controller
             $query->where('name', 'prestataire');
            
            
-        })->with('roles')->get();
+        })->with('roles.RoleUser.specialite')
+        ->with('roles.RoleUser.sous_specialite')
+        ->get();
        
         
         return response()->json(
@@ -25,14 +30,15 @@ class PrestataireController extends Controller
     }
     public function getPrestataireParSousSpecialite($idSpecialite, $idSous_specialite) {
         $role_user = RoleUser::where('sous_specialite',$idSous_specialite)
-        ->where('specialite',$idSpecialite)->with('user')->get();
+        ->where('specialite',$idSpecialite)
+        ->where('status','=',1)->with('user')->get();
         return response()->json(
             $role_user
         );
     }
     public function accept($id){
         $prestataire = User::find($id);
-        $prestataire->roles()->updateExistingPivot(2, ['status' => 1]);
+        $prestataire->roles()->updateExistingPivot(2, ['status' => 1, 'date_dernier_paiement' => Carbon::now()]);
                 $prestataire->save();
                 return response()->json('Prestataire accepted',200);
     }
@@ -79,6 +85,80 @@ class PrestataireController extends Controller
         })->with('roles')->get();
         // dd($users);
         return response()->json(["data" => $users], 200);
+
+    }
+
+    public function desactivateAccount( request $request){
+        
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('roles.name','=','prestataire')
+            ->where('status','=',1);
+        })->with('roles')->select('id','created_at')->get();
+
+        // $users = RoleUser::where('role_id','=',2)->where('status','=',1)->select('user_id','date_dernier_paiement')->get();
+   
+
+     
+      foreach ($users as $u) {
+       
+        $mytime = Carbon::now();
+       
+        $date = $u->date_dernier_paiement;
+      
+        
+        if ($mytime == $u->created_at->addYear() ){
+          
+            $blocked = User::find($u->id);
+        $blocked->roles()->updateExistingPivot(2, ['status' => 0]);
+           
+        }
+       
+      }
+        return response()->json(["data" => $users], 200);
+
+    }
+
+    public function getMyRendezVous(Request $request){
+        $authUser = $request->user()->id;
+        $rdv = RendezVous::where('prestataire_id', $authUser)
+        ->with('client')
+        ->with('prestataire')
+        ->get();
+        if ($rdv){
+            return response()->json(["data" => $rdv], 200);
+        }
+        return response()->json("Vous n'avez pas de rendez-vous ! ");
+
+    }
+
+    public function acceptRDV($id){
+        $rdv = RendezVous::find($id);
+        if (!$rdv) {
+            return response()->json([
+                "message" => " Rendez-vous non trouvé ! "
+            ], 404);
+        }
+        $rdv->update(
+            [
+                "status" => 1,
+            ]
+        );
+        return response()->json("Rendez-vous accepté !");
+
+    }
+    public function refuseRDV($id){
+        $rdv = RendezVous::find($id);
+        if (!$rdv) {
+            return response()->json([
+                "message" => " Rendez-vous non trouvé ! "
+            ], 404);
+        }
+        $rdv->update(
+            [
+                "status" => 2,
+            ]
+        );
+        return response()->json("Rendez-vous refusé !");
 
     }
 }

@@ -19,7 +19,9 @@
         :items="specialites"
       >
       </v-select>
-      <v-btn color="#7CB342" type="submit" class="mr-4"> Validate </v-btn>
+      <v-btn color="#2a9d8f" style="color: white" type="submit" class="mr-4">
+        Ajouter
+      </v-btn>
     </v-form>
     <v-form
       v-if="edit == true"
@@ -41,7 +43,9 @@
       >
       </v-select>
 
-      <v-btn color="#7CB342" type="submit" class="mr-4"> Editer </v-btn>
+      <v-btn color="#2a9d8f" style="color: white" type="submit" class="mr-4">
+        Editer
+      </v-btn>
     </v-form>
     <br />
     <br />
@@ -61,14 +65,16 @@
             <td>{{ item.specialite.name }}</td>
             <td>
               <v-btn
-                color="#F48FB1"
+                color="#f4a261"
+                style="color: white"
                 class="mr-4"
                 @click="deleteSpecialite(item.id)"
               >
                 Supprimer
               </v-btn>
               <v-btn
-                color="#F48FB1"
+                color="#f4a261"
+                style="color: white"
                 class="mr-4"
                 @click="editSpecialite(item.id)"
               >
@@ -100,13 +106,9 @@ export default {
     this.$http
       .get("http://localhost:8000/api/specialites/getAll")
       .then((response) => {
-        // console.log(response.data[0].name);
-        // this.defaultSpecialite = response.data;
         for (let i = 0; i < response.data.length; i++) {
-          // this.roles[i] = response.data[i].name;
           this.specialites.push(response.data[i].name);
         }
-        console.log(this.sous_specialites);
       })
       .catch((err) => {
         console.log(err);
@@ -114,13 +116,9 @@ export default {
     this.$http
       .get("http://localhost:8000/api/sousSpecialite/getAll")
       .then((response) => {
-        // console.log(response.data[0].name);
-        // this.defaultSpecialite = response.data;
         for (let i = 0; i < response.data.length; i++) {
-          // this.roles[i] = response.data[i].name;
           this.sous_specialites.push(response.data[i]);
         }
-        console.log(this.sous_specialites);
       })
       .catch((err) => {
         console.log(err);
@@ -128,26 +126,19 @@ export default {
   },
   methods: {
     ajouterSousSpecialite() {
-      console.log(this.name);
-      console.log(this.specialite);
       this.$http
         .get("http://localhost:8000/api/specialites/find/" + this.specialite)
         .then((response) => {
-          console.log(response.data.attribute[0].id);
           this.idSpecialite = response.data.attribute[0].id;
-          console.log(this.idSpecialite);
-          console.log(this.newSousSpecialite);
           this.$http
             .post("http://localhost:8000/api/sousSpecialite/create/", {
               name: this.name,
               specialite_id: this.idSpecialite,
             })
-            .then((response) => {
-              console.log(response.data);
+            .then(() => {
               this.$http
                 .get("http://localhost:8000/api/sousSpecialite/getAll")
                 .then((response) => {
-                  console.log(response.data);
                   this.sous_specialites = response.data;
                   this.name = "";
                   this.specialite = "";

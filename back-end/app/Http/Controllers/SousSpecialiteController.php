@@ -68,17 +68,17 @@ class SousSpecialiteController extends Controller
 
     }
     public function update(SousSpecialiteRequest $request, $id){
+        echo ($request->input('specialite_id'));
         $SousSpecialite = SousSpecialite::find($id);
         if (!$SousSpecialite) {
             return response()->json([
                 "message" => " Sous Specialite not found"
             ], 404);
         }
-        $SousSpecialite->update(
-            [
-                "name" => $request->name,
-            ]
-        );
+      
+        $SousSpecialite->name = $request->name;
+        $SousSpecialite->specialite_id = $request->input("specialite_id");
+        $SousSpecialite->save(); 
         return response()->json(["data" => $SousSpecialite], 200);
     }
     public function delete($id){

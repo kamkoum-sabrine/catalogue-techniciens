@@ -12,19 +12,31 @@ import interceptorsSetup from './helpers/interceptors';
 import Axios from 'axios'
 import Vuelidate from 'vuelidate'
 import { IconsPlugin } from "bootstrap-vue";
+/* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
+
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
+// import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faUserGear } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 /* add icons to the library */
-library.add(fas)
+library.add(faUserSecret, faTwitter, faUser, faTrash, faUserGear)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+Vue.config.productionTip = false
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
