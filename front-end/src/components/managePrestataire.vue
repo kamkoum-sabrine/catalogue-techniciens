@@ -6,6 +6,7 @@
       <template v-slot:default>
         <thead>
           <tr>
+            <th class="text-left">Image</th>
             <th class="text-left">Nom</th>
             <th class="text-left">Prénom</th>
             <th class="text-left">Spécialité</th>
@@ -17,10 +18,11 @@
         </thead>
         <tbody>
           <tr v-for="item in items" :key="item.id">
+            <td><img height="75px" width="75px" :src="item.image" /></td>
             <td>{{ item.first_name }}</td>
             <td>{{ item.last_name }}</td>
 
-            <td>{{ item.roles[0].pivot.specialite.name }}</td>
+            <td>{{ item.roles[0].role_user.specialite.name }}</td>
             <td>{{ item.roles[0].role_user.sous_specialite.name }}</td>
             <td>{{ item.created_at }}</td>
             <td>{{ item.roles[0].pivot.date_dernier_paiement }}</td>
@@ -28,24 +30,19 @@
             <td>
               <div>
                 <button
-                  v-if="
-                    item.roles[0].pivot.status == 0 ||
-                    item.roles[0].pivot.status == 2
-                  "
+                  style="color: green"
+                  :disabled="item.roles[0].pivot.status == 1"
                   @click="accept(item.id)"
                 >
-                  <i class="fa-solid fa-circle-check" style="color: green"></i>
-                  Accepter
+                  <i class="fa-solid fa-circle-check" style="color: green"></i
+                  >Accepter
                 </button>
               </div>
               <div>
                 <button
                   @click="decline(item.id)"
                   style="color: red"
-                  v-if="
-                    item.roles[0].pivot.status == 0 ||
-                    item.roles[0].pivot.status == 1
-                  "
+                  :disabled="item.roles[0].pivot.status == 2"
                 >
                   <i class="fa fa-circle-xmark"></i> Refuser
                 </button>
@@ -72,6 +69,7 @@ export default {
       .get("http://localhost:8000/api/prestataire/show")
       .then((response) => {
         this.items = response.data;
+        console.log(this.items);
       });
   },
   methods: {

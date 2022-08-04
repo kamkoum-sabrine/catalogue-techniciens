@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-toolbar elevation="4"></v-toolbar>
     <v-card class="mx-auto" max-width="100%" max-height="500px" tile>
       <v-row align="end" class="fill-height">
         <v-col align-self="start" class="pa-0" cols="4">
@@ -42,7 +43,7 @@
                 <v-col cols="12" md="4">
                   <v-text-field
                     :counter="10"
-                    v-model="user.first_name"
+                    v-model="updated.first_name"
                     label="First name"
                   ></v-text-field>
                 </v-col>
@@ -50,7 +51,7 @@
                 <v-col cols="12" md="4">
                   <v-text-field
                     :counter="10"
-                    v-model="user.last_name"
+                    v-model="updated.last_name"
                     label="Last name"
                   ></v-text-field>
                   <!-- <v-btn color="#7CB342" @click="AfficheForm" class="mr-4">
@@ -60,7 +61,7 @@
                 <v-col cols="12" md="4">
                   <v-text-field
                     :counter="10"
-                    v-model="user.adresse"
+                    v-model="updated.adresse"
                     label="Adresse"
                   ></v-text-field>
                   <!-- <v-btn color="#7CB342" @click="AfficheForm" class="mr-4">
@@ -70,14 +71,19 @@
                 <v-col cols="12" md="4">
                   <v-text-field
                     :counter="10"
-                    v-model="user.phone_number"
+                    v-model="updated.phone_number"
                     label="Numéro de télephone"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="4">
+
+                <v-col
+                  cols="12"
+                  md="4"
+                  v-if="this.$store.getters.isPrestataire"
+                >
                   <v-text-field
                     :counter="10"
-                    v-model="user.description"
+                    v-model="updated.description"
                     label="Description"
                   ></v-text-field>
                 </v-col>
@@ -128,11 +134,13 @@ export default {
     sous_specialite: "",
     edit: false,
     description: "",
+    updated: {},
   }),
 
   methods: {
     AfficheForm() {
       this.edit = true;
+      this.updated = this.user;
     },
     convert64(e) {
       var file = e.target.files[0];
@@ -146,11 +154,12 @@ export default {
     },
     editerProfile() {
       console.log(this.user);
+      this.updated.image = this.user.image;
       this.$http
         .put(
           "http://localhost:8000/api/prestataire/update/" +
             this.$store.getters.authUser.id,
-          this.user
+          this.updated
         )
         .then((response) => {
           console.log(response.data.data);
