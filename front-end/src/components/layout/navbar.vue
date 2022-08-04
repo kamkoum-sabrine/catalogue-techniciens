@@ -13,42 +13,39 @@
           hiddenOnCollapse: true,
         },
         {
-          title: this.$store.getters.authUser
-            ? !null
-            : this.$store.getters.first_name,
-          icon: 'fa-solid fa-user',
+          title: this.$store.getters.userName,
           child: [
             {
               href: '/login',
               title: 'Se connecter',
-              hidden: !this.$store.getters.isAuthenticated,
+              hidden: this.isAuth,
             },
             {
               href: '/register',
               title: 'S\'inscrire',
-              hidden: !this.$store.getters.isAuthenticated,
+              hidden: this.isAuth,
             },
             {
               title: 'Logout',
-              hidden: !this.$store.getters.isAuthenticated,
+              hidden: !this.isAuth,
             },
           ],
         },
         {
           href: '/',
           title: 'Acceuil',
-          icon: 'fas fa-home',
+          icon: 'fa fa-house-user',
         },
         {
           href: '/gererProfile',
           title: 'Profile',
-          icon: 'fas fa-home',
-          hidden: !this.$store.getters.isAuthenticated,
+          icon: 'fa fa-user',
+          hidden: !this.isAuth,
         },
         {
           title: 'Prestataire',
-          icon: 'fas fa-home',
-          hidden: !this.$store.getters.isAdmin,
+          icon: 'fa fa-user-gear',
+          hidden: !this.isAdmin,
           child: [
             {
               href: '/managePrestataire',
@@ -59,34 +56,30 @@
         {
           href: '/gererSpecialite',
           title: 'Specialite',
-          hidden: !this.$store.getters.isAdmin,
-
-          icon: 'fas fa-home',
+          icon: 'fa fa-screwdriver-wrench',
+          hidden: !this.isAdmin,
         },
         {
           href: '/gererSousSpecialite',
           title: 'Sous specialité',
-          hidden: !this.$store.getters.isAdmin,
-          icon: 'fas fa-home',
+          hidden: !this.isAdmin,
+          icon: 'fa fa-screwdriver-wrench',
         },
         {
           href: '/gererClient',
           title: 'Clients',
-          hidden: !this.$store.getters.isAdmin,
-          icon: 'fas fa-home',
+          hidden: !this.isAdmin,
+          icon: 'fa fa-users',
         },
         {
           href: '/manageRDV',
           title: 'Les rendez-vous',
-          hidden: !this.$store.getters.isPrestataire,
-          icon: 'fas fa-home',
+          hidden: !this.isPrestataire,
+          icon: 'fas fa-calendar-check',
         },
       ]"
       :collapsed="false"
-      style="
-        transition: 0.5s max-width ease !important;
-        background-color: #ffb74d;
-      "
+      style="transition: 0.5s max-width ease !important"
     />
   </div>
 </template>
@@ -94,6 +87,7 @@
 <script>
 import { SidebarMenu } from "vue-sidebar-menu";
 // import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "navbar",
@@ -114,6 +108,7 @@ export default {
   },
   created() {
     window.document.body.style.marginLeft = this.collapse ? "200px" : "50px";
+    console.log(this.$store.getters.isAuthenticated);
   },
 
   watch: {
@@ -140,10 +135,30 @@ export default {
       console.log(this.$store.getters);
     },
   },
+  computed: {
+    ...mapGetters({
+      auth: "isAuthenticated",
+      admin: "isAdmin",
+      prestataire: "isPrestataire",
+      client: "isClient",
+    }),
+    isAuth: function () {
+      return this.auth;
+    },
+    isAdmin: function () {
+      return this.admin;
+    },
+    isPrestataire: function () {
+      return this.prestataire;
+    },
+    isClient: function () {
+      return this.client;
+    },
+  },
 };
 </script>
 <style >
-.v-sidebar-menu.vsm_collapsed {
+/* .v-sidebar-menu.vsm_collapsed {
   background-color: #ffb74d;
 }
 .v-sidebar-menu .vsm--item {
@@ -155,6 +170,6 @@ export default {
 .v-sidebar-menu .vsm--icon {
   color: black;
   background-color: #ffb84d00;
-}
+} */
 </style>
 

@@ -18,10 +18,11 @@ const state = {
     // status: JSON.parse(localStorage.getItem("status")) ?? null,
 };
 const getters = {
-    isAuthenticated: (state) => state.user !== null,
+    isAuthenticated: (state) => state.authUser !== null,
     isAdmin: (state) => state.isAdmin,
     isClient: (state) => state.isClient,
     isPrestataire: (state) => state.isPrestataire,
+    userName: (state) => state.authUser !== null ? state.authUser.first_name : "User",
     // isVisiteur: (state) => state.isVisiteur,
     isLoggedIn: (state) => state.isLoggedIn,
     authStatus: (state) => state.authStatus,
@@ -33,7 +34,8 @@ const getters = {
 };
 const mutations = {
     resetAll(state) {
-        state.user = null;
+        state.authUser = null;
+
         state.token = null;
         state.csrfToken = null;
         state.secrets = null;

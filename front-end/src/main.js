@@ -24,11 +24,14 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+
+// import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faUserGear } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 /* add icons to the library */
-library.add(faUserSecret, faTwitter, faUser, faTrash)
+library.add(faUserSecret, faTwitter, faUser, faTrash, faUserGear)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
