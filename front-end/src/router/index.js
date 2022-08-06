@@ -56,10 +56,18 @@ const router = new VueRouter({
 //         next({ name: "login", params: { msg: "You must be logged in" } });
 
 // })
+// const isLogged = () => storeLoggedIn || loadSessionFromLocalStorage
+// const storeLoggedIn = () => store.getters.isLoggedIn
+// const loadSessionFromLocalStorage = () => (
+//   // if localstorage has token
+//   //   commit a mutation for loggedIn and then return true
+//   // else return false
+// )
 router.beforeEach((to, from, next) => {
     console.log(to.matched.some((record) => record.meta.requiresAuth));
+    console.log(store.getters.isLoggedIn)
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (store.getters.isAuthenticated) {
+        if (store.getters.isLoggedIn) {
             next();
             return;
         }

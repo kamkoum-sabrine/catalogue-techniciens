@@ -108,9 +108,9 @@ const actions = {
                     if (response.data.success == true) {
                         console.log(response.data.data.isAdmin)
 
-                        this.tkn = response.data.data.token;
-                        console.log(this.tkn)
-                        localStorage.setItem("token", this.tkn);
+                        this.token = response.data.data.token;
+                        console.log(this.token)
+                        localStorage.setItem("token", this.token);
                         commit("setAdmin", response.data.data.isAdmin);
                         commit("setPrestataire", response.data.data.isPrestataire);
                         commit("setClient", response.data.data.isClient);
