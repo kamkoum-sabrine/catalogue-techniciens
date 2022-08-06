@@ -1,5 +1,5 @@
 import Vue from "vue";
-// import store from "../store/index";
+import store from "../store/index";
 
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
@@ -56,6 +56,18 @@ const router = new VueRouter({
 //         next({ name: "login", params: { msg: "You must be logged in" } });
 
 // })
-
+router.beforeEach((to, from, next) => {
+    console.log(to.matched.some((record) => record.meta.requiresAuth));
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (store.getters.isAuthenticated) {
+            next();
+            return;
+        }
+        next({ name: "login", params: { msg: "You must be logged in" } });
+    } else {
+        next();
+    }
+    // 
+});
 
 export default router;
