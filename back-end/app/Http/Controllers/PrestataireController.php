@@ -161,4 +161,10 @@ class PrestataireController extends Controller
         return response()->json("Rendez-vous refusé !");
 
     }
+
+    public function numberApprouvedRDV($id){
+        $rdv = RendezVous::where('prestataire_id',$id)
+        ->where('status',1)->count();
+        return response()->json(["data" => $rdv], 200);
+    }
 }

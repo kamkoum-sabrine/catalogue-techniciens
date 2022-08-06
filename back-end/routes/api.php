@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/myRendezVous', [PrestataireController::class, 'getMyRendezVous']);
         Route::put('/acceptRDV/{id}', [PrestataireController::class, 'acceptRDV']);
         Route::put('/refuseRDV/{id}', [PrestataireController::class, 'refuseRDV']);
+        
 
     });
     Route::group(['prefix' => '/roles'], function () {
@@ -94,6 +95,7 @@ Route::group(['prefix' => '/sousSpecialite'], function () {
 Route::group(['prefix' => '/prestataire'], function () {
     Route::get('/parSousSpecialite/{idSpecialite}{idSousSpecialite}', [PrestataireController::class, 'getPrestataireParSousSpecialite']); 
     Route::post('/search', [PrestataireController::class, 'search']); 
+    Route::get('/numberRDV/{id}', [PrestataireController::class, 'numberApprouvedRDV']);
 
    
 
