@@ -73,9 +73,21 @@
                             </div>
                           </td>
                         </tr>
+                        <tr>
+                          <!-- <td>
+                            <label>
+                              <i class="fa-solid fa-location-dot"></i> Le nombre
+                              de rendez-vous confirmés
+                            </label>
+                            <p>
+                              {{ numberRDV }}
+                            </p>
+                          </td> -->
+                        </tr>
 
                         <tr>
                           <td></td>
+
                           <td>
                             <v-rating
                               v-model="rating"
@@ -87,7 +99,18 @@
                           </td>
                         </tr>
                       </table>
-                      <div class="float-right">{{ moyenne }}/5</div>
+
+                      <table>
+                        <tr>
+                          <td>La moyenne de ce technicien:</td>
+                          <td>{{ moyenne }}/5</td>
+                        </tr>
+                        <tr>
+                          <td>Le nombre de rendez-vous confirmés:</td>
+                          <td>{{ numberRDV }}</td>
+                        </tr>
+                      </table>
+
                       <br />
                       <div class="float-right">
                         <v-btn
@@ -151,9 +174,7 @@
                                     "
                                     @click="deleteRDV(item.id)"
                                   >
-                                    <fontawesome
-                                      class="fa-solid fa-trash-can"
-                                    ></fontawesome>
+                                    <i class="fa-solid fa-trash-can"></i>
                                   </v-btn>
                                 </td>
                                 <td>
@@ -204,6 +225,7 @@ export default {
     rdv: {},
     myRDV: {},
     idRDV: null,
+    numberRDV: 0,
   }),
 
   methods: {
@@ -263,6 +285,15 @@ export default {
     this.prestataire = this.$route.params.prestataire;
     this.description = this.$route.params.description;
     this.moyenne = this.$route.params.moyenne;
+    console.log(this.prestataire);
+    this.$http
+      .get(
+        "http://localhost:8000/api/prestataire/numberRDV/" + this.prestataire.id
+      )
+      .then((response) => {
+        console.log(response.data.data);
+        this.numberRDV = response.data.data;
+      });
 
     this.$http
       .get("http://localhost:8000/api/client/myRendezVous")
