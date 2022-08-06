@@ -77,6 +77,12 @@
           hidden: !this.isPrestataire,
           icon: 'fas fa-calendar-check',
         },
+        {
+          href: '/RDVClients',
+          title: 'Mes rendez-vous',
+          icon: 'fas fa-calendar-check',
+          hidden: !this.isClient,
+        },
       ]"
       :collapsed="false"
       style="transition: 0.5s max-width ease !important"

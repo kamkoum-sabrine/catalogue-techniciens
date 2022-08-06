@@ -14,6 +14,7 @@ import managePrestataires from "./routes/managePrestataires";
 import manageRDV from "./routes/manageRDV";
 import moreDetailsPrestataires from "./routes/moreDetailsPrestataires";
 import Register from "./routes/register";
+import RDVClients from "./routes/RDVClients";
 Vue.use(VueRouter);
 
 const routes = [
@@ -40,7 +41,8 @@ const routes = [
     ...gererProfile,
     ...consulterPrestataire,
     ...moreDetailsPrestataires,
-    ...manageRDV
+    ...manageRDV,
+    ...RDVClients
 ];
 
 const router = new VueRouter({
