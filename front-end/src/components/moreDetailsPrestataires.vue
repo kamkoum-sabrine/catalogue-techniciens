@@ -93,7 +93,10 @@
                         <v-btn
                           color="#e76f51"
                           style="color: white"
-                          v-if="this.$store.getters.isClient"
+                          v-if="
+                            this.$store.getters.isClient ||
+                            this.$store.getters.isAdmin
+                          "
                           right
                           @click="dialog = !dialog"
                         >
@@ -115,10 +118,18 @@
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
-                        <v-simple-table v-if="this.$store.getters.isClient">
+                        <v-simple-table
+                          v-if="
+                            this.$store.getters.isClient ||
+                            this.$store.getters.isAdmin
+                          "
+                        >
                           <template
                             v-slot:default
-                            v-if="this.$store.getters.isClient"
+                            v-if="
+                              this.$store.getters.isClient ||
+                              this.$store.getters.isAdmin
+                            "
                           >
                             <thead>
                               <tr>

@@ -17,7 +17,7 @@ class RendezVousFactory extends Factory
         return [
             'client_id' => User::get('id')->random(),
             'prestataire_id' => User::get('id')->random(),
-            "date_rdv" => $this->faker->date(),
+            "date_rdv" => $this->faker->datetime(),
             "status" => 0
 
         ];

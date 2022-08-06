@@ -2,9 +2,13 @@ import router from '../../router'
 import axios from "axios";
 const state = {
     csrfToken: null,
-    isLoggedIn: false,
-    authUser: null,
-    token: null,
+    isLoggedIn:
+        localStorage.getItem("user") !== null &&
+        localStorage.getItem("token") !== null,
+    authUser: JSON.parse(localStorage.getItem("user")) ?? null,
+    token: localStorage.getItem("token") ?? null,
+    // authUser: null,
+    // token: null,
     isAuthenticated: false,
     isAdmin: false,
     isClient: false,
@@ -53,6 +57,7 @@ const mutations = {
     },
     setAuthUser(state, payload) {
         state.authUser = payload;
+        localStorage.setItem("user", JSON.stringify(payload));
     },
     setAdmin(state, isAdmin) {
         state.isAdmin = isAdmin;
@@ -69,6 +74,7 @@ const mutations = {
     // },
     setToken(state, payload) {
         state.token = payload;
+        localStorage.setItem("token", payload);
     },
     setRegStatus(state, payload) {
         state.regStatus = payload;

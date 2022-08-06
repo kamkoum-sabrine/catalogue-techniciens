@@ -20,7 +20,7 @@ class CreateRendezVousesTable extends Migration
                 $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
                 $table->foreignId('prestataire_id');
                 $table->foreign('prestataire_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-                $table->date('date_rdv');
+                $table->datetime('date_rdv');
                 $table->integer('status');
                 $table->timestamps();
 
