@@ -4,6 +4,8 @@ export default [
     {
         path: "/gererProfile",
         component: gererProfile,
-        name: "gererProfile"
+        name: "gererProfile",
+        meta: { requiresAuth: true },
+
     },
 ];

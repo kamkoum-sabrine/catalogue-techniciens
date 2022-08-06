@@ -109,7 +109,7 @@ const actions = {
                         console.log(response.data.data.isAdmin)
 
                         this.tkn = response.data.data.token;
-
+                        console.log(this.tkn)
                         localStorage.setItem("token", this.tkn);
                         commit("setAdmin", response.data.data.isAdmin);
                         commit("setPrestataire", response.data.data.isPrestataire);

@@ -1,4 +1,6 @@
 import Vue from "vue";
+// import store from "../store/index";
+
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import consulterPrestataire from "./routes/consulterPrestataire";
@@ -45,4 +47,15 @@ const router = new VueRouter({
     mode: "history",
     routes,
 });
+// router.beforeEach((to, from, next) => {
+
+//         if (store.getters.isAuthenticated) {
+//             next();
+//             return;
+//         }
+//         next({ name: "login", params: { msg: "You must be logged in" } });
+
+// })
+
+
 export default router;

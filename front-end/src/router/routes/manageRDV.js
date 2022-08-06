@@ -4,6 +4,8 @@ export default [
     {
         path: "/manageRDV",
         component: manageRDV,
-        name: "manageRDV"
+        name: "manageRDV",
+        meta: { requiresAuth: true },
+
     },
 ];
