@@ -4,6 +4,8 @@ export default [
     {
         path: "/gererSousSpecialite",
         component: gererSousSpecialite,
-        name: "gererSousSpecialite"
+        name: "gererSousSpecialite",
+        meta: { requiresAuth: true },
+
     },
 ];

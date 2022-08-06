@@ -4,6 +4,8 @@ export default [
     {
         path: "/managePrestataire",
         component: managePrestataire,
-        name: "managePrestataire"
+        name: "managePrestataire",
+        meta: { requiresAuth: true },
+
     },
 ];

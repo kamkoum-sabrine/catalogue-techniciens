@@ -4,6 +4,8 @@ export default [
     {
         path: "/gererClient",
         component: gererClient,
-        name: "gererClient"
+        name: "gererClient",
+        meta: { requiresAuth: true },
+
     },
 ];
