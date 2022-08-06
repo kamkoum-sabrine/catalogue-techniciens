@@ -39,6 +39,8 @@ class ClientController extends Controller
         $rdv = RendezVous::where('client_id', $authUser)
         ->with('client')
         ->with('prestataire')
+        ->with('prestataire.roles.RoleUser.specialite')
+        ->with('prestataire.roles.RoleUser.sous_specialite')
         ->get();
         if ($rdv){
             return response()->json(["data" => $rdv], 200);
