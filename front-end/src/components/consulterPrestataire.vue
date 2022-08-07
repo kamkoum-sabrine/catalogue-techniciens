@@ -8,10 +8,19 @@
           placeholder="Rechercher un prestataire"
           name="search"
         />
-        <button type="submit">
+        <button type="submit" id="button">
           <v-icon color="white">mdi-magnify</v-icon> Rechercher
         </button>
       </form>
+      <br />
+      <button
+        class="float-right"
+        @click="filter()"
+        id="button"
+        style="background-color: #e9c46a"
+      >
+        Filtrer par nombre d'étoiles
+      </button>
       <v-list v-if="recherche == false" three-line>
         <template v-for="(item, index) in prestataire">
           <v-list-item :key="index">
@@ -38,6 +47,13 @@
                 Sous spécialité :
                 {{ nomSousSpecialite }}
               </li>
+              <li>
+                <br />
+                <i class="fa-solid fa-star"></i>
+                Le nombre d'étoiles :
+                {{ item.moyenne }}
+              </li>
+
               <br />
               <v-btn
                 class="ma-2"
@@ -64,27 +80,41 @@
               <v-img :src="item.image"></v-img>
             </v-list-item-avatar>
 
-            <ul>
+            <ul style="list-style-type: none">
               <li>
-                Nom et prénom : {{ item.first_name }}
+                <br />
+                <i class="fa-solid fa-user"></i> Nom et prénom :{{
+                  item.first_name
+                }}
                 {{ item.last_name }}
               </li>
               <li>
+                <br />
+                <i class="fa-solid fa-toolbox"></i>
                 Spécialité :
                 {{ nomspecialite }}
               </li>
               <li>
+                <br />
+                <i class="fa-solid fa-toolbox"></i>
                 Sous spécialité :
                 {{ nomSousSpecialite }}
               </li>
               <li>
+                <br />
+                <i class="fa-solid fa-star"></i>
+                Le nombre d'étoiles :
+                {{ item.roles[0].pivot.moyenne }}
+              </li>
+              <li>
+                <br />
                 <v-btn
                   class="ma-2"
-                  color="orange darken-2"
+                  color="#2a9d8f"
                   dark
                   @click="toDetails(item, item.description, item.moyenne)"
                 >
-                  <v-icon dark right> mdi-arrow-right </v-icon>More details
+                  <v-icon dark right> mdi-arrow-right </v-icon> Plus de détails
                 </v-btn>
               </li>
             </ul>
@@ -137,10 +167,12 @@ export default {
       .get(
         "http://localhost:8000/api/prestataire/parSousSpecialite/" +
           this.idSpecialite +
+          "/" +
           this.idSous_specialite
       )
       .then((response) => {
         this.prestataire = response.data;
+        console.log(this.prestataire);
       });
   },
   methods: {
@@ -159,6 +191,7 @@ export default {
             this.prestataireRecherche[index].description =
               response.data.data[index].roles[0].pivot.description;
           }
+          console.log(this.prestataireRecherche);
         });
     },
     getRate(idPrestataire) {
@@ -182,6 +215,19 @@ export default {
         },
       });
     },
+    filter() {
+      this.$http
+        .get(
+          "http://localhost:8000/api/prestataire/ordered/" +
+            this.idSpecialite +
+            "/" +
+            this.idSous_specialite
+        )
+        .then((response) => {
+          this.prestataire = response.data;
+          console.log(this.prestataire);
+        });
+    },
   },
 };
 </script>
@@ -195,7 +241,7 @@ form.example input[type="text"] {
   background: #f1f1f1;
 }
 
-form.example button {
+#button {
   float: left;
   width: 20%;
   padding: 10px;

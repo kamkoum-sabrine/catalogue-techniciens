@@ -45,7 +45,7 @@
         {
           title: 'Prestataire',
           icon: 'fa fa-user-gear',
-          hidden: !this.isAdmin,
+          hidden: !this.$store.getters.isAdmin,
           child: [
             {
               href: '/managePrestataire',

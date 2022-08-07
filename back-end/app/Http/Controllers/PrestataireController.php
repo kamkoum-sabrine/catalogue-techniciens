@@ -167,4 +167,14 @@ class PrestataireController extends Controller
         ->where('status',1)->count();
         return response()->json(["data" => $rdv], 200);
     }
+
+    public function getOrderedByRate($idSpecialite, $idSous_specialite) {
+        $role_user = RoleUser::where('sous_specialite',$idSous_specialite)
+        ->where('specialite',$idSpecialite)
+        ->where('status','=',1)->with('user')->orderBy('moyenne','desc')->get();
+        return response()->json(
+            $role_user
+        );
+   
+    }
 }
