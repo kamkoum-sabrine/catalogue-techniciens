@@ -10,9 +10,9 @@ const state = {
     // authUser: null,
     // token: null,
     isAuthenticated: false,
-    isAdmin: false,
-    isClient: false,
-    isPrestataire: false,
+    isAdmin: JSON.parse(localStorage.getItem("isAdmin")) ?? null,
+    isClient: JSON.parse(localStorage.getItem("isClient")) ?? null,
+    isPrestataire: JSON.parse(localStorage.getItem("isPrestataire")) ?? null,
     // isVisiteur: false,
     regStatus: null,
     regMessage: null,
@@ -59,15 +59,21 @@ const mutations = {
         state.authUser = payload;
         localStorage.setItem("user", JSON.stringify(payload));
     },
-    setAdmin(state, isAdmin) {
-        state.isAdmin = isAdmin;
+    setAdmin(state, payload) {
+        state.isAdmin = payload;
+        localStorage.setItem("isAdmin", JSON.stringify(payload));
+
     },
 
-    setClient(state, isClient) {
-        state.isClient = isClient;
+    setClient(state, payload) {
+        state.isClient = payload;
+        localStorage.setItem("isClient", JSON.stringify(payload));
+
     },
-    setPrestataire(state, isPrestataire) {
-        state.isPrestataire = isPrestataire;
+    setPrestataire(state, payload) {
+        state.isPrestataire = payload;
+        localStorage.setItem("isPrestataire", JSON.stringify(payload));
+
     },
     // setVisiteur(state) {
     //     state.isVisiteur = true;
@@ -120,6 +126,8 @@ const actions = {
                         commit("setAdmin", response.data.data.isAdmin);
                         commit("setPrestataire", response.data.data.isPrestataire);
                         commit("setClient", response.data.data.isClient);
+                        commit("setStatus", response.data.status);
+                        // commit("setRoles", response.data.roles);
                         commit("setAuthUser", response.data.data.user);
                         commit("setAuthStatus", 1);
                         commit("setLoggedIn", true);
@@ -153,6 +161,10 @@ const actions = {
         //     resolve();
         // });
         localStorage.removeItem("token");
+        localStorage.removeItem("isAdmin");
+        localStorage.removeItem("isClient");
+        localStorage.removeItem("isPrestataire");
+
         commit("resetAll");
         router.push("/login");
     },

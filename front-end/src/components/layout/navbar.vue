@@ -114,6 +114,7 @@ export default {
   },
   created() {
     window.document.body.style.marginLeft = this.collapse ? "200px" : "50px";
+    console.log(this.$store.getters);
   },
 
   watch: {
