@@ -165,12 +165,17 @@
                       </h3>
 
                       <div
-                        v-for="(i, index) in item.sous_specialite"
+                        v-for="(i, index) in item.sous_specialites"
                         :key="index + 'B'"
                       >
                         <button
                           v-on:click="
-                            prestataire(i.id, item.id, i.name, item.name)
+                            prestataire(
+                              i.id,
+                              i.specialite_id,
+                              i.name,
+                              item.name
+                            )
                           "
                         >
                           {{ i.name }}
@@ -308,6 +313,7 @@ export default {
       .get("http://localhost:8000/api/specialites/getAll")
       .then((response) => {
         this.specialites = response.data;
+        console.log(this.specialites);
       });
   },
   methods: {

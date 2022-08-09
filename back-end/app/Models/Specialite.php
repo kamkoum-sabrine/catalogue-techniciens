@@ -12,7 +12,7 @@ class Specialite extends Model
     protected $fillable = [
         'name',
     ];
-    public function sousSpecialite()
+    public function sousSpecialites()
     {
         return $this->hasMany(SousSpecialite::class, "specialite_id", "id");
     }

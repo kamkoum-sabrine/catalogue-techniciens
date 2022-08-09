@@ -22,7 +22,7 @@ class SpecialiteSeeder extends Seeder
             'name' => "Chauffeur",
         ]);
         \App\Models\Specialite::create([
-            'name' => "Réparation électromenager",
+            'name' => "Santé",
         ]);
 
     }

@@ -8,22 +8,45 @@ use App\Models\User;
 use App\Models\RoleUser;
 use App\Models\RendezVous;
 use Illuminate\Http\Request;
+use App\Models\SousSpecialite;
 use App\Http\Requests\RegisterRequest;
 
 class PrestataireController extends Controller
 {
     public function show(){
        
-        $prestataire = User::whereHas('roles', function ($query) {
-            $query->where('name', 'prestataire');
+        // $prestataire = User::whereHas('roles', function ($query) {
+        //     $query->where('name', 'prestataire');
            
            
-        })->with('roles.RoleUser.specialite')
-        ->with('roles.RoleUser.sous_specialite')
-        ->get();
+        // })->with('roles.RoleUser')
+        
+        // ->get();
        
         
-        return response()->json(
+        // return response()->json(
+        //     $prestataire
+        // );
+        $prestataire = RoleUser::where('role_id', 2)
+                    ->with('user')
+                    ->with('specialites')
+                    ->with('specialites.sousSpecialites')
+                     
+                
+            ->get();
+        foreach ($prestataire as $i) {
+            // echo "Specialité ".$i->specialite." Sous specialite : ".$i->sous_specialite;
+            
+        $sousSpecialites = SousSpecialite::where('id', $i->sous_specialite)
+        ->where('specialite_id', $i->specialite)
+        ->get();
+        
+        //    echo $sousSpecialites."\n";
+           $i->sous_specialite = $sousSpecialites;
+        //    echo $i;
+        }
+        // return;
+            return response()->json(
             $prestataire
         );
 

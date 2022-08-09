@@ -28,11 +28,15 @@ class SousSpecialiteSeeder extends Seeder
             'specialite_id' => "1"
         ]);
         \App\Models\SousSpecialite::create([
-            'name' => "Climatiseur",
+            'name' => "Taxi",
+            'specialite_id' => "2"
+        ]);
+        \App\Models\SousSpecialite::create([
+            'name' => "Infrirmerie",
             'specialite_id' => "3"
         ]);
         \App\Models\SousSpecialite::create([
-            'name' => "Machine à laver",
+            'name' => "Docteur généraliste",
             'specialite_id' => "3"
         ]);
     }

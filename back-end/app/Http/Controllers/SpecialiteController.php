@@ -10,7 +10,7 @@ class SpecialiteController extends Controller
 {
     public function getAll()
     {
-        $specialites = Specialite::with("sousSpecialite")->get();
+        $specialites = Specialite::with("sousSpecialites")->get();
         if (empty($specialites)) {
             return response()->json(['message' => 'Aucune spécialité n est disponible! '], 404);
         }
@@ -18,7 +18,7 @@ class SpecialiteController extends Controller
     }
 
     public function getSpectialiteSousSpecialite( $id){
-        $specialites = Specialite::with('sousSpecialite')->find($id);
+        $specialites = Specialite::with('sousSpecialites')->find($id);
         if ($specialites){
             return response()->json([
         

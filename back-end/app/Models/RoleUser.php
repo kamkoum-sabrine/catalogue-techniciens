@@ -19,10 +19,10 @@ class RoleUser extends Pivot
     public function role(){
         return $this->hasOne(Role::class,'id','role_id');
     }
-    public function specialite(){
+    public function specialites(){
         return $this->hasOne(Specialite::class,'id','specialite');
     }
-    public function sous_specialite(){
+    public function sous_specialites(){
         return $this->hasOne(SousSpecialite::class,'id','sous_specialite');
     }
 }
