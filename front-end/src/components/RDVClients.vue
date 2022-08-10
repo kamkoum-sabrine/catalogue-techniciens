@@ -23,9 +23,9 @@
           <tr v-for="item in items" :key="item.id">
             <td>{{ item.prestataire.first_name }}</td>
             <td>{{ item.prestataire.last_name }}</td>
-            <td>{{ item.prestataire.roles[0].role_user.specialite.name }}</td>
+            <td>{{ item.prestataire.roles[0].role_user.specialites.name }}</td>
             <td>
-              {{ item.prestataire.roles[0].role_user.sous_specialite.name }}
+              {{ item.prestataire.roles[0].role_user.sous_specialites.name }}
             </td>
             <td>{{ item.date_rdv }}</td>
             <td>{{ item.prestataire.phone_number }}</td>
