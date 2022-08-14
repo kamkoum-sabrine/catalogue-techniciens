@@ -355,6 +355,7 @@ export default {
       .get("http://localhost:8000/api/specialites/getAll")
       .then((response) => {
         this.defaultSpecialite = response.data;
+        console.log(this.defaultSpecialite);
         for (let i = 0; i < response.data.length; i++) {
           this.specialites.push(response.data[i].name);
         }
@@ -414,6 +415,7 @@ export default {
       }
     },
     selectSpecialite() {
+      console.log(this.defaultSpecialite);
       for (let i = 0; i < this.defaultSpecialite.length; i++) {
         if (this.defaultSpecialite[i].name == this.specialite) {
           this.idSpecialite = this.defaultSpecialite[i].id;
@@ -425,15 +427,17 @@ export default {
             this.idSpecialite
         )
         .then((response) => {
+          console.log(response.data.data);
           for (
             let index = 0;
-            index < response.data.attributes.sous_specialite.length;
+            index < response.data.attributes.sous_specialites.length;
             index++
           ) {
             this.defaultSous_specialite.push(
-              response.data.attributes.sous_specialite[index].name
+              response.data.attributes.sous_specialites[index].name
             );
           }
+          console.log(this.defaultSous_specialite);
           if (this.defaultSous_specialite.length != 0)
             this.hasSousSpecialite = true;
         })

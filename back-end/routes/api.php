@@ -51,7 +51,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
     Route::group(['prefix' => '/specialites'], function () {
       
-        Route::get('/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
         Route::post('/create',[SpecialiteController::class, 'create']);
         Route::put('/update/{id}',[SpecialiteController::class, 'update']);
         Route::delete('/delete/{id}',[SpecialiteController::class, 'delete']);
@@ -108,3 +107,4 @@ Route::post('/login', [AuthentificationController::class, 'login']);
 Route::put('/desactivate', [PrestataireController::class, 'desactivateAccount']);
 Route::post('/register', [AuthentificationController::class, 'register']);
 Route::get('/unique/{id}',[AuthenticationController::class, 'unique']);
+Route::get('/specialites/getSpecialite/{id}',[SpecialiteController::class, 'getSpectialiteSousSpecialite']);
